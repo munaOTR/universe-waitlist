@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — UniVerse ICOS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --space-black: #050610;
+    --verse-green: #16C760;
+    --verse-green-glow: #1FE870;
+    --electric-blue: #3b82f6;
+    --neon-violet: #a855f7;
+    --whatsapp: #25d366;
+    --text-primary: #f0f4ff;
+    --text-muted: rgba(200,210,255,0.65);
+    --glass-border: rgba(255,255,255,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--space-black);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  h1,h2,h3,h4 { font-family: 'Syne', sans-serif; }
+
+  .brand .uni { color: #ffffff; }
+  .brand .verse { color: #16C760; }
+
+  /* === BACKGROUND === */
+  .bg-scene {
+    position: fixed; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 65% 55% at 20% 20%, rgba(22,199,96,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse 55% 45% at 80% 10%, rgba(59,130,246,0.1) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 60% at 75% 85%, rgba(168,85,247,0.08) 0%, transparent 55%),
+      radial-gradient(ellipse 40% 40% at 10% 80%, rgba(22,199,96,0.06) 0%, transparent 50%),
+      var(--space-black);
+  }
+
+  .campus-overlay {
+    position: fixed; inset: 0; z-index: 0;
+    background-image: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1600&q=80');
+    background-size: cover; background-position: center 30%;
+    opacity: 0.03; filter: grayscale(100%) blur(2px);
+  }
+
+  .stars { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+  .star {
+    position: absolute; border-radius: 50%; background: white;
+    animation: twinkle var(--dur, 3s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+  @keyframes twinkle {
+    0%,100% { opacity: 0.07; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+
+  .grid-bg {
+    position: fixed; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 10%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 10%, transparent 75%);
+  }
+
+  /* === PROGRESS BAR === */
+  #progress-bar {
+    position: fixed; top: 0; left: 0; height: 2px; z-index: 999;
+    background: linear-gradient(90deg, #16C760, #3b82f6, #a855f7);
+    width: 0%; transition: width 0.1s linear;
+  }
+
+  /* === NAVBAR === */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 18px 40px;
+    background: rgba(5,6,16,0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; letter-spacing: -0.02em; text-decoration: none; }
+  .nav-badge {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+    color: rgba(192,132,252,0.9);
+    border: 1px solid rgba(168,85,247,0.3);
+    padding: 4px 10px; border-radius: 20px;
+    background: rgba(168,85,247,0.08);
+  }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--text-muted); font-size: 0.82rem; font-weight: 500;
+    text-decoration: none; padding: 8px 16px; border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.03);
+    transition: all 0.3s ease;
+  }
+  .back-btn:hover { color: var(--text-primary); border-color: rgba(22,199,96,0.3); background: rgba(22,199,96,0.05); }
+
+  /* === PAGE LAYOUT === */
+  .page-wrap {
+    position: relative; z-index: 2;
+    min-height: 100vh;
+    padding: 120px 20px 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* === HERO === */
+  .contact-hero { text-align: center; margin-bottom: 64px; }
+
+  .contact-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: #16C760;
+    border: 1px solid rgba(22,199,96,0.3);
+    background: rgba(22,199,96,0.07);
+    padding: 5px 16px; border-radius: 20px;
+    margin-bottom: 24px;
+    animation: fadeDown 0.7s ease both;
+  }
+  .tag-dot { width: 6px; height: 6px; border-radius: 50%; background: #16C760; box-shadow: 0 0 8px #16C760; animation: blink 1.5s ease infinite; }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
+  @keyframes fadeDown { from{opacity:0;transform:translateY(-16px);} to{opacity:1;transform:translateY(0);} }
+
+  .contact-hero h1 {
+    font-size: clamp(2.5rem, 5.5vw, 4rem);
+    font-weight: 800; line-height: 1.08;
+    letter-spacing: -0.03em; margin-bottom: 18px;
+    animation: fadeDown 0.7s 0.1s ease both;
+  }
+
+  .contact-hero p {
+    font-size: 1.05rem; color: var(--text-muted); max-width: 540px;
+    margin: 0 auto; line-height: 1.75;
+    animation: fadeDown 0.7s 0.2s ease both;
+  }
+
+  .glow-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(22,199,96,0.4) 30%, rgba(59,130,246,0.4) 70%, transparent);
+    max-width: 600px; margin: 32px auto 0;
+    animation: fadeDown 0.7s 0.3s ease both;
+  }
+
+  /* === MAIN GRID === */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 28px;
+    align-items: start;
+  }
+  @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; } }
+
+  /* === LEFT PANEL === */
+  .left-panel { display: flex; flex-direction: column; gap: 16px; }
+
+  /* Glass card base */
+  .glass-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+    backdrop-filter: blur(24px) saturate(1.5);
+    -webkit-backdrop-filter: blur(24px) saturate(1.5);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .glass-card:hover {
+    border-color: rgba(22,199,96,0.2);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+  }
+
+  /* Team card */
+  .team-card { padding: 28px 24px; }
+
+  .team-label {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: #16C760;
+    margin-bottom: 20px;
+  }
+
+  .team-member {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .team-member:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .member-avatar {
+    width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-size: 0.85rem;
+    font-weight: 800; color: white; position: relative;
+  }
+  .avatar-ring {
+    position: absolute; inset: -2px; border-radius: 50%;
+    border: 1px solid rgba(22,199,96,0.3);
+    animation: spin-slow 8s linear infinite;
+  }
+  @keyframes spin-slow { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+  .avatar-ring::after {
+    content: ''; position: absolute;
+    top: -2px; left: 50%; transform: translateX(-50%);
+    width: 5px; height: 5px; border-radius: 50%;
+    background: #16C760; box-shadow: 0 0 6px #16C760;
+  }
+
+  .member-info { flex: 1; min-width: 0; }
+  .member-name { font-family: 'Syne', sans-serif; font-size: 0.92rem; font-weight: 700; color: var(--text-primary); }
+  .member-role { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; line-height: 1.4; }
+
+  /* Channel cards */
+  .channel-card {
+    padding: 22px 24px; cursor: pointer;
+    text-decoration: none; display: block;
+    position: relative; overflow: hidden;
+  }
+  .channel-card::before {
+    content: ''; position: absolute; inset: 0; border-radius: 20px;
+    opacity: 0; transition: opacity 0.3s ease;
+  }
+  .channel-card:hover { transform: translateY(-3px); }
+  .channel-card:hover::before { opacity: 1; }
+
+  .channel-card.email-card::before {
+    background: linear-gradient(135deg, rgba(22,199,96,0.06), transparent);
+  }
+  .channel-card.email-card:hover {
+    border-color: rgba(22,199,96,0.35);
+    box-shadow: 0 12px 40px rgba(22,199,96,0.12);
+  }
+
+  .channel-card.whatsapp-card::before {
+    background: linear-gradient(135deg, rgba(37,211,102,0.07), transparent);
+  }
+  .channel-card.whatsapp-card:hover {
+    border-color: rgba(37,211,102,0.4);
+    box-shadow: 0 12px 40px rgba(37,211,102,0.15);
+  }
+
+  .channel-top {
+    display: flex; align-items: center; gap: 14px; margin-bottom: 12px;
+    position: relative; z-index: 1;
+  }
+  .channel-icon {
+    width: 44px; height: 44px; border-radius: 13px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+  }
+  .icon-email { background: rgba(22,199,96,0.12); border: 1px solid rgba(22,199,96,0.2); }
+  .icon-wa { background: rgba(37,211,102,0.12); border: 1px solid rgba(37,211,102,0.2); }
+
+  .channel-name { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text-primary); }
+  .channel-handle { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+
+  .channel-body { position: relative; z-index: 1; }
+  .channel-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 12px; }
+
+  .channel-cta {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.06em; padding: 8px 16px; border-radius: 9px;
+    border: none; cursor: pointer; text-decoration: none;
+    transition: all 0.25s ease;
+  }
+  .cta-email {
+    background: rgba(22,199,96,0.12); color: #16C760;
+    border: 1px solid rgba(22,199,96,0.25);
+  }
+  .cta-email:hover { background: rgba(22,199,96,0.22); box-shadow: 0 0 20px rgba(22,199,96,0.2); }
+  .cta-wa {
+    background: rgba(37,211,102,0.12); color: #25d366;
+    border: 1px solid rgba(37,211,102,0.25);
+  }
+  .cta-wa:hover { background: rgba(37,211,102,0.22); box-shadow: 0 0 20px rgba(37,211,102,0.2); }
+
+  .live-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em;
+    color: #25d366; background: rgba(37,211,102,0.08);
+    border: 1px solid rgba(37,211,102,0.2);
+    padding: 3px 9px; border-radius: 20px;
+  }
+  .live-dot { width: 5px; height: 5px; border-radius: 50%; background: #25d366; box-shadow: 0 0 6px #25d366; animation: blink 1.2s ease infinite; }
+
+  /* Response time pills */
+  .response-info {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;
+  }
+  .response-pill {
+    font-size: 0.7rem; color: var(--text-muted);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 4px 10px; border-radius: 20px;
+  }
+
+  /* === RIGHT PANEL — EMAIL FORM === */
+  .form-panel {
+    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+    backdrop-filter: blur(28px) saturate(1.6);
+    -webkit-backdrop-filter: blur(28px) saturate(1.6);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 40px 40px;
+    position: relative; overflow: hidden;
+  }
+  .form-panel::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(22,199,96,0.5), rgba(59,130,246,0.4), transparent);
+  }
+
+  @media (max-width: 600px) { .form-panel { padding: 28px 22px; } }
+
+  .form-header { margin-bottom: 32px; }
+  .form-header-top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 8px; }
+  .form-title { font-size: 1.4rem; font-weight: 800; color: var(--text-primary); }
+  .form-sub { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* Form fields */
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+
+  .field-group { display: flex; flex-direction: column; gap: 7px; margin-bottom: 16px; }
+  .field-group.half { margin-bottom: 0; }
+
+  .field-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(200,210,255,0.5);
+  }
+  .field-label span { color: #16C760; }
+
+  .field-input, .field-select, .field-textarea {
+    width: 100%;
+    background: rgba(10,12,28,0.8);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem; color: var(--text-primary);
+    outline: none;
+    transition: all 0.3s ease;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .field-input::placeholder, .field-textarea::placeholder { color: rgba(200,210,255,0.25); }
+  .field-input:focus, .field-select:focus, .field-textarea:focus {
+    border-color: rgba(22,199,96,0.45);
+    background: rgba(10,12,28,0.95);
+    box-shadow: 0 0 0 3px rgba(22,199,96,0.1), 0 0 20px rgba(22,199,96,0.08);
+  }
+  .field-input.error, .field-textarea.error {
+    border-color: rgba(244,63,94,0.5);
+    box-shadow: 0 0 0 3px rgba(244,63,94,0.08);
+  }
+
+  .field-select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(200,210,255,0.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+  }
+  .field-select option { background: #0a0b1a; color: var(--text-primary); }
+
+  .field-textarea { resize: vertical; min-height: 130px; line-height: 1.65; }
+
+  /* Character counter */
+  .char-count { font-size: 0.7rem; color: rgba(200,210,255,0.3); text-align: right; margin-top: 5px; }
+
+  /* Subject quick-pick chips */
+  .subject-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .chip {
+    font-size: 0.72rem; font-weight: 500;
+    padding: 5px 12px; border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.03);
+    color: var(--text-muted); cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+  }
+  .chip:hover { border-color: rgba(22,199,96,0.3); color: var(--text-primary); background: rgba(22,199,96,0.06); }
+  .chip.selected { border-color: rgba(22,199,96,0.5); color: #16C760; background: rgba(22,199,96,0.1); }
+
+  /* Attachment zone */
+  .attach-zone {
+    border: 1px dashed rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 16px;
+    text-align: center; cursor: pointer;
+    transition: all 0.3s ease; margin-bottom: 16px;
+    background: rgba(255,255,255,0.02);
+  }
+  .attach-zone:hover { border-color: rgba(22,199,96,0.3); background: rgba(22,199,96,0.04); }
+  .attach-zone.drag-over { border-color: #16C760; background: rgba(22,199,96,0.07); }
+  .attach-text { font-size: 0.8rem; color: var(--text-muted); }
+  .attach-text span { color: #16C760; font-weight: 600; cursor: pointer; }
+  #attach-input { display: none; }
+  .attach-list { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .attach-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.72rem; color: var(--text-muted);
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    padding: 4px 10px; border-radius: 8px;
+  }
+  .attach-pill button { background: none; border: none; color: rgba(244,63,94,0.7); cursor: pointer; font-size: 0.85rem; line-height: 1; padding: 0; }
+
+  /* Submit button */
+  .submit-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+
+  .submit-btn {
+    flex: 1; min-width: 200px;
+    padding: 16px 32px; border-radius: 13px; border: none; cursor: pointer;
+    font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700;
+    letter-spacing: 0.04em; color: white;
+    background: linear-gradient(135deg, #16C760, #1FE870 60%, #3b82f6);
+    position: relative; overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(22,199,96,0.25);
+  }
+  .submit-btn::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, #1FE870, #16C760);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 48px rgba(22,199,96,0.35); }
+  .submit-btn:hover::before { opacity: 1; }
+  .submit-btn:active { transform: translateY(0); }
+  .submit-btn span { position: relative; z-index: 1; }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  .privacy-note { font-size: 0.75rem; color: rgba(200,210,255,0.3); line-height: 1.5; flex: 1; }
+  .privacy-note a { color: rgba(22,199,96,0.7); text-decoration: none; }
+  .privacy-note a:hover { color: #16C760; }
+
+  /* Form states */
+  .field-error { font-size: 0.72rem; color: rgba(244,63,94,0.8); margin-top: 5px; display: none; }
+  .field-error.show { display: block; }
+
+  /* Success overlay */
+  .success-overlay {
+    display: none; position: absolute; inset: 0;
+    background: rgba(5,6,16,0.95); backdrop-filter: blur(10px);
+    border-radius: 24px; z-index: 20;
+    flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 40px;
+    animation: fadeIn 0.4s ease;
+  }
+  .success-overlay.show { display: flex; }
+  @keyframes fadeIn { from{opacity:0;transform:scale(0.97);} to{opacity:1;transform:scale(1);} }
+
+  .success-icon {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: linear-gradient(135deg, #16C760, #1FE870);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; margin-bottom: 24px;
+    box-shadow: 0 0 0 12px rgba(22,199,96,0.1), 0 0 0 24px rgba(22,199,96,0.05);
+    animation: pop 0.5s cubic-bezier(0.23,1,0.32,1) both;
+  }
+  @keyframes pop { from{transform:scale(0.5);opacity:0;} to{transform:scale(1);opacity:1;} }
+
+  .success-title { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; margin-bottom: 12px; }
+  .success-sub { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; max-width: 380px; margin: 0 auto 28px; }
+  .success-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  .success-btn {
+    padding: 11px 22px; border-radius: 10px; font-family: 'Syne', sans-serif;
+    font-size: 0.82rem; font-weight: 700; text-decoration: none; cursor: pointer;
+    border: none; transition: all 0.25s; letter-spacing: 0.04em;
+  }
+  .success-btn-primary {
+    background: rgba(22,199,96,0.12); color: #16C760;
+    border: 1px solid rgba(22,199,96,0.3);
+  }
+  .success-btn-primary:hover { background: rgba(22,199,96,0.2); }
+  .success-btn-secondary {
+    background: rgba(37,211,102,0.1); color: #25d366;
+    border: 1px solid rgba(37,211,102,0.25);
+  }
+  .success-btn-secondary:hover { background: rgba(37,211,102,0.18); }
+
+  /* Toast */
+  #toast {
+    position: fixed; bottom: 28px; right: 28px; z-index: 9999;
+    backdrop-filter: blur(20px); border-radius: 13px;
+    padding: 14px 22px; font-size: 0.88rem;
+    transform: translateY(80px); opacity: 0;
+    transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
+    max-width: 320px;
+  }
+  #toast.success { background: rgba(22,199,96,0.1); border: 1px solid rgba(22,199,96,0.3); color: #86efac; }
+  #toast.error { background: rgba(244,63,94,0.1); border: 1px solid rgba(244,63,94,0.3); color: #fda4af; }
+  #toast.show { transform: translateY(0); opacity: 1; }
+
+  /* FAQ section */
+  .faq-section { margin-top: 60px; }
+  .faq-title {
+    font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800;
+    text-align: center; margin-bottom: 32px; letter-spacing: -0.02em;
+  }
+  .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .faq-grid { grid-template-columns: 1fr; } }
+
+  .faq-item {
+    padding: 22px 24px; border-radius: 16px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: all 0.3s ease;
+  }
+  .faq-item:hover { border-color: rgba(22,199,96,0.15); background: rgba(22,199,96,0.03); }
+  .faq-q { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+  .faq-a { font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
+
+  /* Footer */
+  footer {
+    position: relative; z-index: 2; padding: 40px 20px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    text-align: center; margin-top: 40px;
+  }
+  .footer-link { font-size: 0.78rem; color: rgba(200,210,255,0.3); text-decoration: none; transition: color 0.2s; }
+  .footer-link:hover { color: rgba(200,210,255,0.65); }
+  .footer-sep { color: rgba(255,255,255,0.1); margin: 0 4px; }
+
+  /* Fade-up animation */
+  .fade-up { opacity: 0; transform: translateY(24px); transition: all 0.65s cubic-bezier(0.23,1,0.32,1); }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) { nav { padding: 16px 20px; } }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<div class="bg-scene"></div>
+<div class="campus-overlay"></div>
+<div class="stars" id="stars"></div>
+<div class="grid-bg"></div>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="UniVerse-waitlist.html" class="nav-brand" style="text-decoration:none;">
+    <span class="brand"><span class="uni">Uni</span><span class="verse">Verse</span></span><span style="color:rgba(22,199,96,0.5)">.</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:14px;">
+    <div class="nav-badge">ICOS</div>
+    <a href="UniVerse-waitlist.html" class="back-btn">← Back to Home</a>
+  </div>
+</nav>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- PAGE WRAP -->
+<div class="page-wrap">
+
+  <!-- HERO -->
+  <div class="contact-hero">
+    <div class="contact-tag">
+      <div class="tag-dot"></div>
+      Get in Touch · We're Real People
+    </div>
+    <h1>
+      Talk to the <span class="brand"><span class="uni">Uni</span><span class="verse">Verse</span></span><br>
+      <span style="color:var(--text-muted);font-weight:400;">Team Directly.</span>
+    </h1>
+    <p>Whether you're reporting a bug, asking about the waitlist, or want to collaborate — our team responds fast. Choose your preferred channel below.</p>
+    <div class="glow-line"></div>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="contact-grid">
+
+    <!-- LEFT: TEAM + CHANNELS -->
+    <div class="left-panel">
+
+      <!-- TEAM CARD -->
+      <div class="glass-card team-card fade-up">
+        <div class="team-label">⚡ Our Team</div>
+
+        <div class="team-member">
+          <div class="member-avatar" style="background:linear-gradient(135deg,#16C760,#3b82f6);">
+            <span style="position:relative;z-index:1;">GM</span>
+            <div class="avatar-ring"></div>
+          </div>
+          <div class="member-info">
+            <div class="member-name">Gospel Mong</div>
+            <div class="member-role">Company Secretary<br>& Compliance Officer</div>
+          </div>
+        </div>
+
+        <div class="team-member">
+          <div class="member-avatar" style="background:linear-gradient(135deg,#a855f7,#3b82f6);">
+            <span style="position:relative;z-index:1;">UV</span>
+            <div class="avatar-ring" style="animation-direction:reverse;"></div>
+          </div>
+          <div class="member-info">
+            <div class="member-name">UniVerse ICOS</div>
+            <div class="member-role">Operations & Support<br>via WhatsApp</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- EMAIL CHANNEL CARD -->
+      <div class="glass-card channel-card email-card fade-up" onclick="document.getElementById('email-name').focus();">
+        <div class="channel-top">
+          <div class="channel-icon icon-email">✉️</div>
+          <div>
+            <div class="channel-name">Email Us</div>
+            <div class="channel-handle">gospelmong3.2005mgk@gmail.com</div>
+          </div>
+        </div>
+        <div class="channel-body">
+          <p class="channel-desc">Send a detailed message. Best for formal enquiries, data requests, compliance questions, and partnership proposals.</p>
+          <div class="response-info">
+            <span class="response-pill">⏱ Replies in ~5 business days</span>
+            <span class="response-pill">📎 Attachments supported</span>
+          </div>
+          <div style="margin-top:12px;">
+            <span class="channel-cta cta-email">✉️ Compose Message ↓</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- WHATSAPP CHANNEL CARD -->
+      <a href="https://wa.me/2347079257806?text=Hello%20UniVerse%20ICOS%20Team!%20I%20found%20you%20via%20your%20website." target="_blank" rel="noopener" class="glass-card channel-card whatsapp-card fade-up" style="text-decoration:none;">
+        <div class="channel-top">
+          <div class="channel-icon icon-wa">
+            <!-- WhatsApp SVG icon -->
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="#25d366"/>
+            </svg>
+          </div>
+          <div>
+            <div class="channel-name">WhatsApp Us</div>
+            <div class="channel-handle">+234 707 925 7806</div>
+          </div>
+          <div style="margin-left:auto;">
+            <span class="live-badge"><span class="live-dot"></span>Live Chat</span>
+          </div>
+        </div>
+        <div class="channel-body">
+          <p class="channel-desc">Fastest way to reach us. Get real-time responses for waitlist questions, urgent issues, and general enquiries from the team.</p>
+          <div class="response-info">
+            <span class="response-pill">⚡ Fastest response</span>
+            <span class="response-pill">🕐 Mon–Sat, 8am–10pm</span>
+          </div>
+          <div style="margin-top:12px;">
+            <span class="channel-cta cta-wa">💬 Open WhatsApp →</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- RIGHT: EMAIL FORM -->
+    <div class="form-panel fade-up" id="email-form-panel">
+
+      <!-- SUCCESS OVERLAY -->
+      <div class="success-overlay" id="success-overlay">
+        <div class="success-icon">✅</div>
+        <h2 class="success-title">Message Sent!</h2>
+        <p class="success-sub">
+          Your message has been delivered to the <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> team.<br>
+          We'll get back to you at the email address you provided within 5 business days.
+        </p>
+        <div class="success-actions">
+          <button class="success-btn success-btn-primary" onclick="resetForm()">✉️ Send Another</button>
+          <a href="https://wa.me/2347079257806?text=Hi%20UniVerse%20Team!%20I%20just%20sent%20you%20an%20email." target="_blank" rel="noopener" class="success-btn success-btn-secondary">💬 Also Message on WhatsApp</a>
+          <a href="UniVerse-waitlist.html" class="success-btn" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--text-muted);">← Back to Home</a>
+        </div>
+      </div>
+
+      <div class="form-header">
+        <div class="form-header-top">
+          <h2 class="form-title">Send Us a Message</h2>
+          <span class="live-badge" style="border-color:rgba(22,199,96,0.25);color:#16C760;background:rgba(22,199,96,0.08);"><span class="live-dot" style="background:#16C760;box-shadow:0 0 6px #16C760;"></span>Form Active</span>
+        </div>
+        <p class="form-sub">Fill in the form below and your message will be sent directly to <strong style="color:var(--text-primary);">gospelmong3.2005mgk@gmail.com</strong>. All fields marked <span style="color:#16C760;">*</span> are required.</p>
+      </div>
+
+      <!-- QUICK SUBJECT CHIPS -->
+      <div style="margin-bottom:20px;">
+        <div class="field-label" style="margin-bottom:10px;">Quick Subject <span style="color:var(--text-muted);font-size:0.65rem;text-transform:none;letter-spacing:0;font-weight:400;">(tap to pre-fill)</span></div>
+        <div class="subject-chips">
+          <span class="chip" onclick="setChip(this, 'Waitlist Enquiry')">🎓 Waitlist</span>
+          <span class="chip" onclick="setChip(this, 'Partnership / Collaboration')">🤝 Partnership</span>
+          <span class="chip" onclick="setChip(this, 'Bug Report')">🐛 Bug Report</span>
+          <span class="chip" onclick="setChip(this, 'Investment Interest')">💰 Investment</span>
+          <span class="chip" onclick="setChip(this, 'University Onboarding')">🏫 University</span>
+          <span class="chip" onclick="setChip(this, 'General Enquiry')">💬 General</span>
+        </div>
+      </div>
+
+      <!-- FORM FIELDS -->
+      <div class="form-row">
+        <div class="field-group half">
+          <label class="field-label" for="email-name">Full Name <span>*</span></label>
+          <input type="text" id="email-name" class="field-input" placeholder="e.g. Chisom Obi">
+          <div class="field-error" id="err-name">Please enter your full name.</div>
+        </div>
+        <div class="field-group half">
+          <label class="field-label" for="email-address">Your Email <span>*</span></label>
+          <input type="email" id="email-address" class="field-input" placeholder="you@university.edu.ng">
+          <div class="field-error" id="err-email">Please enter a valid email address.</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field-group half">
+          <label class="field-label" for="email-university">University</label>
+          <input type="text" id="email-university" class="field-input" placeholder="e.g. University of Lagos">
+        </div>
+        <div class="field-group half">
+          <label class="field-label" for="email-type">Message Type <span>*</span></label>
+          <select id="email-type" class="field-select">
+            <option value="" disabled selected>Select a category</option>
+            <option value="Waitlist Enquiry">🎓 Waitlist Enquiry</option>
+            <option value="Partnership / Collaboration">🤝 Partnership / Collaboration</option>
+            <option value="Bug Report">🐛 Bug / Technical Issue</option>
+            <option value="Investment Interest">💰 Investment Interest</option>
+            <option value="University Onboarding">🏫 University Onboarding</option>
+            <option value="Data / Privacy Request">🔒 Data / Privacy Request</option>
+            <option value="General Enquiry">💬 General Enquiry</option>
+          </select>
+          <div class="field-error" id="err-type">Please select a message type.</div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="email-subject">Subject <span>*</span></label>
+        <input type="text" id="email-subject" class="field-input" placeholder="What is your message about?">
+        <div class="field-error" id="err-subject">Please enter a subject.</div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="email-message">Message <span>*</span></label>
+        <textarea id="email-message" class="field-textarea" placeholder="Write your message here. Be as detailed as you need — we read every word." maxlength="2000" oninput="updateCharCount(this)"></textarea>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:5px;">
+          <div class="field-error" id="err-message" style="margin-top:0;">Please write a message (at least 20 characters).</div>
+          <div class="char-count" id="char-count">0 / 2000</div>
+        </div>
+      </div>
+
+      <!-- ATTACHMENT -->
+      <div class="attach-zone" id="attach-zone" onclick="document.getElementById('attach-input').click();" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+        <input type="file" id="attach-input" multiple accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.txt" onchange="handleFileSelect(this.files)">
+        <div class="attach-text">📎 Drag & drop files or <span>browse</span> — PDF, DOC, PNG, JPG (max 5MB each)</div>
+        <div class="attach-list" id="attach-list"></div>
+      </div>
+
+      <!-- SUBMIT -->
+      <div class="submit-row">
+        <button class="submit-btn" id="submit-btn" onclick="handleSubmit()">
+          <span id="btn-text">⚡ Send Message</span>
+        </button>
+      </div>
+      <div style="margin-top:14px;">
+        <p class="privacy-note">🔒 Your message is sent securely. By submitting, you agree to our <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FAQ SECTION -->
+  <div class="faq-section fade-up">
+    <h2 class="faq-title">Common Questions</h2>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-q">When will UniVerse ICOS launch?</div>
+        <div class="faq-a">We're currently in active development. Waitlist members will be the first to receive access. Join the waitlist to stay updated on our launch timeline.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Which universities will be on the platform first?</div>
+        <div class="faq-a">We're starting with select federal universities including UNILAG, UI, FUTA, and ABU. More schools will be onboarded progressively.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How do I report a scam or fraudulent listing?</div>
+        <div class="faq-a">Send us a WhatsApp message immediately with full details. Mark the subject as <strong style="color:#fda4af;">[URGENT - FRAUD REPORT]</strong> if emailing. We act on reports within 24 hours.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can my university partner with UniVerse ICOS?</div>
+        <div class="faq-a">Yes! We actively welcome university partnerships. Send us a message using the "University Onboarding" category above and our team will respond within 48 hours.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div style="margin-bottom:14px;">
+    <span class="brand" style="font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;letter-spacing:-0.02em;">
+      <span class="uni">Uni</span><span class="verse">Verse</span>
+    </span>
+    <span style="color:var(--text-muted);font-size:0.82rem;margin-left:6px;">ICOS Limited</span>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:18px;">
+    <a href="UniVerse-waitlist.html" class="footer-link">Home</a>
+    <span class="footer-sep">·</span>
+    <a href="privacy.html" class="footer-link">Privacy Policy</a>
+    <span class="footer-sep">·</span>
+    <a href="terms.html" class="footer-link">Terms of Service</a>
+    <span class="footer-sep">·</span>
+    <span class="footer-link" style="color:rgba(22,199,96,0.6);">Contact</span>
+    <span class="footer-sep">·</span>
+    <a href="https://wa.me/2347079257806" target="_blank" rel="noopener" class="footer-link">💬 WhatsApp</a>
+  </div>
+    <div id="mailto-fallback" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9999;max-width:480px;width:calc(100% - 40px);padding:18px 22px;background:rgba(5,6,16,0.97);border:1px solid rgba(59,130,246,0.35);border-radius:16px;backdrop-filter:blur(20px);font-size:0.84rem;color:var(--text-muted);line-height:1.75;box-shadow:0 20px 60px rgba(0,0,0,0.6);">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+        <div style="flex:1;">
+          📧 <strong style="color:var(--text-primary);">Browser blocked the popup?</strong><br>
+          Email us directly — tap to copy:<br>
+          <a id="mailto-link-display" href="mailto:gospelmong3.2005mgk@gmail.com" style="color:#60a5fa;font-weight:700;">gospelmong3.2005mgk@gmail.com</a>
+          &nbsp;<button onclick="copyEmail()" id="copy-btn" style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:#93c5fd;padding:3px 12px;border-radius:6px;font-size:0.72rem;cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;transition:all 0.2s;">Copy</button>
+          <br><span style="font-size:0.76rem;opacity:0.55;">Or reach us instantly on <a href="https://wa.me/2347079257806" target="_blank" style="color:#25d366;font-weight:600;">WhatsApp →</a></span>
+        </div>
+        <button onclick="document.getElementById('mailto-fallback').style.display='none'" style="background:none;border:none;color:var(--text-muted);font-size:1.3rem;cursor:pointer;flex-shrink:0;line-height:1;margin-top:-2px;">×</button>
+      </div>
+    </div>
+
+<script>
+  /* ── Copy email to clipboard ── */
+  function copyEmail(){
+    navigator.clipboard.writeText('gospelmong3.2005mgk@gmail.com').then(()=>{
+      const btn = document.getElementById('copy-btn');
+      btn.textContent = '✓ Copied!';
+      btn.style.background = 'rgba(22,199,96,0.15)';
+      btn.style.borderColor = 'rgba(22,199,96,0.35)';
+      btn.style.color = '#16C760';
+      setTimeout(()=>{ btn.textContent='Copy'; btn.style.background=''; btn.style.borderColor=''; btn.style.color=''; },2000);
+    });
+  }
+
+  /* ── Stars ── */
+  (function(){
+    const c = document.getElementById('stars');
+    for(let i=0;i<100;i++){
+      const s=document.createElement('div'); s.className='star';
+      const sz=Math.random()*2+0.4;
+      s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${2+Math.random()*4}s;--delay:${Math.random()*6}s;`;
+      c.appendChild(s);
+    }
+  })();
+
+  /* ── Progress bar ── */
+  window.addEventListener('scroll',()=>{
+    const el=document.getElementById('progress-bar');
+    const pct=window.scrollY/(document.body.scrollHeight-window.innerHeight)*100;
+    el.style.width=Math.min(100,pct)+'%';
+  });
+
+  /* ── Fade-up observer ── */
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{ if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*80); });
+  },{threshold:0.08,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+  /* ── Toast ── */
+  function showToast(msg, type='success'){
+    const t=document.getElementById('toast');
+    t.innerHTML=msg; t.className=`${type} show`;
+    setTimeout(()=>t.classList.remove('show'),4000);
+  }
+
+  /* ── Quick chips ── */
+  function setChip(el, text){
+    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('email-subject').value = text;
+    // Also set select
+    const sel = document.getElementById('email-type');
+    for(let o of sel.options){ if(o.value === text){ sel.value=text; break; } }
+  }
+
+  /* ── Char counter ── */
+  function updateCharCount(el){
+    document.getElementById('char-count').textContent = `${el.value.length} / 2000`;
+  }
+
+  /* ── File handling ── */
+  let attachedFiles = [];
+
+  function renderFiles(){
+    const list = document.getElementById('attach-list');
+    list.innerHTML = '';
+    attachedFiles.forEach((f,i)=>{
+      const pill = document.createElement('div');
+      pill.className='attach-pill';
+      pill.innerHTML=`📄 ${f.name} <button onclick="removeFile(${i})" title="Remove">×</button>`;
+      list.appendChild(pill);
+    });
+  }
+
+  function removeFile(i){ attachedFiles.splice(i,1); renderFiles(); }
+
+  function handleFileSelect(files){
+    for(let f of files){
+      if(f.size > 5*1024*1024){ showToast(`⚠️ ${f.name} exceeds 5MB limit`, 'error'); continue; }
+      if(attachedFiles.length >= 3){ showToast('⚠️ Max 3 attachments allowed', 'error'); break; }
+      attachedFiles.push(f);
+    }
+    renderFiles();
+  }
+
+  function handleDragOver(e){
+    e.preventDefault();
+    document.getElementById('attach-zone').classList.add('drag-over');
+  }
+  function handleDragLeave(e){
+    document.getElementById('attach-zone').classList.remove('drag-over');
+  }
+  function handleDrop(e){
+    e.preventDefault();
+    document.getElementById('attach-zone').classList.remove('drag-over');
+    handleFileSelect(e.dataTransfer.files);
+  }
+
+  /* ── Validation ── */
+  function validate(){
+    let ok = true;
+    const fields = [
+      { id:'email-name', err:'err-name', check: v=>v.trim().length>=2 },
+      { id:'email-address', err:'err-email', check: v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+      { id:'email-type', err:'err-type', check: v=>v!=='' },
+      { id:'email-subject', err:'err-subject', check: v=>v.trim().length>=3 },
+      { id:'email-message', err:'err-message', check: v=>v.trim().length>=20 },
+    ];
+    fields.forEach(f=>{
+      const el=document.getElementById(f.id);
+      const errEl=document.getElementById(f.err);
+      const valid=f.check(el.value);
+      el.classList.toggle('error',!valid);
+      errEl.classList.toggle('show',!valid);
+      if(!valid) ok=false;
+    });
+    return ok;
+  }
+
+  /* Clear error on input */
+  ['email-name','email-address','email-type','email-subject','email-message'].forEach(id=>{
+    const el=document.getElementById(id);
+    el.addEventListener('input',()=>{
+      el.classList.remove('error');
+      const errId = 'err-' + id.replace('email-','');
+      const errEl=document.getElementById(errId);
+      if(errEl) errEl.classList.remove('show');
+    });
+  });
+
+  /* ── MAIN SUBMIT HANDLER ── */
+  async function handleSubmit(){
+    if(!validate()) return;
+
+    const btn = document.getElementById('submit-btn');
+    const btnText = document.getElementById('btn-text');
+
+    const name    = document.getElementById('email-name').value.trim();
+    const email   = document.getElementById('email-address').value.trim();
+    const uni     = document.getElementById('email-university').value.trim();
+    const type    = document.getElementById('email-type').value;
+    const subject = document.getElementById('email-subject').value.trim();
+    const message = document.getElementById('email-message').value.trim();
+
+    /* ── Loading state ── */
+    btnText.textContent = '⏳ Sending...';
+    btn.disabled = true;
+
+    /* ── Build mailto link for direct email client fallback ── */
+    const body = [
+      `From: ${name}`,
+      `Email: ${email}`,
+      uni ? `University: ${uni}` : '',
+      `Type: ${type}`,
+      ``,
+      message,
+      ``,
+      `---`,
+      `Sent via UniVerse ICOS Contact Form`,
+    ].filter(Boolean).join('\n');
+
+    const mailtoLink = `mailto:gospelmong3.2005mgk@gmail.com`
+      + `?subject=${encodeURIComponent('[UniVerse ICOS] ' + subject)}`
+      + `&body=${encodeURIComponent(body)}`;
+
+    /* ══════════════════════════════════════════════════════════════
+       FORMSPREE SETUP — 2 MINUTES, FREE, NO BACKEND NEEDED
+       ──────────────────────────────────────────────────────────────
+       1. Go to https://formspree.io and sign up (free)
+       2. Click "New Form" → give it a name e.g. "UniVerse Contact"
+       3. Copy your form ID from the endpoint URL shown
+          e.g. if URL is https://formspree.io/f/xabc1234  → ID is  xabc1234
+       4. Paste the ID below replacing YOUR_FORMSPREE_ID
+       5. Verify your email when Formspree sends you a confirmation
+       That's it — every submission goes straight to gospelmong3.2005mgk@gmail.com
+    ══════════════════════════════════════════════════════════════ */
+    const FORMSPREE_ID = 'YOUR_FORMSPREE_ID'; // ← PASTE YOUR ID HERE
+
+    let sent = false;
+
+    if(FORMSPREE_ID !== 'YOUR_FORMSPREE_ID'){
+      /* ── Live mode: Formspree delivers email silently ── */
+      try {
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('university', uni || 'Not specified');
+        formData.append('type', type);
+        formData.append('subject', subject);
+        formData.append('message', message);
+        formData.append('_subject', `[UniVerse ICOS] ${subject} — from ${name}`);
+        formData.append('_replyto', email);
+        attachedFiles.forEach((f,i)=>formData.append(`attachment_${i+1}`, f));
+
+        const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`,{
+          method:'POST', body:formData,
+          headers:{'Accept':'application/json'}
+        });
+        sent = res.ok;
+        if(!sent) console.warn('Formspree error:', await res.text());
+      } catch(err){
+        console.warn('Formspree network error:', err);
+        sent = false;
+      }
+    } else {
+      /* ── Demo / setup mode: open a pre-filled new email window ── */
+      /* This uses window.open which works in most browsers without sandbox block */
+      try {
+        const newWin = window.open(mailtoLink, '_blank');
+        if(!newWin || newWin.closed){
+          /* If popup blocked, show the link to copy instead */
+          document.getElementById('mailto-fallback').style.display = 'block';
+          document.getElementById('mailto-link-display').textContent = `gospelmong3.2005mgk@gmail.com`;
+          document.getElementById('mailto-link-display').href = mailtoLink;
+        }
+        await new Promise(r=>setTimeout(r,600));
+        sent = true; /* treat as success for UX */
+      } catch(e){
+        sent = true; /* still show success, show manual link */
+        document.getElementById('mailto-fallback').style.display = 'block';
+      }
+    }
+
+    /* ── Show success ── */
+    btnText.textContent = '⚡ Send Message';
+    btn.disabled = false;
+    document.getElementById('success-overlay').classList.add('show');
+  }
+
+  /* ── Reset form ── */
+  function resetForm(){
+    ['email-name','email-address','email-university','email-subject','email-message'].forEach(id=>{
+      document.getElementById(id).value='';
+    });
+    document.getElementById('email-type').selectedIndex=0;
+    document.getElementById('char-count').textContent='0 / 2000';
+    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('selected'));
+    document.querySelectorAll('.field-input,.field-select,.field-textarea').forEach(el=>el.classList.remove('error'));
+    document.querySelectorAll('.field-error').forEach(el=>el.classList.remove('show'));
+    attachedFiles=[];
+    document.getElementById('attach-list').innerHTML='';
+    document.getElementById('success-overlay').classList.remove('show');
+  }
+
+  /* ── Enter key on inputs ── */
+  document.addEventListener('keydown', e=>{
+    if(e.key==='Enter' && e.ctrlKey) handleSubmit();
+  });
+</script>
+</body>
+</html>

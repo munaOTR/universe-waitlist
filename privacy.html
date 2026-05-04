@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — UniVerse ICOS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --space-black: #050610;
+    --electric-blue: #3b82f6;
+    --neon-violet: #a855f7;
+    --verse-green: #16C760;
+    --glass-bg: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.09);
+    --text-primary: #f0f4ff;
+    --text-muted: rgba(200,210,255,0.65);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--space-black);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  h1,h2,h3,h4,h5 { font-family: 'Syne', sans-serif; }
+
+  .brand .uni { color: #ffffff; }
+  .brand .verse { color: #16C760; }
+
+  /* === BACKGROUND === */
+  .bg-scene {
+    position: fixed; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(88,80,236,0.22) 0%, transparent 65%),
+                radial-gradient(ellipse 50% 40% at 85% 75%, rgba(168,85,247,0.1) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 35% at 10% 55%, rgba(59,130,246,0.09) 0%, transparent 55%),
+                var(--space-black);
+  }
+
+  .campus-overlay {
+    position: fixed; inset: 0; z-index: 0;
+    background-image: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1600&q=80');
+    background-size: cover;
+    background-position: center 30%;
+    opacity: 0.03;
+    filter: grayscale(100%) blur(2px);
+  }
+
+  .stars { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+  .star {
+    position: absolute; border-radius: 50%; background: white;
+    animation: twinkle var(--dur, 3s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+  @keyframes twinkle {
+    0%,100% { opacity: 0.08; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.3); }
+  }
+
+  .grid-bg {
+    position: fixed; inset: 0; z-index: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 10%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 10%, transparent 75%);
+  }
+
+  /* === NAVBAR === */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 20px 40px;
+    background: rgba(5,6,16,0.55);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; letter-spacing: -0.02em; text-decoration: none; }
+  .nav-badge {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+    color: rgba(192,132,252,0.9);
+    border: 1px solid rgba(168,85,247,0.3);
+    padding: 4px 10px; border-radius: 20px;
+    background: rgba(168,85,247,0.08);
+  }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--text-muted); font-size: 0.82rem; font-weight: 500;
+    text-decoration: none; padding: 8px 16px; border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.03);
+    transition: all 0.3s ease;
+  }
+  .back-btn:hover { color: var(--text-primary); border-color: rgba(22,199,96,0.3); background: rgba(22,199,96,0.05); }
+
+  /* === PROGRESS BAR === */
+  #progress-bar {
+    position: fixed; top: 0; left: 0; height: 2px; z-index: 999;
+    background: linear-gradient(90deg, #16C760, #3b82f6, #a855f7);
+    width: 0%; transition: width 0.1s linear;
+  }
+
+  /* === HERO BANNER === */
+  .policy-hero {
+    position: relative; z-index: 2;
+    padding: 140px 20px 60px;
+    text-align: center;
+  }
+
+  .policy-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: #16C760;
+    border: 1px solid rgba(22,199,96,0.28);
+    background: rgba(22,199,96,0.07);
+    padding: 5px 14px; border-radius: 20px;
+    margin-bottom: 24px;
+  }
+  .policy-tag-dot { width: 6px; height: 6px; border-radius: 50%; background: #16C760; box-shadow: 0 0 8px #16C760; animation: blink 1.5s ease infinite; }
+  @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0.2; } }
+
+  .policy-title {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -0.03em; margin-bottom: 16px;
+  }
+
+  .policy-meta {
+    display: inline-flex; align-items: center; gap: 20px;
+    flex-wrap: wrap; justify-content: center;
+    margin-top: 20px;
+    font-size: 0.8rem; color: var(--text-muted);
+  }
+  .policy-meta-item { display: flex; align-items: center; gap: 6px; }
+  .meta-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.2); }
+
+  /* Glow line */
+  .glow-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(22,199,96,0.35) 25%, rgba(59,130,246,0.45) 75%, transparent);
+    margin: 0 auto; max-width: 900px;
+  }
+
+  /* === LAYOUT === */
+  .policy-layout {
+    position: relative; z-index: 2;
+    max-width: 1100px; margin: 0 auto;
+    padding: 60px 20px 100px;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  @media (max-width: 900px) { .policy-layout { grid-template-columns: 1fr; } }
+
+  /* === STICKY TOC === */
+  .toc-panel {
+    position: sticky; top: 100px;
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 18px; padding: 24px;
+  }
+  @media (max-width: 900px) { .toc-panel { position: static; } }
+
+  .toc-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.3); margin-bottom: 16px;
+  }
+  .toc-list { list-style: none; }
+  .toc-item { margin-bottom: 4px; }
+  .toc-link {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 12px; border-radius: 10px;
+    font-size: 0.82rem; color: var(--text-muted);
+    text-decoration: none;
+    transition: all 0.25s ease;
+    border: 1px solid transparent;
+  }
+  .toc-link:hover, .toc-link.active {
+    color: var(--text-primary);
+    background: rgba(22,199,96,0.07);
+    border-color: rgba(22,199,96,0.18);
+  }
+  .toc-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.65rem; font-weight: 700;
+    color: #16C760; min-width: 18px;
+  }
+
+  .toc-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 16px 0; }
+
+  .toc-badge {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(22,199,96,0.07);
+    border: 1px solid rgba(22,199,96,0.2);
+    border-radius: 10px; padding: 10px 12px;
+    font-size: 0.75rem; color: rgba(22,199,96,0.8);
+    line-height: 1.4; margin-top: 16px;
+  }
+
+  /* === CONTENT AREA === */
+  .policy-content { min-width: 0; }
+
+  .policy-section {
+    background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.015) 100%);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 20px; padding: 40px 44px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s ease;
+    scroll-margin-top: 110px;
+  }
+  .policy-section:hover { border-color: rgba(22,199,96,0.15); }
+
+  .section-header {
+    display: flex; align-items: flex-start; gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .section-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.65rem; font-weight: 700;
+    color: #16C760; letter-spacing: 0.1em;
+    background: rgba(22,199,96,0.1);
+    border: 1px solid rgba(22,199,96,0.2);
+    padding: 4px 10px; border-radius: 20px;
+    white-space: nowrap; margin-top: 5px;
+    flex-shrink: 0;
+  }
+
+  .section-heading {
+    font-size: 1.25rem; font-weight: 700;
+    color: var(--text-primary); line-height: 1.3;
+  }
+
+  .policy-text {
+    font-size: 0.92rem; color: var(--text-muted);
+    line-height: 1.8; margin-bottom: 16px;
+  }
+  .policy-text:last-child { margin-bottom: 0; }
+
+  /* Data items list */
+  .data-list { list-style: none; margin: 16px 0; }
+  .data-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 14px 16px; border-radius: 12px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    margin-bottom: 10px;
+    transition: all 0.25s ease;
+  }
+  .data-item:hover {
+    background: rgba(22,199,96,0.05);
+    border-color: rgba(22,199,96,0.15);
+  }
+  .data-icon {
+    width: 32px; height: 32px; border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0;
+  }
+  .data-item-body { flex: 1; }
+  .data-item-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.88rem; font-weight: 700;
+    color: var(--text-primary); margin-bottom: 4px;
+  }
+  .data-item-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* Rights list */
+  .rights-list { list-style: none; margin: 16px 0; }
+  .rights-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; border-radius: 10px;
+    font-size: 0.88rem; color: var(--text-muted);
+    margin-bottom: 8px;
+    border-left: 2px solid rgba(22,199,96,0.3);
+    background: rgba(22,199,96,0.03);
+    line-height: 1.5;
+  }
+  .rights-check { color: #16C760; font-size: 0.9rem; flex-shrink: 0; }
+
+  /* Security badges */
+  .security-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin-top: 16px;
+  }
+  @media (max-width: 600px) { .security-grid { grid-template-columns: 1fr; } }
+
+  .security-badge {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 16px; border-radius: 12px;
+    background: rgba(59,130,246,0.06);
+    border: 1px solid rgba(59,130,246,0.15);
+    font-size: 0.82rem; color: var(--text-muted);
+    line-height: 1.4;
+  }
+  .security-badge .badge-icon { font-size: 1.1rem; flex-shrink: 0; }
+  .security-badge strong { color: var(--text-primary); display: block; font-size: 0.85rem; margin-bottom: 2px; }
+
+  /* Contact card */
+  .contact-card {
+    display: flex; align-items: center; gap: 16px;
+    padding: 20px 24px; border-radius: 14px;
+    background: linear-gradient(135deg, rgba(22,199,96,0.08), rgba(59,130,246,0.06));
+    border: 1px solid rgba(22,199,96,0.2);
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .contact-avatar {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(135deg, #16C760, #3b82f6);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-size: 1.1rem;
+    font-weight: 800; color: white; flex-shrink: 0;
+  }
+  .contact-info { flex: 1; min-width: 200px; }
+  .contact-role { font-size: 0.72rem; color: #16C760; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+  .contact-name { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+  .contact-email {
+    font-size: 0.82rem; color: var(--text-muted);
+    text-decoration: none; border-bottom: 1px solid rgba(22,199,96,0.3);
+    transition: color 0.2s ease;
+  }
+  .contact-email:hover { color: #16C760; }
+
+  /* Intro card */
+  .intro-highlight {
+    display: flex; gap: 16px; align-items: flex-start;
+    background: rgba(59,130,246,0.06);
+    border: 1px solid rgba(59,130,246,0.15);
+    border-radius: 14px; padding: 18px 20px;
+    margin-bottom: 20px;
+  }
+  .intro-highlight-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+  .intro-highlight-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+  .intro-highlight-text strong { color: var(--text-primary); }
+
+  /* Footer */
+  footer {
+    position: relative; z-index: 2;
+    padding: 40px 20px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+  }
+  .footer-links { display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; }
+  .footer-link { font-size: 0.78rem; color: rgba(200,210,255,0.35); text-decoration: none; transition: color 0.2s; cursor: pointer; }
+  .footer-link:hover { color: rgba(200,210,255,0.7); }
+  .footer-sep { color: rgba(255,255,255,0.1); }
+
+  /* Animations */
+  .fade-up { opacity: 0; transform: translateY(24px); transition: all 0.6s cubic-bezier(0.23,1,0.32,1); }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .policy-section { padding: 28px 24px; }
+    .comp-col-old { border-radius: 24px 24px 0 0; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<div class="bg-scene"></div>
+<div class="campus-overlay"></div>
+<div class="stars" id="stars"></div>
+<div class="grid-bg"></div>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="UniVerse-waitlist.html" class="nav-brand" style="text-decoration:none;">
+    <span class="brand" style="font-size:1.4rem;letter-spacing:-0.02em;">
+      <span class="uni">Uni</span><span class="verse">Verse</span>
+    </span><span style="color:rgba(22,199,96,0.5)">.</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <div class="nav-badge">ICOS</div>
+    <a href="UniVerse-waitlist.html" class="back-btn">← Back to Home</a>
+  </div>
+</nav>
+
+<!-- HERO BANNER -->
+<div class="policy-hero fade-up visible">
+  <div class="policy-tag">
+    <div class="policy-tag-dot"></div>
+    Legal Document · Effective April 29, 2026
+  </div>
+  <h1 class="policy-title">
+    Privacy Policy<br>
+    <span class="brand" style="font-size:inherit;">
+      <span class="uni">Uni</span><span class="verse">Verse</span>
+    </span>
+    <span style="color:var(--text-muted);font-weight:400;"> ICOS Limited</span>
+  </h1>
+  <div class="policy-meta">
+    <span class="policy-meta-item">📅 Effective: April 29, 2026</span>
+    <span class="meta-dot"></span>
+    <span class="policy-meta-item">🇳🇬 Governed under Nigerian Law</span>
+    <span class="meta-dot"></span>
+    <span class="policy-meta-item">🔒 6 Sections · ~5 min read</span>
+  </div>
+</div>
+
+<div style="padding:0 20px;position:relative;z-index:2;margin-bottom:0;">
+  <div class="glow-line"></div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="policy-layout">
+
+  <!-- STICKY TOC -->
+  <aside class="toc-panel fade-up">
+    <div class="toc-title">Table of Contents</div>
+    <ul class="toc-list">
+      <li class="toc-item"><a href="#s1" class="toc-link"><span class="toc-num">01</span> Introduction</a></li>
+      <li class="toc-item"><a href="#s2" class="toc-link"><span class="toc-num">02</span> Information We Collect</a></li>
+      <li class="toc-item"><a href="#s3" class="toc-link"><span class="toc-num">03</span> How We Use Your Data</a></li>
+      <li class="toc-item"><a href="#s4" class="toc-link"><span class="toc-num">04</span> Data Sharing & Security</a></li>
+      <li class="toc-item"><a href="#s5" class="toc-link"><span class="toc-num">05</span> Your Rights</a></li>
+      <li class="toc-item"><a href="#s6" class="toc-link"><span class="toc-num">06</span> Contact Us</a></li>
+    </ul>
+    <div class="toc-divider"></div>
+    <div class="toc-badge">
+      🔐 Your data is never sold to advertisers. Ever.
+    </div>
+    <div style="margin-top:16px;">
+      <a href="UniVerse-waitlist.html#waitlist" style="display:block;text-align:center;background:linear-gradient(135deg,#16C760,#1FE870);color:white;padding:11px 16px;border-radius:10px;font-family:'Syne',sans-serif;font-size:0.8rem;font-weight:700;text-decoration:none;letter-spacing:0.04em;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">⚡ Join Waitlist</a>
+    </div>
+  </aside>
+
+  <!-- POLICY CONTENT -->
+  <main class="policy-content">
+
+    <!-- SECTION 1: INTRODUCTION -->
+    <div class="policy-section fade-up" id="s1">
+      <div class="section-header">
+        <span class="section-number">SECTION 01</span>
+        <h2 class="section-heading">Introduction</h2>
+      </div>
+      <div class="intro-highlight">
+        <span class="intro-highlight-icon">🌐</span>
+        <div class="intro-highlight-text">
+          Welcome to <strong><span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> ICOS</strong> — the Integrated Campus Operating System. We are committed to protecting the privacy of our student users while providing a secure environment for academic and commercial transactions.
+        </div>
+      </div>
+      <p class="policy-text">
+        This Privacy Policy explains how <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> ICOS Limited ("we," "us," or "our") collects, uses, stores, and protects your personal data across all 7 Pillars of our platform — including the Study Hub, Errand Page, Lodge Finder, Skill Place, Market Place, and Premium Dashboard.
+      </p>
+      <p class="policy-text">
+        By accessing or using the <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> platform, you agree to the terms outlined in this policy. We encourage you to read this document carefully and reach out to our Compliance Officer with any questions.
+      </p>
+    </div>
+
+    <!-- SECTION 2: INFORMATION WE COLLECT -->
+    <div class="policy-section fade-up" id="s2">
+      <div class="section-header">
+        <span class="section-number">SECTION 02</span>
+        <h2 class="section-heading">Information We Collect</h2>
+      </div>
+      <p class="policy-text">
+        To deliver our mission as Nigeria's first Integrated Campus Operating System — a <strong style="color:var(--text-primary);">National Asset</strong> — we collect the following categories of data to power a secure, personalized experience:
+      </p>
+      <ul class="data-list">
+        <li class="data-item">
+          <div class="data-icon" style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);">🪪</div>
+          <div class="data-item-body">
+            <div class="data-item-title">Identity Data</div>
+            <div class="data-item-desc">Your name, institutional email address, and student ID number — used for verification on university dashboards and to confirm your status as an enrolled student.</div>
+          </div>
+        </li>
+        <li class="data-item">
+          <div class="data-icon" style="background:rgba(168,85,247,0.12);border:1px solid rgba(168,85,247,0.2);">💳</div>
+          <div class="data-item-body">
+            <div class="data-item-title">Transaction Data</div>
+            <div class="data-item-desc">Details of errands posted or completed, skills hired via Skill Place, and marketplace purchases — used to facilitate our secure escrow and dispute resolution system.</div>
+          </div>
+        </li>
+        <li class="data-item">
+          <div class="data-icon" style="background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.2);">📚</div>
+          <div class="data-item-body">
+            <div class="data-item-title">Academic Data</div>
+            <div class="data-item-desc">Your course selections — such as GST 111, STA 111, and MTH 101 — to personalize your Study Hub experience with relevant past questions and AI-powered preparation tools.</div>
+          </div>
+        </li>
+        <li class="data-item">
+          <div class="data-icon" style="background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.2);">📍</div>
+          <div class="data-item-body">
+            <div class="data-item-title">Location Data</div>
+            <div class="data-item-desc">Campus-specific location data to help you discover nearby verified lodges, connect with local errand runners, and access campus-native vendors on the marketplace.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SECTION 3: HOW WE USE YOUR DATA -->
+    <div class="policy-section fade-up" id="s3">
+      <div class="section-header">
+        <span class="section-number">SECTION 03</span>
+        <h2 class="section-heading">How We Use Your Data</h2>
+      </div>
+      <p class="policy-text">
+        We use your information solely to power the <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> ecosystem. Your data is never used for purposes outside of improving your campus experience:
+      </p>
+      <ul class="data-list">
+        <li class="data-item">
+          <div class="data-icon" style="background:rgba(22,199,96,0.1);border:1px solid rgba(22,199,96,0.2);">✅</div>
+          <div class="data-item-body">
+            <div class="data-item-title">Verification & Trust</div>
+            <div class="data-item-desc">Ensuring that hostel listings, service providers, and errand runners are legitimate, enrolled students — protecting you from scams and bad actors on campus.</div>
+          </div>
+        </li>
+        <li class="data-item">
+          <div class="data-icon" style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);">⚡</div>
+          <div class="data-item-body">
+            <div class="data-item-title">Platform Performance</div>
+            <div class="data-item-desc">Optimizing the app experience for entry-level hardware, including 4GB RAM devices commonly used by Nigerian students, ensuring fast load times and a smooth interface.</div>
+          </div>
+        </li>
+        <li class="data-item">
+          <div class="data-icon" style="background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.2);">🛡️</div>
+          <div class="data-item-body">
+            <div class="data-item-title">Regional Security</div>
+            <div class="data-item-desc">Applying regional logic to restrict or permit specific banking and transaction functions in compliance with Nigerian financial regulations and university-specific policies.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SECTION 4: DATA SHARING & SECURITY -->
+    <div class="policy-section fade-up" id="s4">
+      <div class="section-header">
+        <span class="section-number">SECTION 04</span>
+        <h2 class="section-heading">Data Sharing & Security</h2>
+      </div>
+      <p class="policy-text">
+        The security of your data is foundational to our mission. We apply industry-leading infrastructure and strict no-sale policies to keep your information safe.
+      </p>
+      <div class="security-grid">
+        <div class="security-badge">
+          <span class="badge-icon">🚫</span>
+          <div>
+            <strong>No Third-Party Sales</strong>
+            We do not sell your personal data to advertisers, data brokers, or any third parties. Ever.
+          </div>
+        </div>
+        <div class="security-badge">
+          <span class="badge-icon">🗄️</span>
+          <div>
+            <strong>Supabase Infrastructure</strong>
+            All data is stored on Supabase with high-level encryption and row-level security (RLS) protocols.
+          </div>
+        </div>
+        <div class="security-badge">
+          <span class="badge-icon">💰</span>
+          <div>
+            <strong>Escrow Payment Safety</strong>
+            Financial data is handled via secure processors — Paystack or Flutterwave — and is never stored on our servers directly.
+          </div>
+        </div>
+        <div class="security-badge">
+          <span class="badge-icon">🔐</span>
+          <div>
+            <strong>End-to-End Encryption</strong>
+            Sensitive identity and transaction data is encrypted in transit and at rest using AES-256 standards.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 5: YOUR RIGHTS -->
+    <div class="policy-section fade-up" id="s5">
+      <div class="section-header">
+        <span class="section-number">SECTION 05</span>
+        <h2 class="section-heading">Your Rights</h2>
+      </div>
+      <p class="policy-text">
+        As a member of the <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> Orbit, you hold full ownership of your data. We respect and uphold the following rights at all times:
+      </p>
+      <ul class="rights-list">
+        <li class="rights-item"><span class="rights-check">✦</span> <strong style="color:var(--text-primary);margin-right:6px;">Access & Update:</strong> You may view and update your profile information at any time through your account settings.</li>
+        <li class="rights-item"><span class="rights-check">✦</span> <strong style="color:var(--text-primary);margin-right:6px;">Right to Deletion:</strong> You may request the full deletion of your account and all associated data by contacting our Compliance Officer.</li>
+        <li class="rights-item"><span class="rights-check">✦</span> <strong style="color:var(--text-primary);margin-right:6px;">Opt-Out of Marketing:</strong> You may opt out of non-essential marketing communications from our Growth Director at any time via your notification preferences.</li>
+        <li class="rights-item"><span class="rights-check">✦</span> <strong style="color:var(--text-primary);margin-right:6px;">Data Portability:</strong> You may request a copy of your personal data in a structured, machine-readable format.</li>
+        <li class="rights-item"><span class="rights-check">✦</span> <strong style="color:var(--text-primary);margin-right:6px;">Withdraw Consent:</strong> Where processing is based on consent, you may withdraw it at any time without affecting prior lawful processing.</li>
+      </ul>
+    </div>
+
+    <!-- SECTION 6: CONTACT -->
+    <div class="policy-section fade-up" id="s6">
+      <div class="section-header">
+        <span class="section-number">SECTION 06</span>
+        <h2 class="section-heading">Contact Us</h2>
+      </div>
+      <p class="policy-text">
+        If you have questions about this Privacy Policy, wish to exercise your data rights, or have concerns about how we handle your information, please reach out to our designated Compliance Officer directly.
+      </p>
+      <div class="contact-card">
+        <div class="contact-avatar">GM</div>
+        <div class="contact-info">
+          <div class="contact-role">Company Secretary & Compliance Officer</div>
+          <div class="contact-name">UniVerse ICOS Limited</div>
+          <a href="mailto:gospelmong3.2005mgk@gmail.com" class="contact-email">gospelmong3.2005mgk@gmail.com</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0;">
+          <a href="mailto:gospelmong3.2005mgk@gmail.com" style="background:rgba(22,199,96,0.1);border:1px solid rgba(22,199,96,0.25);color:#16C760;padding:10px 20px;border-radius:10px;font-family:'Syne',sans-serif;font-size:0.8rem;font-weight:700;text-decoration:none;transition:all 0.25s;white-space:nowrap;text-align:center;" onmouseover="this.style.background='rgba(22,199,96,0.18)'" onmouseout="this.style.background='rgba(22,199,96,0.1)'">✉️ Send Email</a>
+          <a href="https://wa.me/2347079257806" target="_blank" rel="noopener" style="background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.25);color:#25d366;padding:10px 20px;border-radius:10px;font-family:'Syne',sans-serif;font-size:0.8rem;font-weight:700;text-decoration:none;transition:all 0.25s;white-space:nowrap;text-align:center;" onmouseover="this.style.background='rgba(37,211,102,0.2)'" onmouseout="this.style.background='rgba(37,211,102,0.1)'">💬 WhatsApp</a>
+        </div>
+      </div>
+      <p class="policy-text" style="margin-top:20px;font-size:0.82rem;">
+        We aim to respond to all data-related enquiries within <strong style="color:var(--text-primary);">5 business days</strong>. For urgent security concerns, please mark your email subject line as <strong style="color:#16C760;">[URGENT - DATA SECURITY]</strong> or reach us directly on <a href="https://wa.me/2347079257806" target="_blank" rel="noopener" style="color:#25d366;text-decoration:none;font-weight:600;">WhatsApp → +234 707 925 7806</a>.
+      </p>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div style="margin-bottom:16px;">
+    <span class="brand" style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;letter-spacing:-0.02em;">
+      <span class="uni">Uni</span><span class="verse">Verse</span>
+    </span>
+    <span style="color:var(--text-muted);font-size:0.85rem;margin-left:8px;">ICOS Limited</span>
+  </div>
+  <div class="footer-links" style="margin-bottom:20px;">
+    <a href="UniVerse-waitlist.html" class="footer-link">Home</a>
+    <span class="footer-sep">·</span>
+    <span class="footer-link" style="color:#16C760;">Privacy Policy</span>
+    <span class="footer-sep">·</span>
+    <a href="terms.html" class="footer-link">Terms of Service</a>
+    <span class="footer-sep">·</span>
+    <a href="contact.html" class="footer-link">Contact</a>
+    <span class="footer-sep">·</span>
+    <a href="https://wa.me/2347079257806" target="_blank" rel="noopener" class="footer-link">💬 WhatsApp</a>
+  </div>
+  <p style="font-size:0.75rem;color:rgba(200,210,255,0.18);">© 2026 <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> ICOS Limited. All rights reserved. — Not yet affiliated with any university. In Development.</p>
+</footer>
+
+<script>
+// Stars
+(function() {
+  const container = document.getElementById('stars');
+  for (let i = 0; i < 90; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2 + 0.5;
+    s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${2+Math.random()*4}s;--delay:${Math.random()*6}s;`;
+    container.appendChild(s);
+  }
+})();
+
+// Progress bar
+window.addEventListener('scroll', () => {
+  const el = document.getElementById('progress-bar');
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  el.style.width = Math.min(100, pct) + '%';
+});
+
+// Fade-up observer
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 70);
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Active TOC link highlighting
+const sections = document.querySelectorAll('[id^="s"]');
+const tocLinks = document.querySelectorAll('.toc-link');
+const highlightToc = () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY + 130 >= s.offsetTop) current = s.id;
+  });
+  tocLinks.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+  });
+};
+window.addEventListener('scroll', highlightToc);
+highlightToc();
+
+// Smooth scroll for TOC
+document.querySelectorAll('.toc-link').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>

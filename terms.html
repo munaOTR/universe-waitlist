@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — UniVerse ICOS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --space-black: #050610;
+    --electric-blue: #3b82f6;
+    --neon-violet: #a855f7;
+    --verse-green: #16C760;
+    --glass-bg: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.09);
+    --text-primary: #f0f4ff;
+    --text-muted: rgba(200,210,255,0.65);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--space-black);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  h1,h2,h3,h4,h5 { font-family: 'Syne', sans-serif; }
+
+  .brand .uni { color: #ffffff; }
+  .brand .verse { color: #16C760; }
+
+  /* === BACKGROUND === */
+  .bg-scene {
+    position: fixed; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% -10%, rgba(59,130,246,0.18) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 40% at 90% 70%, rgba(168,85,247,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 35% at 5% 60%, rgba(22,199,96,0.06) 0%, transparent 55%),
+      var(--space-black);
+  }
+
+  .campus-overlay {
+    position: fixed; inset: 0; z-index: 0;
+    background-image: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1600&q=80');
+    background-size: cover;
+    background-position: center 30%;
+    opacity: 0.03;
+    filter: grayscale(100%) blur(2px);
+  }
+
+  .stars { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+  .star {
+    position: absolute; border-radius: 50%; background: white;
+    animation: twinkle var(--dur, 3s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+  @keyframes twinkle {
+    0%,100% { opacity: 0.07; transform: scale(1); }
+    50% { opacity: 0.55; transform: scale(1.3); }
+  }
+
+  .grid-bg {
+    position: fixed; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 10%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 10%, transparent 75%);
+  }
+
+  /* === PROGRESS BAR === */
+  #progress-bar {
+    position: fixed; top: 0; left: 0; height: 2px; z-index: 999;
+    background: linear-gradient(90deg, #3b82f6, #16C760, #a855f7);
+    width: 0%; transition: width 0.1s linear;
+  }
+
+  /* === NAVBAR === */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 20px 40px;
+    background: rgba(5,6,16,0.55);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-badge {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+    color: rgba(192,132,252,0.9);
+    border: 1px solid rgba(168,85,247,0.3);
+    padding: 4px 10px; border-radius: 20px;
+    background: rgba(168,85,247,0.08);
+  }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--text-muted); font-size: 0.82rem; font-weight: 500;
+    text-decoration: none; padding: 8px 16px; border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.03);
+    transition: all 0.3s ease;
+  }
+  .back-btn:hover { color: var(--text-primary); border-color: rgba(59,130,246,0.3); background: rgba(59,130,246,0.05); }
+
+  /* === HERO BANNER === */
+  .tos-hero {
+    position: relative; z-index: 2;
+    padding: 140px 20px 60px;
+    text-align: center;
+  }
+  .tos-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: rgba(96,165,250,0.9);
+    border: 1px solid rgba(59,130,246,0.28);
+    background: rgba(59,130,246,0.07);
+    padding: 5px 14px; border-radius: 20px;
+    margin-bottom: 24px;
+  }
+  .tos-tag-dot { width: 6px; height: 6px; border-radius: 50%; background: #3b82f6; box-shadow: 0 0 8px #3b82f6; animation: blink 1.5s ease infinite; }
+  @keyframes blink { 0%,100%{opacity:1;}50%{opacity:0.2;} }
+
+  .tos-title {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -0.03em; margin-bottom: 16px;
+  }
+  .tos-meta {
+    display: inline-flex; align-items: center; gap: 20px;
+    flex-wrap: wrap; justify-content: center;
+    margin-top: 20px; font-size: 0.8rem; color: var(--text-muted);
+  }
+  .tos-meta-item { display: flex; align-items: center; gap: 6px; }
+  .meta-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.2); }
+
+  .glow-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(59,130,246,0.4) 25%, rgba(168,85,247,0.4) 75%, transparent);
+    margin: 0 auto; max-width: 900px;
+  }
+
+  /* === LAYOUT === */
+  .tos-layout {
+    position: relative; z-index: 2;
+    max-width: 1100px; margin: 0 auto;
+    padding: 60px 20px 100px;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  @media (max-width: 900px) { .tos-layout { grid-template-columns: 1fr; } }
+
+  /* === STICKY TOC === */
+  .toc-panel {
+    position: sticky; top: 100px;
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 18px; padding: 24px;
+  }
+  @media (max-width: 900px) { .toc-panel { position: static; } }
+
+  .toc-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.3); margin-bottom: 16px;
+  }
+  .toc-list { list-style: none; }
+  .toc-item { margin-bottom: 4px; }
+  .toc-link {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 12px; border-radius: 10px;
+    font-size: 0.8rem; color: var(--text-muted);
+    text-decoration: none;
+    transition: all 0.25s ease;
+    border: 1px solid transparent;
+    line-height: 1.35;
+  }
+  .toc-link:hover, .toc-link.active {
+    color: var(--text-primary);
+    background: rgba(59,130,246,0.07);
+    border-color: rgba(59,130,246,0.18);
+  }
+  .toc-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.65rem; font-weight: 700;
+    color: #60a5fa; min-width: 18px; flex-shrink: 0;
+  }
+  .toc-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 16px 0; }
+  .toc-badge {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(59,130,246,0.07);
+    border: 1px solid rgba(59,130,246,0.2);
+    border-radius: 10px; padding: 10px 12px;
+    font-size: 0.75rem; color: rgba(96,165,250,0.8);
+    line-height: 1.4; margin-top: 16px;
+  }
+
+  /* === CONTENT AREA === */
+  .tos-content { min-width: 0; }
+
+  .tos-section {
+    background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.015) 100%);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 20px; padding: 40px 44px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s ease;
+    scroll-margin-top: 110px;
+    position: relative; overflow: hidden;
+  }
+  .tos-section::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(59,130,246,0.3), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .tos-section:hover { border-color: rgba(59,130,246,0.15); }
+  .tos-section:hover::before { opacity: 1; }
+
+  .section-header {
+    display: flex; align-items: flex-start; gap: 16px;
+    margin-bottom: 24px;
+  }
+  .section-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.65rem; font-weight: 700;
+    color: #60a5fa; letter-spacing: 0.1em;
+    background: rgba(59,130,246,0.1);
+    border: 1px solid rgba(59,130,246,0.2);
+    padding: 4px 10px; border-radius: 20px;
+    white-space: nowrap; margin-top: 5px; flex-shrink: 0;
+  }
+  .section-heading {
+    font-size: 1.25rem; font-weight: 700;
+    color: var(--text-primary); line-height: 1.3;
+  }
+
+  .tos-text {
+    font-size: 0.92rem; color: var(--text-muted);
+    line-height: 1.8; margin-bottom: 16px;
+  }
+  .tos-text:last-child { margin-bottom: 0; }
+
+  /* Intro highlight box */
+  .intro-highlight {
+    display: flex; gap: 16px; align-items: flex-start;
+    background: rgba(59,130,246,0.06);
+    border: 1px solid rgba(59,130,246,0.15);
+    border-radius: 14px; padding: 18px 20px;
+    margin-bottom: 20px;
+  }
+  .intro-highlight-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+  .intro-highlight-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+  .intro-highlight-text strong { color: var(--text-primary); }
+
+  /* Clause list */
+  .clause-list { list-style: none; margin: 16px 0; }
+  .clause-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 16px 18px; border-radius: 12px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    margin-bottom: 10px;
+    transition: all 0.25s ease;
+  }
+  .clause-item:hover {
+    background: rgba(59,130,246,0.05);
+    border-color: rgba(59,130,246,0.15);
+  }
+  .clause-icon {
+    width: 34px; height: 34px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0; margin-top: 1px;
+  }
+  .clause-body { flex: 1; }
+  .clause-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem; font-weight: 700;
+    color: var(--text-primary); margin-bottom: 5px;
+  }
+  .clause-desc { font-size: 0.83rem; color: var(--text-muted); line-height: 1.65; }
+
+  /* Pillar conduct grid */
+  .pillar-conduct-list { margin: 16px 0; }
+  .pillar-row {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 14px 18px; border-radius: 12px;
+    border-left: 3px solid rgba(59,130,246,0.3);
+    background: rgba(59,130,246,0.03);
+    margin-bottom: 10px;
+    transition: all 0.25s;
+  }
+  .pillar-row:hover { background: rgba(59,130,246,0.07); border-left-color: rgba(59,130,246,0.6); }
+  .pillar-emoji { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+  .pillar-row-body { flex: 1; }
+  .pillar-row-name {
+    font-family: 'Syne', sans-serif; font-size: 0.88rem;
+    font-weight: 700; color: var(--text-primary); margin-bottom: 3px;
+  }
+  .pillar-row-rule { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* Escrow flow */
+  .escrow-steps {
+    display: flex; flex-direction: column; gap: 2px;
+    margin: 20px 0;
+  }
+  .escrow-step {
+    display: flex; align-items: center; gap: 16px;
+    padding: 16px 20px; border-radius: 0;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.25s;
+    position: relative;
+  }
+  .escrow-step:first-child { border-radius: 14px 14px 0 0; }
+  .escrow-step:last-child { border-radius: 0 0 14px 14px; }
+  .escrow-step:hover { background: rgba(22,199,96,0.05); border-color: rgba(22,199,96,0.15); }
+  .escrow-step-num {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg, #16C760, #3b82f6);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-size: 0.78rem;
+    font-weight: 800; color: white; flex-shrink: 0;
+  }
+  .escrow-step-body { flex: 1; }
+  .escrow-step-title { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700; color: var(--text-primary); margin-bottom: 3px; }
+  .escrow-step-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.55; }
+
+  /* Warning box */
+  .warning-box {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: rgba(244,63,94,0.06);
+    border: 1px solid rgba(244,63,94,0.18);
+    border-radius: 14px; padding: 16px 20px;
+    margin-top: 16px;
+  }
+  .warning-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+  .warning-text { font-size: 0.85rem; color: rgba(253,164,175,0.85); line-height: 1.65; }
+  .warning-text strong { color: #fda4af; }
+
+  /* Veto power card */
+  .veto-card {
+    background: linear-gradient(135deg, rgba(168,85,247,0.08), rgba(99,102,241,0.06));
+    border: 1px solid rgba(168,85,247,0.2);
+    border-radius: 14px; padding: 20px 24px;
+    margin-top: 16px;
+  }
+  .veto-label {
+    font-family: 'Syne', sans-serif; font-size: 0.68rem;
+    font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: #c084fc; margin-bottom: 10px;
+  }
+  .veto-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.86rem;
+  }
+  .veto-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .veto-title-col { color: var(--text-muted); min-width: 180px; }
+  .veto-perm { color: #c084fc; font-weight: 500; font-size: 0.82rem; }
+
+  /* IP badge */
+  .ip-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin-top: 16px;
+  }
+  @media (max-width: 600px) { .ip-grid { grid-template-columns: 1fr; } }
+  .ip-badge {
+    padding: 16px 18px; border-radius: 12px;
+    background: rgba(99,102,241,0.06);
+    border: 1px solid rgba(99,102,241,0.15);
+    font-size: 0.82rem;
+  }
+  .ip-badge-title { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+  .ip-badge-desc { color: var(--text-muted); line-height: 1.6; }
+
+  /* Liability notice */
+  .liability-note {
+    background: rgba(245,158,11,0.06);
+    border: 1px solid rgba(245,158,11,0.18);
+    border-radius: 14px; padding: 18px 22px;
+    margin-top: 16px; font-size: 0.86rem;
+    color: rgba(253,230,138,0.8); line-height: 1.7;
+  }
+  .liability-note strong { color: #fde68a; }
+
+  /* Footer */
+  footer {
+    position: relative; z-index: 2;
+    padding: 40px 20px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+  }
+  .footer-link { font-size: 0.78rem; color: rgba(200,210,255,0.35); text-decoration: none; transition: color 0.2s; cursor: pointer; }
+  .footer-link:hover { color: rgba(200,210,255,0.7); }
+  .footer-sep { color: rgba(255,255,255,0.1); }
+
+  /* Animations */
+  .fade-up { opacity: 0; transform: translateY(24px); transition: all 0.6s cubic-bezier(0.23,1,0.32,1); }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .tos-section { padding: 28px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<div class="bg-scene"></div>
+<div class="campus-overlay"></div>
+<div class="stars" id="stars"></div>
+<div class="grid-bg"></div>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="UniVerse-waitlist.html" style="text-decoration:none;">
+    <span class="brand" style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;letter-spacing:-0.02em;">
+      <span class="uni">Uni</span><span class="verse">Verse</span>
+    </span><span style="color:rgba(22,199,96,0.5)">.</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <div class="nav-badge">ICOS</div>
+    <a href="UniVerse-waitlist.html" class="back-btn">← Back to Home</a>
+  </div>
+</nav>
+
+<!-- HERO BANNER -->
+<div class="tos-hero fade-up visible">
+  <div class="tos-tag">
+    <div class="tos-tag-dot"></div>
+    Legal Document · Last Updated April 29, 2026
+  </div>
+  <h1 class="tos-title">
+    Terms of Service<br>
+    <span class="brand" style="font-size:inherit;">
+      <span class="uni">Uni</span><span class="verse">Verse</span>
+    </span>
+    <span style="color:var(--text-muted);font-weight:400;"> ICOS</span>
+  </h1>
+  <div class="tos-meta">
+    <span class="tos-meta-item">📅 Updated: April 29, 2026</span>
+    <span class="meta-dot"></span>
+    <span class="tos-meta-item">🇳🇬 Nigerian University Platform</span>
+    <span class="meta-dot"></span>
+    <span class="tos-meta-item">📋 7 Sections · ~6 min read</span>
+  </div>
+</div>
+
+<div style="padding:0 20px;position:relative;z-index:2;">
+  <div class="glow-line"></div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="tos-layout">
+
+  <!-- STICKY TOC -->
+  <aside class="toc-panel fade-up">
+    <div class="toc-title">Table of Contents</div>
+    <ul class="toc-list">
+      <li class="toc-item"><a href="#s1" class="toc-link"><span class="toc-num">01</span> Acceptance of Terms</a></li>
+      <li class="toc-item"><a href="#s2" class="toc-link"><span class="toc-num">02</span> Eligibility & Registration</a></li>
+      <li class="toc-item"><a href="#s3" class="toc-link"><span class="toc-num">03</span> The 7 Pillars & Conduct</a></li>
+      <li class="toc-item"><a href="#s4" class="toc-link"><span class="toc-num">04</span> Secure Escrow System</a></li>
+      <li class="toc-item"><a href="#s5" class="toc-link"><span class="toc-num">05</span> Intellectual Property</a></li>
+      <li class="toc-item"><a href="#s6" class="toc-link"><span class="toc-num">06</span> Termination of Access</a></li>
+      <li class="toc-item"><a href="#s7" class="toc-link"><span class="toc-num">07</span> Limitation of Liability</a></li>
+    </ul>
+    <div class="toc-divider"></div>
+    <div class="toc-badge">
+      ⚖️ By using UniVerse, you agree to all terms on this page.
+    </div>
+    <div style="margin-top:12px;">
+      <a href="privacy.html" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);font-size:0.78rem;color:var(--text-muted);text-decoration:none;transition:all 0.25s;" onmouseover="this.style.borderColor='rgba(22,199,96,0.25)';this.style.color='#f0f4ff';" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)';this.style.color='var(--text-muted)';">🔒 Privacy Policy →</a>
+    </div>
+    <div style="margin-top:10px;">
+      <a href="mailto:gospelmong3.2005mgk@gmail.com" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);font-size:0.78rem;color:var(--text-muted);text-decoration:none;transition:all 0.25s;margin-bottom:8px;" onmouseover="this.style.borderColor='rgba(22,199,96,0.25)';this.style.color='#f0f4ff';" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)';this.style.color='var(--text-muted)';">✉️ Email Us</a>
+      <a href="https://wa.me/2347079257806" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:10px;border:1px solid rgba(37,211,102,0.2);background:rgba(37,211,102,0.05);font-size:0.78rem;color:#25d366;text-decoration:none;transition:all 0.25s;margin-bottom:8px;" onmouseover="this.style.background='rgba(37,211,102,0.12)'" onmouseout="this.style.background='rgba(37,211,102,0.05)'">💬 WhatsApp Us</a>
+    <div style="margin-top:10px;">
+      <a href="UniVerse-waitlist.html#waitlist" style="display:block;text-align:center;background:linear-gradient(135deg,#3b82f6,#a855f7);color:white;padding:11px 16px;border-radius:10px;font-family:'Syne',sans-serif;font-size:0.8rem;font-weight:700;text-decoration:none;letter-spacing:0.04em;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">⚡ Join Waitlist</a>
+    </div>
+  </aside>
+
+  <!-- TOS CONTENT -->
+  <main class="tos-content">
+
+    <!-- SECTION 1 -->
+    <div class="tos-section fade-up" id="s1">
+      <div class="section-header">
+        <span class="section-number">SECTION 01</span>
+        <h2 class="section-heading">Acceptance of Terms</h2>
+      </div>
+      <div class="intro-highlight">
+        <span class="intro-highlight-icon">📜</span>
+        <div class="intro-highlight-text">
+          By accessing the <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> ICOS <strong>"Orbit"</strong> or joining our waitlist, you agree to be legally bound by these Terms of Service in their entirety.
+        </div>
+      </div>
+      <p class="tos-text">
+        <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> ICOS is a <strong style="color:var(--text-primary);">National Asset</strong> designed to provide a secure, full-stack Campus Life Operating System for Nigerian university students. These terms govern your access to and use of all platform features, modules, and services.
+      </p>
+      <p class="tos-text">
+        If you do not agree with any part of these terms, you must discontinue use of the platform immediately. We reserve the right to update these terms at any time, with continued use constituting acceptance of revised terms.
+      </p>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="tos-section fade-up" id="s2">
+      <div class="section-header">
+        <span class="section-number">SECTION 02</span>
+        <h2 class="section-heading">Eligibility & Registration</h2>
+      </div>
+      <p class="tos-text">Access to <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> ICOS is restricted to verified members of the Nigerian university ecosystem. The following conditions apply to all registrants:</p>
+      <ul class="clause-list">
+        <li class="clause-item">
+          <div class="clause-icon" style="background:rgba(22,199,96,0.1);border:1px solid rgba(22,199,96,0.2);">🎓</div>
+          <div class="clause-body">
+            <div class="clause-title">Student Status</div>
+            <div class="clause-desc">Users must be currently enrolled students or verified stakeholders within the Nigerian university system. Alumni, faculty, and verified campus vendors may also qualify under specific access tiers.</div>
+          </div>
+        </li>
+        <li class="clause-item">
+          <div class="clause-icon" style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);">🔑</div>
+          <div class="clause-body">
+            <div class="clause-title">Account Security</div>
+            <div class="clause-desc">You are solely responsible for maintaining the confidentiality of your login credentials used to access the student portal. Any activity under your account is your responsibility. Report suspicious access immediately.</div>
+          </div>
+        </li>
+        <li class="clause-item">
+          <div class="clause-icon" style="background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.2);">✅</div>
+          <div class="clause-body">
+            <div class="clause-title">Identity Verification</div>
+            <div class="clause-desc">We reserve the right to verify your identity at any time through institutional email addresses or student IDs, in order to prevent scams and fraudulent activities within the marketplace and escrow system.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="tos-section fade-up" id="s3">
+      <div class="section-header">
+        <span class="section-number">SECTION 03</span>
+        <h2 class="section-heading">The 7 Pillars & User Conduct</h2>
+      </div>
+      <p class="tos-text">
+        All users agree to use the following platform modules in a professional, honest, and lawful manner. Violations are subject to immediate suspension or permanent account termination.
+      </p>
+      <div class="pillar-conduct-list">
+        <div class="pillar-row">
+          <span class="pillar-emoji">📦</span>
+          <div class="pillar-row-body">
+            <div class="pillar-row-name">The Errand Page</div>
+            <div class="pillar-row-rule">Users must fulfill errand tasks exactly as described and agreed upon. Failure to deliver without valid cause, or misappropriating funds held in escrow, may result in permanent suspension and legal referral.</div>
+          </div>
+        </div>
+        <div class="pillar-row">
+          <span class="pillar-emoji">📚</span>
+          <div class="pillar-row-body">
+            <div class="pillar-row-name">The Study Hub</div>
+            <div class="pillar-row-rule">All academic materials accessed through the Study Hub — including past questions, AI-generated content, and peer notes — are for personal use only. Redistribution for commercial gain is strictly prohibited.</div>
+          </div>
+        </div>
+        <div class="pillar-row">
+          <span class="pillar-emoji">💡</span>
+          <div class="pillar-row-body">
+            <div class="pillar-row-name">Skill Place</div>
+            <div class="pillar-row-rule">Service listings (e.g., barbing, writing, design, coding) must be honest, accurate, and free of fraudulent claims. Misrepresentation of skills or qualifications is grounds for immediate removal.</div>
+          </div>
+        </div>
+        <div class="pillar-row">
+          <span class="pillar-emoji">🛍️</span>
+          <div class="pillar-row-body">
+            <div class="pillar-row-name">Market Place — Shop IT</div>
+            <div class="pillar-row-rule">Vendors must list only items they legitimately own or have authority to sell. Counterfeit goods, prohibited items, or listings designed to defraud buyers will result in permanent vendor ban.</div>
+          </div>
+        </div>
+        <div class="pillar-row">
+          <span class="pillar-emoji">🏠</span>
+          <div class="pillar-row-body">
+            <div class="pillar-row-name">Lodge Finder</div>
+            <div class="pillar-row-rule">Users must not post fake or misleading hostel listings, collect deposits for non-existent accommodations, or engage in any form of rental scam. Offenders will be permanently banned and reported to relevant authorities.</div>
+          </div>
+        </div>
+        <div class="pillar-row">
+          <span class="pillar-emoji">🌐</span>
+          <div class="pillar-row-body">
+            <div class="pillar-row-name">The Orbit & Premium Dashboard</div>
+            <div class="pillar-row-rule">Users must not attempt to exploit, reverse-engineer, or circumvent the dashboard's access controls. Unauthorized access to another student's portal data is a criminal offence under Nigerian cybercrime law.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="tos-section fade-up" id="s4">
+      <div class="section-header">
+        <span class="section-number">SECTION 04</span>
+        <h2 class="section-heading">The Secure Escrow System</h2>
+      </div>
+      <p class="tos-text">
+        To ensure the trillion-naira potential of the Nigerian student economy is protected, <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> operates a secure, multi-stage payment protocol for all transactions on the Errand Page, Skill Place, and Marketplace.
+      </p>
+      <div class="escrow-steps">
+        <div class="escrow-step">
+          <div class="escrow-step-num">1</div>
+          <div class="escrow-step-body">
+            <div class="escrow-step-title">Payment Holding</div>
+            <div class="escrow-step-desc">Funds for errands or skill services are held securely by <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> ICOS and are not released to the service provider until the task is confirmed complete by both parties.</div>
+          </div>
+        </div>
+        <div class="escrow-step">
+          <div class="escrow-step-num">2</div>
+          <div class="escrow-step-body">
+            <div class="escrow-step-title">Dual Confirmation</div>
+            <div class="escrow-step-desc">Both the requester and the service provider must confirm completion before funds are disbursed. In cases of one-sided confirmation, a 24-hour review window is triggered automatically.</div>
+          </div>
+        </div>
+        <div class="escrow-step">
+          <div class="escrow-step-num">3</div>
+          <div class="escrow-step-body">
+            <div class="escrow-step-title">Dispute Resolution</div>
+            <div class="escrow-step-desc">The Operations & Logistics Manager serves as the final arbiter in any unresolved transaction disputes. Their decision, informed by platform evidence (chat logs, delivery confirmation), is binding on all parties.</div>
+          </div>
+        </div>
+        <div class="escrow-step">
+          <div class="escrow-step-num">4</div>
+          <div class="escrow-step-body">
+            <div class="escrow-step-title">Regional Restrictions</div>
+            <div class="escrow-step-desc">Access to certain financial features may be restricted based on regional security logic and Nigerian banking regulations, in order to protect the integrity of the transaction network.</div>
+          </div>
+        </div>
+      </div>
+      <div class="warning-box">
+        <span class="warning-icon">⚠️</span>
+        <div class="warning-text">
+          <strong>Fraud Warning:</strong> Any attempt to manipulate the escrow system, collude to file false disputes, or extract funds through deceptive means will result in permanent account termination, full fund recovery, and potential criminal reporting to the EFCC and Nigerian Police Force Cybercrime Unit.
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="tos-section fade-up" id="s5">
+      <div class="section-header">
+        <span class="section-number">SECTION 05</span>
+        <h2 class="section-heading">Intellectual Property</h2>
+      </div>
+      <p class="tos-text">
+        All intellectual property on the <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> ICOS platform is protected under Nigerian and international intellectual property law.
+      </p>
+      <div class="ip-grid">
+        <div class="ip-badge">
+          <div class="ip-badge-title">🏛️ Platform Ownership</div>
+          <div class="ip-badge-desc">All software code, UI/UX designs — including 3D glassmorphism elements, the Orbit dashboard, and "National Asset" branding — are the exclusive intellectual property of <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> ICOS Limited.</div>
+        </div>
+        <div class="ip-badge">
+          <div class="ip-badge-title">📝 User Content License</div>
+          <div class="ip-badge-desc">By posting content on the Skill Place or Marketplace, you grant <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> a non-exclusive, royalty-free license to display and distribute your content solely to facilitate your trade on the platform.</div>
+        </div>
+        <div class="ip-badge">
+          <div class="ip-badge-title">🚫 Prohibited Use</div>
+          <div class="ip-badge-desc">You may not reproduce, copy, resell, or create derivative works from any part of the <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> platform, brand, or codebase without prior written consent from the Managing Director.</div>
+        </div>
+        <div class="ip-badge">
+          <div class="ip-badge-title">✅ Your Content Rights</div>
+          <div class="ip-badge-desc">You retain full ownership of original content you create and post. Upon account deletion, your content license to the platform is revoked, subject to cached data retention policies outlined in our Privacy Policy.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 6 -->
+    <div class="tos-section fade-up" id="s6">
+      <div class="section-header">
+        <span class="section-number">SECTION 06</span>
+        <h2 class="section-heading">Termination of Access</h2>
+      </div>
+      <p class="tos-text">
+        <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> ICOS is committed to maintaining the safety, integrity, and spirit of the National Asset. The following officers hold termination authority:
+      </p>
+      <div class="veto-card">
+        <div class="veto-label">⚡ Veto Power — Termination Authority</div>
+        <div class="veto-row">
+          <span class="veto-title-col">Managing Director</span>
+          <span class="veto-perm">Full account suspension · Permanent ban · Legal referral</span>
+        </div>
+        <div class="veto-row">
+          <span class="veto-title-col">Operations Officer</span>
+          <span class="veto-perm">Temporary suspension · Feature restriction · Escrow freeze</span>
+        </div>
+      </div>
+      <p class="tos-text" style="margin-top:20px;">
+        Grounds for termination include — but are not limited to — fraudulent activity, scam listings, escrow manipulation, harassment of other users, unauthorized access to portal systems, redistribution of Study Hub materials for profit, and any conduct deemed to violate the spirit of the <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> National Asset mission.
+      </p>
+      <div class="warning-box">
+        <span class="warning-icon">🚫</span>
+        <div class="warning-text">
+          <strong>No Appeal Window for Fraud:</strong> Accounts terminated for confirmed fraudulent activity are permanently banned with no reinstatement pathway. All funds held in escrow at time of termination will be refunded to the counterparty.
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 7 -->
+    <div class="tos-section fade-up" id="s7">
+      <div class="section-header">
+        <span class="section-number">SECTION 07</span>
+        <h2 class="section-heading">Limitation of Liability</h2>
+      </div>
+      <p class="tos-text">
+        <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> ICOS provides a technology platform for peer-to-peer connection between Nigerian students and campus stakeholders. While we vet users aggressively and maintain robust security infrastructure, the following limitations apply:
+      </p>
+      <ul class="clause-list">
+        <li class="clause-item">
+          <div class="clause-icon" style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);">⚡</div>
+          <div class="clause-body">
+            <div class="clause-title">Platform as Intermediary</div>
+            <div class="clause-desc">UniVerse ICOS is not a party to agreements between students. We are not liable for the individual actions, decisions, or conduct of users beyond the protections explicitly provided by our Escrow system.</div>
+          </div>
+        </li>
+        <li class="clause-item">
+          <div class="clause-icon" style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);">🔧</div>
+          <div class="clause-body">
+            <div class="clause-title">Service Availability</div>
+            <div class="clause-desc">We do not guarantee uninterrupted, error-free access to the platform. Scheduled maintenance, infrastructure issues, or force majeure events may cause temporary downtime without liability to UniVerse ICOS.</div>
+          </div>
+        </li>
+        <li class="clause-item">
+          <div class="clause-icon" style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);">📍</div>
+          <div class="clause-body">
+            <div class="clause-title">Third-Party Services</div>
+            <div class="clause-desc">UniVerse ICOS integrates third-party payment processors (Paystack, Flutterwave) and infrastructure providers (Supabase). We are not liable for outages, errors, or data incidents originating from these third-party services.</div>
+          </div>
+        </li>
+      </ul>
+      <div class="liability-note">
+        <strong>Maximum Liability Cap:</strong> To the fullest extent permitted by Nigerian law, the total liability of UniVerse ICOS Limited to any user for any claim arising from platform use shall not exceed the total transaction fees paid by that user in the 90 days preceding the claim.
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div style="margin-bottom:16px;">
+    <span class="brand" style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;letter-spacing:-0.02em;">
+      <span class="uni">Uni</span><span class="verse">Verse</span>
+    </span>
+    <span style="color:var(--text-muted);font-size:0.85rem;margin-left:8px;">ICOS Limited</span>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:20px;">
+    <a href="UniVerse-waitlist.html" class="footer-link">Home</a>
+    <span class="footer-sep">·</span>
+    <a href="privacy.html" class="footer-link">Privacy Policy</a>
+    <span class="footer-sep">·</span>
+    <span class="footer-link" style="color:rgba(96,165,250,0.6);">Terms of Service</span>
+    <span class="footer-sep">·</span>
+    <a href="contact.html" class="footer-link">Contact</a>
+    <span class="footer-sep">·</span>
+    <a href="https://wa.me/2347079257806" target="_blank" rel="noopener" class="footer-link">💬 WhatsApp</a>
+  </div>
+  <p style="font-size:0.75rem;color:rgba(200,210,255,0.18);">© 2026 <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> ICOS Limited. All rights reserved. — Not yet affiliated with any university. In Development.</p>
+</footer>
+
+<script>
+(function() {
+  const container = document.getElementById('stars');
+  for (let i = 0; i < 90; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2 + 0.5;
+    s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${2+Math.random()*4}s;--delay:${Math.random()*6}s;`;
+    container.appendChild(s);
+  }
+})();
+
+window.addEventListener('scroll', () => {
+  const el = document.getElementById('progress-bar');
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  el.style.width = Math.min(100, pct) + '%';
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 70);
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+const sections = document.querySelectorAll('[id^="s"]');
+const tocLinks = document.querySelectorAll('.toc-link');
+const highlightToc = () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY + 130 >= s.offsetTop) current = s.id; });
+  tocLinks.forEach(link => { link.classList.toggle('active', link.getAttribute('href') === '#' + current); });
+};
+window.addEventListener('scroll', highlightToc);
+highlightToc();
+
+document.querySelectorAll('.toc-link').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>

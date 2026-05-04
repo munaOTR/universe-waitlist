@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UniVerse ICOS — The Operating System for Your Campus Life</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --indigo-deep: #0a0b1a;
+    --space-black: #050610;
+    --electric-blue: #3b82f6;
+    --blue-glow: #60a5fa;
+    --neon-violet: #a855f7;
+    --violet-glow: #c084fc;
+    --glass-bg: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.1);
+    --glass-hover: rgba(255,255,255,0.08);
+    --text-primary: #f0f4ff;
+    --text-muted: rgba(200,210,255,0.65);
+    --verse-green: #16C760;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--space-black);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,h2,h3,h4 { font-family: 'Syne', sans-serif; }
+
+  /* UniVerse brand split styling */
+  .brand { font-family: 'Syne', sans-serif; font-weight: 800; }
+  .brand .uni { color: #ffffff; }
+  .brand .verse { color: #16C760; }
+
+  /* === BACKGROUND LAYERS === */
+  .bg-scene {
+    position: fixed; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(88,80,236,0.28) 0%, transparent 65%),
+                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(168,85,247,0.14) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 40% at 10% 60%, rgba(59,130,246,0.12) 0%, transparent 55%),
+                var(--space-black);
+  }
+
+  /* Stars */
+  .stars { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; contain: layout style paint; }
+  .star {
+    position: absolute; border-radius: 50%;
+    background: white;
+    animation: twinkle var(--dur, 3s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+    will-change: opacity;
+  }
+  @keyframes twinkle {
+    0%,100% { opacity: 0.1; }
+    50% { opacity: 0.6; }
+  }
+
+  /* Opaque campus background overlay */
+  .campus-overlay {
+    position: fixed; inset: 0; z-index: 0;
+    background-image: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1600&q=80');
+    background-size: cover;
+    background-position: center 30%;
+    opacity: 0.045;
+    filter: grayscale(100%);
+    will-change: auto;
+  }
+
+  /* === GLASSMORPHISM === */
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    contain: layout style paint;
+  }
+
+  .glass-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.02) 100%);
+    backdrop-filter: blur(15px) saturate(1.3);
+    -webkit-backdrop-filter: blur(15px) saturate(1.3);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 20px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    will-change: transform;
+    contain: layout style paint;
+  }
+
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .glass-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(168,85,247,0.35);
+    box-shadow: 0 12px 30px rgba(88,80,236,0.2);
+  }
+  .glass-card:hover::before { opacity: 1; }
+
+  /* === ORBIT ANIMATION === */
+  .orbit-container {
+    width: 320px; height: 320px;
+    position: relative;
+    margin: 0 auto;
+    transform-style: preserve-3d;
+  }
+
+  .orbit-core {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #60a5fa, #3b82f6 50%, #1d4ed8);
+    box-shadow: 0 0 30px rgba(59,130,246,0.5), 0 0 60px rgba(59,130,246,0.25);
+    animation: pulse-core 3s ease-in-out infinite;
+    z-index: 10;
+    display: flex; align-items: center; justify-content: center;
+    will-change: transform;
+  }
+
+  @keyframes pulse-core {
+    0%,100% { box-shadow: 0 0 30px rgba(59,130,246,0.5), 0 0 60px rgba(59,130,246,0.25); transform: translate(-50%,-50%) scale(1); }
+    50% { box-shadow: 0 0 45px rgba(59,130,246,0.7), 0 0 90px rgba(59,130,246,0.3); transform: translate(-50%,-50%) scale(1.05); }
+  }
+
+  .orbit-ring {
+    position: absolute; top: 50%; left: 50%;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.12);
+    transform-origin: center;
+    animation: spin3d linear infinite;
+    will-change: transform;
+    contain: layout style paint;
+  }
+  .orbit-ring-1 { width: 160px; height: 160px; margin: -80px 0 0 -80px; animation-duration: 12s; border-color: rgba(59,130,246,0.3); }
+  .orbit-ring-2 { width: 230px; height: 230px; margin: -115px 0 0 -115px; animation-duration: 20s; animation-direction: reverse; border-color: rgba(168,85,247,0.25); }
+  .orbit-ring-3 { width: 300px; height: 300px; margin: -150px 0 0 -150px; animation-duration: 28s; border-color: rgba(99,102,241,0.18); }
+
+  @keyframes spin3d {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .orbit-dot {
+    position: absolute;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    top: -7px; left: 50%; margin-left: -7px;
+  }
+  .dot-blue { background: radial-gradient(circle at 35% 35%, #93c5fd, #3b82f6); box-shadow: 0 0 10px rgba(59,130,246,0.8); }
+  .dot-violet { background: radial-gradient(circle at 35% 35%, #d8b4fe, #a855f7); box-shadow: 0 0 10px rgba(168,85,247,0.8); }
+  .dot-cyan { background: radial-gradient(circle at 35% 35%, #67e8f9, #06b6d4); box-shadow: 0 0 10px rgba(6,182,212,0.8); }
+  .dot-pink { background: radial-gradient(circle at 35% 35%, #fda4af, #f43f5e); box-shadow: 0 0 10px rgba(244,63,94,0.8); }
+  .dot-green { background: radial-gradient(circle at 35% 35%, #86efac, #22c55e); box-shadow: 0 0 10px rgba(34,197,94,0.8); }
+  .dot-amber { background: radial-gradient(circle at 35% 35%, #fde68a, #f59e0b); box-shadow: 0 0 10px rgba(245,158,11,0.8); }
+
+  /* === NAVBAR === */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 20px 40px;
+    background: rgba(5,6,16,0.5);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-badge {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+    color: rgba(192,132,252,0.9);
+    border: 1px solid rgba(168,85,247,0.3);
+    padding: 4px 10px; border-radius: 20px;
+    background: rgba(168,85,247,0.08);
+  }
+
+  /* === HERO === */
+  .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 120px 20px 80px; text-align: center; position: relative; }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em;
+    color: rgba(192,132,252,0.9); text-transform: uppercase;
+    border: 1px solid rgba(168,85,247,0.3);
+    background: rgba(168,85,247,0.08);
+    padding: 6px 16px; border-radius: 24px;
+    margin-bottom: 28px;
+    animation: fadeSlideDown 0.8s ease both;
+  }
+  .hero-tag-dot { width: 6px; height: 6px; border-radius: 50%; background: #a855f7; box-shadow: 0 0 8px #a855f7; animation: blink 1.5s ease infinite; }
+  @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+
+  .hero-headline {
+    font-size: clamp(2.8rem, 6vw, 5.2rem);
+    font-weight: 800; line-height: 1.08;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+    animation: fadeSlideDown 0.8s 0.1s ease both;
+  }
+
+  .hero-sub {
+    max-width: 680px; font-size: 1.1rem; line-height: 1.7;
+    color: var(--text-muted); margin-bottom: 48px;
+    animation: fadeSlideDown 0.8s 0.2s ease both;
+  }
+  .hero-sub .highlight { color: #93c5fd; font-weight: 500; }
+
+  /* === FORM === */
+  .waitlist-form {
+    display: flex; flex-direction: column; align-items: center; gap: 16px;
+    width: 100%; max-width: 520px;
+    animation: fadeSlideDown 0.8s 0.3s ease both;
+  }
+  .input-wrapper { width: 100%; position: relative; }
+  .email-input {
+    width: 100%;
+    background: rgba(16,24,38,0.92);
+    border: 1px solid rgba(22,199,96,0.18);
+    border-radius: 14px;
+    padding: 18px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem; color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    backdrop-filter: blur(10px);
+  }
+  .email-input::placeholder { color: rgba(22,199,96,0.35); }
+  .email-input:focus {
+    border-color: #16C760;
+    background: rgba(16,24,38,0.98);
+    box-shadow: 0 0 0 3px rgba(22,199,96,0.1);
+  }
+
+  .cta-btn {
+    width: 100%;
+    padding: 18px 40px;
+    border-radius: 14px; border: none; cursor: pointer;
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem; font-weight: 700;
+    letter-spacing: 0.04em;
+    background: linear-gradient(135deg, #16C760, #1FE870 100%);
+    color: white;
+    position: relative; overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 8px 24px rgba(22,199,96,0.15);
+    will-change: transform;
+  }
+  .cta-btn::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #1FE870, #16C760);
+    opacity: 0; transition: opacity 0.2s ease;
+  }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(22,199,96,0.25); }
+  .cta-btn:hover::before { opacity: 1; }
+  .cta-btn span { position: relative; z-index: 1; }
+  .cta-btn:active { transform: translateY(0); }
+
+  .success-msg {
+    display: none;
+    background: rgba(34,197,94,0.1);
+    border: 1px solid rgba(34,197,94,0.3);
+    color: #86efac; border-radius: 12px;
+    padding: 14px 24px; font-size: 0.95rem;
+    width: 100%; text-align: center;
+  }
+  .error-msg {
+    display: none;
+    background: rgba(244,63,94,0.1);
+    border: 1px solid rgba(244,63,94,0.3);
+    color: #fda4af; border-radius: 12px;
+    padding: 14px 24px; font-size: 0.95rem;
+    width: 100%; text-align: center;
+  }
+
+  /* === COUNTER === */
+  .founders-counter {
+    margin-top: 56px;
+    display: flex; align-items: center; gap: 16px;
+    animation: fadeSlideDown 0.8s 0.4s ease both;
+  }
+  .counter-avatars { display: flex; }
+  .counter-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 2px solid var(--space-black);
+    margin-left: -8px;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.55rem; font-weight: 700; color: white;
+    font-family: 'Syne', sans-serif;
+  }
+  .counter-avatar:first-child { margin-left: 0; }
+  .ca-2 { background: linear-gradient(135deg, #0ea5e9, #3b82f6); }
+  .ca-3 { background: linear-gradient(135deg, #a855f7, #ec4899); }
+  .ca-4 { background: linear-gradient(135deg, #f59e0b, #ef4444); }
+  .ca-5 { background: linear-gradient(135deg, #10b981, #06b6d4); }
+  .counter-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; }
+  .counter-text strong { color: var(--text-primary); font-weight: 600; }
+
+  /* === SECTION === */
+  section { position: relative; z-index: 2; padding: 100px 20px; }
+  .section-tag {
+    display: inline-block; font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(96,165,250,0.9);
+    border: 1px solid rgba(59,130,246,0.25);
+    background: rgba(59,130,246,0.07);
+    padding: 5px 14px; border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800; line-height: 1.15;
+    letter-spacing: -0.025em; margin-bottom: 16px;
+  }
+  .section-sub { font-size: 1rem; color: var(--text-muted); max-width: 560px; line-height: 1.7; }
+
+  /* === PILLARS GRID === */
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px; margin-top: 56px;
+  }
+  .pillar-card { padding: 32px 28px; position: relative; }
+  .pillar-icon-wrap {
+    width: 52px; height: 52px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px; font-size: 1.5rem; position: relative;
+  }
+  .pillar-number {
+    position: absolute; top: 24px; right: 24px;
+    font-family: 'Syne', sans-serif;
+    font-size: 3rem; font-weight: 800;
+    color: rgba(255,255,255,0.04); line-height: 1;
+  }
+  .pillar-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem; font-weight: 700;
+    margin-bottom: 10px; color: var(--text-primary);
+  }
+  .pillar-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
+  .pillar-tag {
+    display: inline-block; margin-top: 16px;
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
+    padding: 4px 10px; border-radius: 20px;
+  }
+
+  /* === COMPARISON === */
+  .comparison-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    margin-top: 56px; border-radius: 24px; overflow: hidden;
+  }
+  @media (max-width: 768px) { .comparison-grid { grid-template-columns: 1fr; } }
+
+  .comp-col { padding: 48px 40px; }
+  .comp-col-old {
+    background: rgba(239,68,68,0.04);
+    border: 1px solid rgba(239,68,68,0.12);
+    border-radius: 24px 0 0 24px;
+  }
+  .comp-col-new {
+    background: rgba(59,130,246,0.05);
+    border: 1px solid rgba(59,130,246,0.15);
+    border-radius: 0 24px 24px 0;
+    position: relative; overflow: hidden;
+  }
+  .comp-col-new::after {
+    content: 'UNIVERSE'; position: absolute;
+    right: -30px; top: 50%; transform: translateY(-50%) rotate(90deg);
+    font-family: 'Syne', sans-serif;
+    font-size: 4rem; font-weight: 800;
+    color: rgba(59,130,246,0.05);
+    letter-spacing: 0.1em; pointer-events: none;
+  }
+  .comp-head {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+  .comp-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px; }
+  .comp-icon {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; flex-shrink: 0; margin-top: 2px;
+  }
+  .icon-bad { background: rgba(239,68,68,0.12); }
+  .icon-good { background: rgba(34,197,94,0.12); }
+  .comp-item-text { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+  .comp-item-text strong { color: var(--text-primary); display: block; font-weight: 500; font-size: 0.95rem; margin-bottom: 2px; }
+
+  /* === STATS BAR === */
+  .stats-bar {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 20px; overflow: hidden;
+    margin-top: 80px;
+  }
+  @media (max-width: 640px) { .stats-bar { grid-template-columns: 1fr 1fr; } }
+  .stat-cell {
+    background: rgba(5,6,16,0.8);
+    backdrop-filter: blur(10px);
+    padding: 32px 28px; text-align: center;
+  }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem; font-weight: 800;
+    background: linear-gradient(135deg, #60a5fa, #c084fc);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 6px; letter-spacing: 0.05em; }
+
+  /* === FOOTER === */
+  footer {
+    position: relative; z-index: 2;
+    padding: 60px 20px 40px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+  }
+
+  /* === GLOW DIVIDERS === */
+  .glow-line {
+    height: 1px; width: 100%;
+    background: linear-gradient(90deg, transparent, rgba(168,85,247,0.4) 30%, rgba(59,130,246,0.5) 70%, transparent);
+    margin: 0 auto; max-width: 800px;
+  }
+
+  /* === ANIMATIONS === */
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  #progress-bar {
+    position: fixed; top: 0; left: 0; height: 2px; z-index: 999;
+    background: linear-gradient(90deg, #3b82f6, #a855f7);
+    width: 0%; transition: width 0.08s linear;
+    will-change: width;
+  }
+
+  .nat-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, rgba(22,199,96,0.13), rgba(22,199,96,0.08));
+    border: 1px solid rgba(22,199,96,0.32);
+    padding: 8px 18px; border-radius: 24px;
+    font-size: 0.78rem; font-weight: 600;
+    color: #16C760; letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 24px;
+    contain: layout style;
+  }
+
+  .grid-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse at center, black 10%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 10%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .container { max-width: 1160px; margin: 0 auto; }
+
+  #toast {
+    position: fixed; bottom: 30px; right: 30px; z-index: 9999;
+    background: rgba(34,197,94,0.12);
+    border: 1px solid rgba(34,197,94,0.35);
+    backdrop-filter: blur(12px);
+    border-radius: 14px; padding: 16px 24px;
+    color: #86efac; font-size: 0.9rem;
+    transform: translateY(100px); opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    max-width: 340px;
+    will-change: transform, opacity;
+  }
+  #toast.show { transform: translateY(0); opacity: 1; }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .comp-col-old { border-radius: 24px 24px 0 0; }
+    .comp-col-new { border-radius: 0 0 24px 24px; }
+    .pillars-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<div class="bg-scene"></div>
+<div class="campus-overlay"></div>
+<div class="stars" id="stars"></div>
+<div class="grid-bg" style="position:fixed;"></div>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="brand" style="font-size:1.4rem;letter-spacing:-0.02em;">
+    <span class="uni">Uni</span><span class="verse">Verse</span><span style="color:rgba(22,199,96,0.6)">.</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <div class="nav-badge">ICOS</div>
+    <a href="#waitlist" style="background:linear-gradient(135deg,#3b82f6,#a855f7);color:white;padding:10px 22px;border-radius:10px;font-family:'Syne',sans-serif;font-size:0.82rem;font-weight:700;letter-spacing:0.04em;text-decoration:none;transition:all 0.3s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Join Waitlist</a>
+  </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section class="hero" id="top" style="z-index:2;">
+
+  <!-- 3D ORBIT -->
+  <div style="margin-bottom:48px;" class="fade-up visible">
+    <div class="orbit-container">
+      <div class="orbit-core">
+        <div style="font-family:'Syne',sans-serif;font-size:10px;font-weight:700;text-align:center;line-height:1.4;z-index:11;position:relative;">
+          <span style="color:#ffffff;">Uni</span><span style="color:#16C760;">Verse</span><br>
+          <span style="color:rgba(255,255,255,0.7);font-size:8px;letter-spacing:0.1em;">ICOS</span>
+        </div>
+      </div>
+      <div class="orbit-ring orbit-ring-1"></div>
+      <div class="orbit-ring orbit-ring-2">
+        <div class="orbit-dot dot-violet"></div>
+        <div class="orbit-dot dot-cyan" style="top:auto;bottom:-7px;left:50%;margin-left:-7px;"></div>
+      </div>
+      <div class="orbit-ring orbit-ring-3">
+        <div class="orbit-dot dot-pink"></div>
+        <div class="orbit-dot dot-green" style="top:auto;bottom:-7px;"></div>
+        <div class="orbit-dot dot-amber" style="top:50%;left:-7px;margin-left:0;margin-top:-7px;"></div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:12px;">
+      <div style="font-size:0.7rem;color:var(--text-muted);letter-spacing:0.15em;text-transform:uppercase;">Connecting The Smartest Hustlers</div>
+    </div>
+  </div>
+
+  <div class="nat-badge">
+    🇳🇬 &nbsp; Nigeria's First Integrated Campus Operating System
+  </div>
+
+  <div class="hero-tag">
+    <div class="hero-tag-dot"></div>
+    Now Accepting Founding Members · BETA 2026
+  </div>
+
+  <h1 class="hero-headline">
+    The Operating System<br>
+    for Your Campus Life.
+  </h1>
+
+  <p class="hero-sub">
+    <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> ICOS is a <span class="highlight">national asset</span> engineered to fully digitize the Nigerian university experience —
+    from securing your hostel to monetizing your talent, running errands to acing your exams.
+    One platform. Every student. Every campus.
+  </p>
+
+  <!-- WAITLIST FORM -->
+  <div class="waitlist-form" id="waitlist">
+    <div class="input-wrapper">
+      <input 
+        type="email" 
+        id="email-input"
+        class="email-input"
+        placeholder="Enter your institutional email (e.g. name@unilag.edu.ng)"
+        autocomplete="email"
+      >
+    </div>
+    <button class="cta-btn" onclick="handleJoin()">
+      <span>⚡ Join the Verse</span>
+    </button>
+    <div id="success-msg" class="success-msg">
+      ✅ You're on the list! Welcome to <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span>. We'll notify you when we launch.
+    </div>
+    <div id="error-msg" class="error-msg">
+      ⚠️ Please enter a valid institutional email address.
+    </div>
+  </div>
+
+  <!-- FOUNDERS COUNTER -->
+  <div class="founders-counter">
+    <div class="counter-avatars">
+      <div class="counter-avatar">UNN</div>
+      <div class="counter-avatar ca-2">UAES</div>
+      <div class="counter-avatar ca-3">UNILAG</div>
+      <div class="counter-avatar ca-4">FUTA</div>
+      <div class="counter-avatar ca-5">ABU</div>
+    </div>
+    <div class="counter-text">
+      <strong>Join 500+ Students</strong> Leading the Revolution<br>
+      <span style="font-size:0.78rem;">From UI, UNILAG, FUTA, ABU & more universities</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- STATS -->
+<div style="position:relative;z-index:2;padding:0 20px 60px;">
+  <div class="container">
+    <div class="stats-bar fade-up">
+      <div class="stat-cell">
+        <div class="stat-num">40+</div>
+        <div class="stat-label">Nigerian Universities</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">7</div>
+        <div class="stat-label">Core Campus Pillars</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">2M+</div>
+        <div class="stat-label">Target Students</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">₦0</div>
+        <div class="stat-label">Cost to Join the Verse</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GLOW DIVIDER -->
+<div style="padding:0 20px;position:relative;z-index:2;">
+  <div class="glow-line"></div>
+</div>
+
+<!-- 7 PILLARS SECTION -->
+<section style="z-index:2;">
+  <div class="container">
+    <div style="text-align:center;" class="fade-up">
+      <div class="section-tag">The 7 Pillars</div>
+      <h2 class="section-title">One Platform. <span style="color:#16C760;">Every Need.</span></h2>
+      <p class="section-sub" style="margin:0 auto;">Every frustration of Nigerian campus life — solved, automated, and secured inside one ultra-fast app.</p>
+    </div>
+
+    <div class="pillars-grid">
+
+      <!-- PILLAR 1: THE ORBIT -->
+      <div class="glass-card pillar-card fade-up">
+        <div class="pillar-number">01</div>
+        <div class="pillar-icon-wrap" style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);">🌐</div>
+        <div class="pillar-name">The Orbit</div>
+        <p class="pillar-desc">Your personal mission control. The central dashboard that unifies every campus activity, notification, and service into one intelligent, real-time hub. Your academic universe, socially orbiting around you.</p>
+        <span class="pillar-tag" style="background:rgba(59,130,246,0.1);color:#93c5fd;border:1px solid rgba(59,130,246,0.2);">Verse Dashboard</span>
+      </div>
+
+      <!-- PILLAR 2: ERRAND PAGE -->
+      <div class="glass-card pillar-card fade-up">
+        <div class="pillar-number">02</div>
+        <div class="pillar-icon-wrap" style="background:rgba(168,85,247,0.12);border:1px solid rgba(168,85,247,0.2);">📦</div>
+        <div class="pillar-name">Errand Page</div>
+        <p class="pillar-desc">Secure peer-to-peer campus delivery powered by smart escrow. Post an errand, a verified runner picks it up. Funds only release on confirmation. Zero risk, full trust — finally.</p>
+        <span class="pillar-tag" style="background:rgba(168,85,247,0.1);color:#d8b4fe;border:1px solid rgba(168,85,247,0.2);">Escrow Protected</span>
+      </div>
+
+      <!-- PILLAR 3: LODGE FINDER -->
+      <div class="glass-card pillar-card fade-up">
+        <div class="pillar-number">03</div>
+        <div class="pillar-icon-wrap" style="background:rgba(6,182,212,0.12);border:1px solid rgba(6,182,212,0.2);">🏠</div>
+        <div class="pillar-name">Lodge Finder</div>
+        <p class="pillar-desc">Verified hostels, real photos, honest reviews. Find your perfect off-campus room or match with a compatible roommate using our compatibility engine. No more predatory agents.</p>
+        <span class="pillar-tag" style="background:rgba(6,182,212,0.1);color:#67e8f9;border:1px solid rgba(6,182,212,0.2);">Verified lodges + Roommate Match</span>
+      </div>
+
+      <!-- PILLAR 4: SKILL PLACE -->
+      <div class="glass-card pillar-card fade-up">
+        <div class="pillar-number">04</div>
+        <div class="pillar-icon-wrap" style="background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.2);">💡</div>
+        <div class="pillar-name">Skill Place</div>
+        <p class="pillar-desc">Every student has a talent. Barbing, writing, graphics, coding, music — monetize it. Your skill becomes a verified service on campus. Build a freelance brand before you graduate.</p>
+        <span class="pillar-tag" style="background:rgba(245,158,11,0.1);color:#fde68a;border:1px solid rgba(245,158,11,0.2);">Talent Economy</span>
+      </div>
+
+      <!-- PILLAR 5: MARKET PLACE -->
+      <div class="glass-card pillar-card fade-up">
+        <div class="pillar-number">05</div>
+        <div class="pillar-icon-wrap" style="background:rgba(244,63,94,0.12);border:1px solid rgba(244,63,94,0.2);">🛍️</div>
+        <div class="pillar-name">Market Place — Shop IT</div>
+        <p class="pillar-desc">A full multi-vendor e-commerce hub built for campus life. Food, stationery, gadgets, fashion — all from verified student and local vendors. Fast delivery. Campus-native checkout.</p>
+        <span class="pillar-tag" style="background:rgba(244,63,94,0.1);color:#fda4af;border:1px solid rgba(244,63,94,0.2);">Multi-Vendor Hub</span>
+      </div>
+
+      <!-- PILLAR 6: STUDY HUB -->
+      <div class="glass-card pillar-card fade-up">
+        <div class="pillar-number">06</div>
+        <div class="pillar-icon-wrap" style="background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.2);">📚</div>
+        <div class="pillar-name">Study Hub</div>
+        <p class="pillar-desc">Access to all educational assets. Conquer the courses that fail freshers: GST 111, STA 111, MTH 101 and more. AI-powered past questions, bite-sized explanations, and peer study rooms. Study smarter, not harder.</p>
+        <span class="pillar-tag" style="background:rgba(34,197,94,0.1);color:#86efac;border:1px solid rgba(34,197,94,0.2);">Built in AI study tools and Exam Prep</span>
+      </div>
+
+      <!-- PILLAR 7: PREMIUM DASHBOARD -->
+      <div class="glass-card pillar-card fade-up" style="background:linear-gradient(135deg,rgba(88,80,236,0.08),rgba(168,85,247,0.06));">
+        <div class="pillar-number">07</div>
+        <div class="pillar-icon-wrap" style="background:linear-gradient(135deg,rgba(99,102,241,0.2),rgba(168,85,247,0.2));border:1px solid rgba(168,85,247,0.3);">👑</div>
+        <div class="pillar-name">Premium Dashboard Access</div>
+        <p class="pillar-desc">Single sign-on across every university portal — JAMB, WAEC, school results, payment systems, and timetables. Plus real-time academic alerts, fee reminders, and administration updates. Zero portal-hopping.</p>
+        <span class="pillar-tag" style="background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(168,85,247,0.15));color:#d8b4fe;border:1px solid rgba(168,85,247,0.3);">Unified Portal SSO</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GLOW DIVIDER -->
+<div style="padding:0 20px;position:relative;z-index:2;">
+  <div class="glow-line"></div>
+</div>
+
+<!-- OLD WAYS VS UNIVERSE -->
+<section style="z-index:2;">
+  <div class="container">
+    <div style="text-align:center;" class="fade-up">
+      <div class="section-tag" style="color:rgba(192,132,252,0.9);border-color:rgba(168,85,247,0.25);background:rgba(168,85,247,0.07);">The Paradigm Shift</div>
+      <h2 class="section-title">Then vs. <span style="color:#16C760;">Now.</span></h2>
+      <p class="section-sub" style="margin:0 auto;">The Nigerian campus experience has been broken for decades. <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> doesn't patch it — we replace it entirely.</p>
+    </div>
+
+    <div class="comparison-grid fade-up" style="margin-top:56px;">
+
+      <!-- OLD WAYS -->
+      <div class="comp-col comp-col-old">
+        <div class="comp-head" style="color:rgba(252,165,165,0.8);">
+          ✕ &nbsp; The Old Ways
+        </div>
+        <div class="comp-item">
+          <div class="comp-icon icon-bad">😰</div>
+          <div class="comp-item-text">
+            <strong>Manual Room Hunting</strong>
+            Walking street to street, trusting strangers, paying agents that ghost you after the fee.
+          </div>
+        </div>
+        <div class="comp-item">
+          <div class="comp-icon icon-bad">⚠️</div>
+          <div class="comp-item-text">
+            <strong>High-Risk Errands</strong>
+            Trusting a classmate with your cash and hoping they come back. No accountability, no refund.
+          </div>
+        </div>
+        <div class="comp-item">
+          <div class="comp-icon icon-bad">📄</div>
+          <div class="comp-item-text">
+            <strong>Outdated Study Materials</strong>
+            Photocopied notes from 2011, handwritten textbooks, and zero past question structure.
+          </div>
+        </div>
+        <div class="comp-item">
+          <div class="comp-icon icon-bad">🌐</div>
+          <div class="comp-item-text">
+            <strong>Fragmented University Portals</strong>
+            Seven different login pages, none of which work on mobile, constantly timing out during exams week.
+          </div>
+        </div>
+        <div class="comp-item">
+          <div class="comp-icon icon-bad">💔</div>
+          <div class="comp-item-text">
+            <strong>Wasted Talents</strong>
+            Brilliant students with real skills but zero platform to reach paying customers on campus.
+          </div>
+        </div>
+      </div>
+
+      <!-- UNIVERSE SOLUTION -->
+      <div class="comp-col comp-col-new">
+        <div class="comp-head" style="color:rgba(134,239,172,0.9);">
+          ✦ &nbsp; The <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> Solution
+        </div>
+        <div class="comp-item">
+          <div class="comp-icon icon-good">🏠</div>
+          <div class="comp-item-text">
+            <strong>Verified Lodge Finder</strong>
+            Real photos, GPS-verified hostels, ratings, and roommate matching. Move in with confidence.
+          </div>
+        </div>
+        <div class="comp-item">
+          <div class="comp-icon icon-good">🔐</div>
+          <div class="comp-item-text">
+            <strong>Escrow-Protected Errands</strong>
+            Smart escrow holds your funds until the job is confirmed complete. Every. Single. Time.
+          </div>
+        </div>
+        <div class="comp-item">
+          <div class="comp-icon icon-good">🤖</div>
+          <div class="comp-item-text">
+            <strong>AI-Powered Study Hub</strong>
+            Structured exam prep, AI explanations, and live peer study rooms built for Nigerian curricula.
+          </div>
+        </div>
+        <div class="comp-item">
+          <div class="comp-icon icon-good">⚡</div>
+          <div class="comp-item-text">
+            <strong>Unified Campus Dashboard</strong>
+            One login. All portals. Real-time alerts for results, fees, and timetable changes.
+          </div>
+        </div>
+        <div class="comp-item">
+          <div class="comp-icon icon-good">💰</div>
+          <div class="comp-item-text">
+            <strong>Monetize Your Skills</strong>
+            Skill Place turns your talent into income before you even write your final exams.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA SECTION -->
+<section style="z-index:2;text-align:center;">
+  <div class="container">
+    <div class="glass" style="padding:72px 40px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:500px;height:300px;background:radial-gradient(ellipse at center,rgba(88,80,236,0.25),transparent 70%);pointer-events:none;"></div>
+      <div class="fade-up">
+        <div style="font-size:3rem;margin-bottom:16px;">🚀</div>
+        <h2 class="section-title" style="margin-bottom:16px;">
+          Ready to Join the<br><span style="color:#16C760;">Digital Campus Revolution?</span>
+        </h2>
+        <p style="color:var(--text-muted);font-size:1rem;max-width:520px;margin:0 auto 40px;line-height:1.7;">
+          <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> ICOS is coming to your university. Secure your early adopter spot today — 
+          early adopters get <strong style="color:#93c5fd;">lifetime premium access</strong> and exclusive beta features.
+        </p>
+
+        <div class="waitlist-form" style="margin:0 auto;" id="waitlist2">
+          <div class="input-wrapper">
+            <input type="email" id="email-input-2" class="email-input" placeholder="Enter your institutional email">
+          </div>
+          <button class="cta-btn" onclick="handleJoin2()">
+            <span>🎓 Secure My Spot</span>
+          </button>
+          <div id="success-msg-2" class="success-msg">
+            ✅ You're in! Welcome, Early Adopter. The revolution starts with you.
+          </div>
+        </div>
+
+        <div style="margin-top:32px;font-size:0.8rem;color:var(--text-muted);">
+          🔒 &nbsp;No spam. No fees. Just a seat at the table when we launch.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div style="font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;margin-bottom:12px;">
+    <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span>
+    <span style="color:var(--text-muted);font-size:1rem;font-weight:400;margin-left:8px;">ICOS</span>
+  </div>
+  <p style="color:var(--text-muted);font-size:0.85rem;max-width:480px;margin:0 auto 24px;line-height:1.7;">
+    Digitizing the Nigerian university experience. One campus at a time.
+    Built with pride in Nigeria 🇳🇬
+  </p>
+  <div style="display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:32px;">
+    <a href="privacy.html" style="font-size:0.78rem;color:rgba(200,210,255,0.35);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#16C760'" onmouseout="this.style.color='rgba(200,210,255,0.35)'">Privacy Policy</a>
+    <span style="color:rgba(255,255,255,0.1);">·</span>
+    <a href="terms.html" style="font-size:0.78rem;color:rgba(200,210,255,0.35);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#60a5fa'" onmouseout="this.style.color='rgba(200,210,255,0.35)'">Terms of Service</a>
+    <span style="color:rgba(255,255,255,0.1);">·</span>
+    <a href="contact.html" style="font-size:0.78rem;color:rgba(200,210,255,0.35);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#86efac'" onmouseout="this.style.color='rgba(200,210,255,0.35)'">Contact Team</a>
+    <span style="color:rgba(255,255,255,0.1);">·</span>
+    <a href="https://wa.me/2347079257806" target="_blank" rel="noopener" style="font-size:0.78rem;color:rgba(200,210,255,0.35);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:5px;" onmouseover="this.style.color='#86efac'" onmouseout="this.style.color='rgba(200,210,255,0.35)'">💬 WhatsApp</a>
+  </div>
+  <p style="font-size:0.75rem;color:rgba(200,210,255,0.2);">© 2026 <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> ICOS. All rights reserved. — Not yet affiliated with any university. In Development.</p>
+</footer>
+
+<!-- TOAST -->
+<div id="toast">
+  ✅ You've been added to the waitlist!<br>
+  <span style="font-size:0.8rem;opacity:0.8;">Check your inbox for a confirmation.</span>
+</div>
+
+<script>
+(function() {
+  const container = document.getElementById('stars');
+  for (let i = 0; i < 40; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2 + 0.8;
+    s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${3+Math.random()*3}s;--delay:${Math.random()*3}s;opacity:${0.15+Math.random()*0.3};`;
+    container.appendChild(s);
+  }
+})();
+
+let scrollTicking = false;
+window.addEventListener('scroll', () => {
+  if (!scrollTicking) {
+    requestAnimationFrame(() => {
+      const el = document.getElementById('progress-bar');
+      const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+      el.style.width = Math.min(100, pct) + '%';
+      scrollTicking = false;
+    });
+    scrollTicking = true;
+  }
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 60);
+    }
+  });
+}, { threshold: 0.05, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.innerHTML = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 4500);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SUPABASE SETUP — 3 steps, takes 5 minutes, completely free
+   ───────────────────────────────────────────────────────────────
+   STEP 1 ▸ Go to https://supabase.com → create a free account
+   STEP 2 ▸ Create a new project → name it "universe-icos"
+   STEP 3 ▸ Go to SQL Editor and run this SQL to create your table:
+
+   CREATE TABLE waitlist (
+     id         BIGSERIAL PRIMARY KEY,
+     email      TEXT UNIQUE NOT NULL,
+     university TEXT,
+     source     TEXT DEFAULT 'landing_page',
+     joined_at  TIMESTAMPTZ DEFAULT NOW()
+   );
+   ALTER TABLE waitlist ENABLE ROW LEVEL SECURITY;
+   CREATE POLICY "public_insert" ON waitlist FOR INSERT WITH CHECK (true);
+
+   STEP 4 ▸ Go to Settings → API → copy your Project URL and anon key below
+   STEP 5 ▸ Open universe-admin.html with your SERVICE ROLE key to monitor signups
+   ═══════════════════════════════════════════════════════════════ */
+
+const SUPABASE_URL      = 'https://loppfyncbehifnspupwa.supabase.co'; // ← paste here
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxvcHBmeW5jYmVoaWZuc3B1cHdhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg1MDk2MDcsImV4cCI6MjA4NDA4NTYwN30.BuR0SNe1KQmZMl7u8s25hAI-QY_cDZRB2ijUU0JIu_c';                        // ← paste here
+
+// Track live count in memory (starts at displayed value, updates on join)
+let liveCount = 500;
+
+async function submitToWaitlist(email) {
+  const isConfigured = !SUPABASE_URL.includes('YOUR_PROJECT_ID');
+  if (!isConfigured) {
+    liveCount++;
+    return { ok: true, duplicate: false, position: liveCount, totalCount: liveCount };
+  }
+  try {
+    // ── INSERT (return=minimal avoids needing SELECT policy) ──
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({
+        email,
+        source: 'landing_page',
+        university: email.includes('@') ? email.split('@')[1] : 'unknown',
+        joined_at: new Date().toISOString()
+      })
+    });
+
+    // 409 = duplicate email already on list
+    if (res.status === 409) {
+      return { ok: true, duplicate: true, position: null, totalCount: null };
+    }
+
+    if (!res.ok) {
+      const body = await res.text();
+      console.error('Supabase insert error:', res.status, body);
+      // Still show success to user — fail silently on backend errors
+      liveCount++;
+      return { ok: true, duplicate: false, position: liveCount, totalCount: null };
+    }
+
+    // ── GET COUNT (gracefully — won't crash if SELECT policy missing) ──
+    let totalCount = null;
+    try {
+      const countRes = await fetch(`${SUPABASE_URL}/rest/v1/waitlist?select=id`, {
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Prefer': 'count=exact',
+          'Range': '0-0'
+        }
+      });
+      if (countRes.ok || countRes.status === 206) {
+        const raw = countRes.headers.get('Content-Range') || '';
+        totalCount = parseInt(raw.split('/')[1]) || null;
+        if (totalCount) liveCount = totalCount;
+      }
+    } catch (_) {
+      // Count unavailable — increment locally
+      liveCount++;
+      totalCount = liveCount;
+    }
+
+    return { ok: true, duplicate: false, position: totalCount, totalCount };
+
+  } catch (err) {
+    console.error('Network error:', err);
+    liveCount++;
+    return { ok: true, duplicate: false, position: liveCount, totalCount: null };
+  }
+}
+
+function validateEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+
+function showConfirmationModal(email, position, isDuplicate) {
+  // Remove any existing modal
+  document.getElementById('confirm-modal')?.remove();
+
+  const posText   = position ? `#${position.toLocaleString()}` : null;
+  const shareText = encodeURIComponent(`I just joined the waitlist for UniVerse ICOS — Nigeria's first campus operating system. Secure your spot too!`);
+  const waShare   = `https://wa.me/?text=${shareText}`;
+
+  const modal = document.createElement('div');
+  modal.id = 'confirm-modal';
+  modal.style.cssText = `
+    position:fixed;inset:0;z-index:9999;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(5,6,16,0.85);backdrop-filter:blur(12px);
+    padding:20px;animation:fadeIn 0.3s ease;
+  `;
+
+  modal.innerHTML = `
+    <style>
+      @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+      @keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+      @keyframes pop{0%{transform:scale(0.5);opacity:0}70%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+      @keyframes confetti-fall{
+        0%{transform:translateY(-10px) rotate(0deg);opacity:1}
+        100%{transform:translateY(120px) rotate(720deg);opacity:0}
+      }
+      #confirm-card{animation:slideUp 0.4s cubic-bezier(0.23,1,0.32,1) both;}
+      #confirm-icon{animation:pop 0.5s 0.3s cubic-bezier(0.23,1,0.32,1) both;}
+      .confetti-dot{
+        position:absolute;width:8px;height:8px;border-radius:50%;
+        animation:confetti-fall 1.2s ease forwards;
+      }
+    </style>
+    <div id="confirm-card" style="
+      background:linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));
+      border:1px solid rgba(22,199,96,0.25);border-radius:24px;
+      padding:48px 40px;max-width:460px;width:100%;text-align:center;
+      position:relative;overflow:hidden;
+    ">
+      <!-- Top glow line -->
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(22,199,96,0.6),transparent);"></div>
+
+      <!-- Confetti container -->
+      <div id="confetti-wrap" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;"></div>
+
+      <!-- Check icon -->
+      <div id="confirm-icon" style="
+        width:80px;height:80px;border-radius:50%;margin:0 auto 24px;
+        background:linear-gradient(135deg,rgba(22,199,96,0.15),rgba(22,199,96,0.08));
+        border:2px solid rgba(22,199,96,0.4);
+        display:flex;align-items:center;justify-content:center;font-size:2.2rem;
+        box-shadow:0 0 40px rgba(22,199,96,0.2),0 0 80px rgba(22,199,96,0.1);
+      ">
+        ${isDuplicate ? '👋' : '✅'}
+      </div>
+
+      ${isDuplicate ? `
+        <h2 style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;margin-bottom:10px;color:#f0f4ff;">
+          You're Already In!
+        </h2>
+        <p style="font-size:0.9rem;color:rgba(200,210,255,0.65);line-height:1.7;margin-bottom:28px;">
+          <strong style="color:#16C760;">${email}</strong> is already on the waitlist.<br>
+          We'll notify you the moment UniVerse launches on your campus.
+        </p>
+      ` : `
+        <div style="display:inline-block;background:rgba(22,199,96,0.1);border:1px solid rgba(22,199,96,0.25);
+          border-radius:20px;padding:4px 14px;font-size:0.7rem;font-weight:700;
+          letter-spacing:0.12em;color:#16C760;text-transform:uppercase;margin-bottom:16px;">
+          ⚡ Confirmed
+        </div>
+        <h2 style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;
+          line-height:1.15;margin-bottom:12px;color:#f0f4ff;">
+          You're In the Verse!
+        </h2>
+        <p style="font-size:0.88rem;color:rgba(200,210,255,0.65);line-height:1.75;margin-bottom:24px;">
+          <strong style="color:#f0f4ff;">${email}</strong> is now on the waitlist.
+          ${posText ? `<br>You are <strong style="color:#16C760;font-size:1rem;">Founder ${posText}</strong> 🎉` : ''}
+          <br>We'll notify you when <span style="color:#fff;font-weight:700;">Uni</span><span style="color:#16C760;font-weight:700;">Verse</span> launches on your campus.
+        </p>
+
+        <!-- Position badge -->
+        ${posText ? `
+        <div style="background:linear-gradient(135deg,rgba(22,199,96,0.08),rgba(59,130,246,0.06));
+          border:1px solid rgba(22,199,96,0.18);border-radius:14px;
+          padding:16px 20px;margin-bottom:24px;">
+          <div style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;
+            color:#16C760;margin-bottom:4px;">${posText}</div>
+          <div style="font-size:0.75rem;color:rgba(200,210,255,0.5);letter-spacing:0.08em;text-transform:uppercase;">
+            Your Waitlist Position
+          </div>
+        </div>` : ''}
+
+        <!-- Share -->
+        <p style="font-size:0.78rem;color:rgba(200,210,255,0.4);margin-bottom:12px;letter-spacing:0.06em;text-transform:uppercase;">
+          Share with your campus 👇
+        </p>
+        <div style="display:flex;gap:10px;justify-content:center;margin-bottom:24px;">
+          <a href="${waShare}" target="_blank" rel="noopener" style="
+            display:flex;align-items:center;gap:8px;
+            background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.3);
+            color:#25d366;padding:10px 20px;border-radius:12px;
+            font-family:'Syne',sans-serif;font-size:0.8rem;font-weight:700;
+            text-decoration:none;transition:all 0.25s;
+          " onmouseover="this.style.background='rgba(37,211,102,0.22)'"
+             onmouseout="this.style.background='rgba(37,211,102,0.12)'">
+            💬 Share on WhatsApp
+          </a>
+          <button onclick="copyShareLink(this)" style="
+            display:flex;align-items:center;gap:8px;
+            background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);
+            color:#93c5fd;padding:10px 20px;border-radius:12px;
+            font-family:'Syne',sans-serif;font-size:0.8rem;font-weight:700;
+            cursor:pointer;transition:all 0.25s;
+          " onmouseover="this.style.background='rgba(59,130,246,0.2)'"
+             onmouseout="this.style.background='rgba(59,130,246,0.1)'">
+            🔗 Copy Link
+          </button>
+        </div>
+      `}
+
+      <button onclick="closeModal()" style="
+        width:100%;padding:14px;border:1px solid rgba(255,255,255,0.1);
+        background:rgba(255,255,255,0.04);border-radius:12px;
+        font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:700;
+        color:rgba(200,210,255,0.6);cursor:pointer;
+        transition:all 0.25s;
+      " onmouseover="this.style.background='rgba(255,255,255,0.08)';this.style.color='#f0f4ff';"
+         onmouseout="this.style.background='rgba(255,255,255,0.04)';this.style.color='rgba(200,210,255,0.6)';">
+        Close
+      </button>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+
+  // Confetti burst (only for new signups)
+  if (!isDuplicate) {
+    const colors = ['#16C760','#3b82f6','#a855f7','#f59e0b','#ec4899','#ffffff'];
+    const wrap = document.getElementById('confetti-wrap');
+    for (let i = 0; i < 28; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'confetti-dot';
+      dot.style.cssText = `
+        left:${10 + Math.random()*80}%;top:${-5 + Math.random()*20}%;
+        background:${colors[Math.floor(Math.random()*colors.length)]};
+        width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;
+        border-radius:${Math.random()>0.5?'50%':'3px'};
+        animation-delay:${Math.random()*0.5}s;
+        animation-duration:${1+Math.random()*0.8}s;
+      `;
+      wrap.appendChild(dot);
+    }
+  }
+}
+
+function closeModal() {
+  const m = document.getElementById('confirm-modal');
+  if (m) { m.style.opacity='0'; m.style.transition='opacity 0.25s'; setTimeout(()=>m.remove(),260); }
+}
+
+function copyShareLink(btn) {
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    btn.textContent = '✓ Copied!';
+    btn.style.background = 'rgba(22,199,96,0.15)';
+    btn.style.borderColor = 'rgba(22,199,96,0.35)';
+    btn.style.color = '#16C760';
+    setTimeout(() => {
+      btn.innerHTML = '🔗 Copy Link';
+      btn.style.background = ''; btn.style.borderColor = ''; btn.style.color = '';
+    }, 2000);
+  });
+}
+
+function updateCounterDisplay(total) {
+  const counter = document.querySelector('.counter-text strong');
+  if (!counter) return;
+  const display = total ? `${total.toLocaleString()}+ Students` : '500+ Students';
+  counter.textContent = `Join ${display}`;
+  // Pulse animation
+  counter.style.transition = 'color 0.3s';
+  counter.style.color = '#16C760';
+  setTimeout(() => counter.style.color = '', 1500);
+}
+
+function validateEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+
+async function handleJoin() {
+  const input   = document.getElementById('email-input');
+  const errorEl = document.getElementById('error-msg');
+  const btn     = document.querySelector('#waitlist .cta-btn');
+  const email   = input.value.trim();
+
+  errorEl.style.display = 'none';
+  document.getElementById('success-msg').style.display = 'none';
+
+  if (!validateEmail(email)) { errorEl.style.display = 'block'; input.focus(); return; }
+
+  btn.innerHTML = '<span>⏳ Securing your spot...</span>';
+  btn.style.opacity = '0.7'; btn.disabled = true;
+
+  const result = await submitToWaitlist(email);
+
+  btn.innerHTML = '<span>⚡ Join the Verse</span>';
+  btn.style.opacity = '1'; btn.disabled = false;
+
+  if (result.ok) {
+    input.value = '';
+    showConfirmationModal(email, result.position, result.duplicate);
+    if (!result.duplicate) updateCounterDisplay(result.totalCount);
+  }
+}
+
+async function handleJoin2() {
+  const input   = document.getElementById('email-input-2');
+  const btn     = document.querySelector('#waitlist2 .cta-btn');
+  const email   = input.value.trim();
+  document.getElementById('success-msg-2').style.display = 'none';
+
+  if (!validateEmail(email)) {
+    input.style.borderColor = 'rgba(244,63,94,0.5)';
+    input.focus();
+    setTimeout(() => input.style.borderColor = '', 2000);
+    return;
+  }
+
+  btn.innerHTML = '<span>⏳ Securing your spot...</span>';
+  btn.style.opacity = '0.7'; btn.disabled = true;
+
+  const result = await submitToWaitlist(email);
+
+  btn.innerHTML = '<span>🎓 Secure My Spot</span>';
+  btn.style.opacity = '1'; btn.disabled = false;
+
+  if (result.ok) {
+    input.value = '';
+    showConfirmationModal(email, result.position, result.duplicate);
+    if (!result.duplicate) updateCounterDisplay(result.totalCount);
+  }
+}
+
+document.getElementById('email-input').addEventListener('keydown', e => { if (e.key === 'Enter') handleJoin(); });
+document.getElementById('email-input-2').addEventListener('keydown', e => { if (e.key === 'Enter') handleJoin2(); });
+document.querySelectorAll('.pillar-card').forEach((card, i) => { card.style.transitionDelay = (i * 60) + 'ms'; });
+</script>
+</body>
+</html>
