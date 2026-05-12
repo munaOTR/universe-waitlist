@@ -2,354 +2,319 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Dashboard — UniVerse ICOS</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Admin — UniVerse ICOS</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #04050f;
-    --surface: #080a1a;
-    --surface-2: #0d1024;
-    --border: rgba(255,255,255,0.07);
-    --border-accent: rgba(22,199,96,0.2);
-    --green: #16C760;
-    --green-dim: rgba(22,199,96,0.15);
-    --blue: #3b82f6;
-    --violet: #a855f7;
-    --red: #f43f5e;
-    --amber: #f59e0b;
-    --text: #e8eeff;
-    --muted: rgba(200,215,255,0.5);
-    --mono: 'JetBrains Mono', monospace;
-  }
-  * { margin:0;padding:0;box-sizing:border-box; }
-  html,body { height:100%;overflow:hidden; }
-  body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); display:flex; flex-direction:column; }
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{
+  --bg:#04050f;--surface:#0a0c1e;--surface2:#0f1228;
+  --border:rgba(255,255,255,0.08);--green:#16C760;--blue:#3b82f6;
+  --violet:#a855f7;--red:#f43f5e;--amber:#f59e0b;
+  --text:#e8eeff;--muted:rgba(200,215,255,0.5);
+  --mono:'JetBrains Mono',monospace;
+}
+html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);}
+body{display:flex;flex-direction:column;overflow:hidden;}
 
-  /* ── LOGIN SCREEN ── */
-  #login-screen {
-    position:fixed;inset:0;z-index:9999;
-    background:radial-gradient(ellipse 80% 60% at 50% 0%, rgba(22,199,96,0.1) 0%, transparent 60%), var(--bg);
-    display:flex;align-items:center;justify-content:center;padding:20px;
-  }
-  .login-box {
-    background:linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));
-    border:1px solid var(--border-accent);
-    border-radius:24px;padding:52px 44px;
-    max-width:420px;width:100%;text-align:center;
-    box-shadow:0 40px 100px rgba(0,0,0,0.5);
-    animation:slideUp 0.5s cubic-bezier(0.23,1,0.32,1);
-  }
-  @keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+/* ═══ LOGIN ═══ */
+#login-screen{
+  position:fixed;inset:0;z-index:9999;overflow-y:auto;
+  background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(22,199,96,0.1),transparent 60%),var(--bg);
+  display:flex;align-items:flex-start;justify-content:center;padding:40px 16px;
+}
+.login-box{
+  background:linear-gradient(135deg,rgba(255,255,255,0.055),rgba(255,255,255,0.02));
+  border:1px solid rgba(22,199,96,0.25);border-radius:20px;
+  padding:36px 28px;width:100%;max-width:400px;
+  animation:slideUp 0.4s ease both;
+}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.login-logo{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;text-align:center;margin-bottom:4px;}
+.login-logo .uni{color:#fff;}.login-logo .verse{color:var(--green);}
+.login-sub{font-size:0.72rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;text-align:center;margin-bottom:28px;}
+.lbl{display:block;font-size:0.7rem;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.linput{
+  width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);
+  border-radius:10px;padding:12px 14px;color:var(--text);
+  font-family:var(--mono);font-size:0.82rem;outline:none;transition:border 0.2s;margin-bottom:14px;
+}
+.linput:focus{border-color:rgba(22,199,96,0.45);box-shadow:0 0 0 3px rgba(22,199,96,0.08);}
+.login-btn{
+  width:100%;padding:14px;border:none;border-radius:12px;cursor:pointer;
+  background:linear-gradient(135deg,#16C760,#1FE870);
+  color:#000;font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:800;
+  letter-spacing:0.04em;transition:all 0.25s;box-shadow:0 6px 20px rgba(22,199,96,0.25);
+}
+.login-btn:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(22,199,96,0.35);}
+.login-error{
+  background:rgba(244,63,94,0.1);border:1px solid rgba(244,63,94,0.25);
+  border-radius:8px;padding:10px 14px;font-size:0.8rem;color:#fda4af;
+  margin-top:12px;display:none;text-align:center;
+}
+.login-note{font-size:0.72rem;color:var(--muted);margin-top:16px;line-height:1.7;text-align:center;}
 
-  .login-logo { font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;margin-bottom:6px; }
-  .login-logo .uni{color:#fff;} .login-logo .verse{color:var(--green);}
-  .login-sub { font-size:0.78rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:36px; }
-  .login-label { display:block;font-size:0.72rem;font-weight:600;letter-spacing:0.1em;
-    text-transform:uppercase;color:var(--muted);margin-bottom:8px;text-align:left; }
-  .login-input {
-    width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);
-    border-radius:12px;padding:14px 18px;color:var(--text);
-    font-family:var(--mono);font-size:0.9rem;outline:none;
-    transition:all 0.3s;margin-bottom:16px;
-  }
-  .login-input:focus { border-color:rgba(22,199,96,0.4);box-shadow:0 0 0 3px rgba(22,199,96,0.08); }
-  .login-btn {
-    width:100%;padding:15px;border:none;border-radius:12px;cursor:pointer;
-    background:linear-gradient(135deg,#16C760,#1FE870);
-    color:var(--bg);font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;
-    letter-spacing:0.04em;transition:all 0.3s;
-    box-shadow:0 8px 24px rgba(22,199,96,0.25);
-  }
-  .login-btn:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(22,199,96,0.38);}
-  .login-error {
-    background:rgba(244,63,94,0.1);border:1px solid rgba(244,63,94,0.25);
-    border-radius:10px;padding:10px 16px;font-size:0.82rem;color:#fda4af;
-    margin-top:12px;display:none;
-  }
-  .login-note { font-size:0.75rem;color:var(--muted);margin-top:20px;line-height:1.6; }
+/* ═══ APP ═══ */
+#app{display:none;height:100vh;flex-direction:column;}
+#app.active{display:flex;}
 
-  /* ── APP SHELL ── */
-  #app { display:none;height:100vh;flex-direction:column; }
-  #app.active { display:flex; }
+/* ═══ TOPBAR ═══ */
+.topbar{
+  height:56px;background:rgba(10,12,30,0.98);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 16px;flex-shrink:0;gap:10px;
+}
+.topbar-logo{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;white-space:nowrap;}
+.topbar-logo .uni{color:#fff;}.topbar-logo .verse{color:var(--green);}
+.topbar-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.live-badge{
+  display:flex;align-items:center;gap:5px;
+  font-size:0.7rem;color:var(--green);
+  background:rgba(22,199,96,0.1);border:1px solid rgba(22,199,96,0.2);
+  padding:4px 10px;border-radius:20px;white-space:nowrap;
+}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.icon-btn{
+  background:rgba(255,255,255,0.05);border:1px solid var(--border);
+  border-radius:8px;padding:7px 10px;font-size:0.8rem;cursor:pointer;
+  color:var(--muted);transition:all 0.2s;white-space:nowrap;
+}
+.icon-btn:hover{background:rgba(255,255,255,0.09);color:var(--text);}
+.logout-btn{
+  background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.2);
+  border-radius:8px;padding:7px 10px;font-size:0.8rem;cursor:pointer;
+  color:rgba(253,164,175,0.8);
+}
 
-  /* ── TOP BAR ── */
-  .topbar {
-    height:60px;background:rgba(8,10,26,0.95);
-    backdrop-filter:blur(20px);border-bottom:1px solid var(--border);
-    display:flex;align-items:center;justify-content:space-between;
-    padding:0 28px;flex-shrink:0;
-  }
-  .topbar-logo { font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800; }
-  .topbar-logo .uni{color:#fff;} .topbar-logo .verse{color:var(--green);}
-  .topbar-badge {
-    font-size:0.62rem;font-weight:700;letter-spacing:0.12em;
-    color:rgba(192,132,252,0.9);border:1px solid rgba(168,85,247,0.3);
-    padding:3px 9px;border-radius:20px;background:rgba(168,85,247,0.08);
-    margin-left:10px;
-  }
-  .topbar-right { display:flex;align-items:center;gap:16px; }
-  .live-dot { width:8px;height:8px;border-radius:50%;background:var(--green);
-    box-shadow:0 0 8px var(--green);animation:pulse-dot 2s ease infinite; }
-  @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(1.4);}}
-  .live-label { font-size:0.75rem;color:var(--muted); }
-  .refresh-btn {
-    background:rgba(255,255,255,0.05);border:1px solid var(--border);
-    border-radius:8px;padding:6px 14px;font-family:'Syne',sans-serif;
-    font-size:0.75rem;font-weight:700;color:var(--muted);cursor:pointer;
-    transition:all 0.2s;
-  }
-  .refresh-btn:hover{background:rgba(255,255,255,0.09);color:var(--text);}
-  .logout-btn {
-    background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.2);
-    border-radius:8px;padding:6px 14px;font-family:'Syne',sans-serif;
-    font-size:0.75rem;font-weight:700;color:rgba(253,164,175,0.8);cursor:pointer;
-    transition:all 0.2s;
-  }
-  .logout-btn:hover{background:rgba(244,63,94,0.15);}
+/* ═══ BODY ═══ */
+.app-body{display:flex;flex:1;overflow:hidden;}
 
-  /* ── MAIN BODY ── */
-  .main { display:flex;flex:1;overflow:hidden; }
+/* ═══ BOTTOM NAV (mobile) ═══ */
+.bottom-nav{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;z-index:50;
+  background:rgba(10,12,30,0.98);border-top:1px solid var(--border);
+  padding:8px 0 max(8px, env(safe-area-inset-bottom));
+  flex-direction:row;justify-content:space-around;align-items:center;
+}
+@media(max-width:768px){
+  .bottom-nav{display:flex;}
+  .sidebar{display:none !important;}
+  .content{padding-bottom:80px !important;}
+}
+.bnav-item{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  cursor:pointer;padding:4px 12px;border-radius:10px;transition:all 0.2s;
+  flex:1;
+}
+.bnav-item.active{background:rgba(22,199,96,0.1);}
+.bnav-icon{font-size:1.2rem;}
+.bnav-label{font-size:0.6rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--muted);}
+.bnav-item.active .bnav-label{color:var(--green);}
 
-  /* ── SIDEBAR ── */
-  .sidebar {
-    width:220px;background:var(--surface);border-right:1px solid var(--border);
-    padding:20px 0;flex-shrink:0;display:flex;flex-direction:column;
-  }
-  .nav-section { padding:0 14px;margin-bottom:6px; }
-  .nav-section-label {
-    font-size:0.62rem;font-weight:700;letter-spacing:0.14em;
-    text-transform:uppercase;color:rgba(200,215,255,0.25);
-    padding:8px 10px 4px;
-  }
-  .nav-item {
-    display:flex;align-items:center;gap:10px;
-    padding:9px 10px;border-radius:10px;cursor:pointer;
-    font-size:0.82rem;color:var(--muted);transition:all 0.2s;
-    margin-bottom:2px;
-  }
-  .nav-item:hover{background:rgba(255,255,255,0.04);color:var(--text);}
-  .nav-item.active{background:rgba(22,199,96,0.1);color:var(--green);border:1px solid rgba(22,199,96,0.18);}
-  .nav-icon{font-size:1rem;width:22px;text-align:center;}
+/* ═══ SIDEBAR (desktop) ═══ */
+.sidebar{
+  width:200px;background:var(--surface);border-right:1px solid var(--border);
+  padding:16px 0;flex-shrink:0;display:flex;flex-direction:column;overflow-y:auto;
+}
+.nav-section-label{
+  font-size:0.6rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
+  color:rgba(200,215,255,0.2);padding:10px 16px 4px;
+}
+.nav-item{
+  display:flex;align-items:center;gap:9px;
+  padding:9px 14px;border-radius:9px;margin:2px 8px;
+  font-size:0.82rem;color:var(--muted);cursor:pointer;transition:all 0.2s;
+}
+.nav-item:hover{background:rgba(255,255,255,0.04);color:var(--text);}
+.nav-item.active{background:rgba(22,199,96,0.1);color:var(--green);border:1px solid rgba(22,199,96,0.18);}
+.sidebar-footer{margin-top:auto;padding:14px 16px;border-top:1px solid var(--border);font-size:0.68rem;color:rgba(200,215,255,0.18);line-height:1.6;}
 
-  .sidebar-footer {
-    margin-top:auto;padding:16px;border-top:1px solid var(--border);
-    font-size:0.73rem;color:rgba(200,215,255,0.2);line-height:1.6;
-  }
+/* ═══ CONTENT ═══ */
+.content{flex:1;overflow-y:auto;padding:16px;}
+.view{display:none;}
+.view.active{display:block;}
 
-  /* ── CONTENT ── */
-  .content { flex:1;overflow-y:auto;padding:28px;background:var(--bg); }
+/* ═══ STAT CARDS ═══ */
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px;}
+@media(min-width:640px){.stats-grid{grid-template-columns:repeat(4,1fr);}}
+.stat-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:16px;position:relative;overflow:hidden;
+}
+.stat-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--c,rgba(22,199,96,0.5)),transparent);
+}
+.stat-label{font-size:0.68rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.stat-value{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:var(--text);line-height:1;}
+.stat-sub{font-size:0.7rem;color:var(--muted);margin-top:5px;}
+.stat-badge{
+  position:absolute;top:12px;right:12px;
+  font-size:0.62rem;font-weight:700;padding:2px 8px;border-radius:20px;
+}
+.badge-green{background:rgba(22,199,96,0.12);color:var(--green);}
+.badge-blue{background:rgba(59,130,246,0.12);color:#60a5fa;}
 
-  /* ── STAT CARDS ── */
-  .stats-row { display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px; }
-  @media(max-width:1100px){.stats-row{grid-template-columns:repeat(2,1fr);}}
+/* ═══ PANEL ═══ */
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:14px;}
+.panel-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 16px;border-bottom:1px solid var(--border);
+}
+.panel-title{font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:700;}
+.panel-btn{
+  font-size:0.7rem;font-weight:600;color:var(--muted);cursor:pointer;
+  background:rgba(255,255,255,0.04);border:1px solid var(--border);
+  padding:4px 10px;border-radius:7px;transition:all 0.2s;white-space:nowrap;
+}
+.panel-btn:hover{color:var(--text);background:rgba(255,255,255,0.07);}
 
-  .stat-card {
-    background:var(--surface);border:1px solid var(--border);
-    border-radius:16px;padding:22px 24px;position:relative;overflow:hidden;
-    transition:border-color 0.3s;
-  }
-  .stat-card:hover{border-color:rgba(255,255,255,0.12);}
-  .stat-card::before{
-    content:'';position:absolute;top:0;left:0;right:0;height:1px;
-    background:linear-gradient(90deg,transparent,var(--accent,rgba(22,199,96,0.4)),transparent);
-  }
-  .stat-label{font-size:0.73rem;font-weight:600;letter-spacing:0.08em;
-    text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
-  .stat-value{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;
-    color:var(--text);line-height:1;margin-bottom:6px;}
-  .stat-sub{font-size:0.75rem;color:var(--muted);}
-  .stat-trend{
-    position:absolute;top:20px;right:20px;
-    font-size:0.72rem;font-weight:700;padding:3px 9px;border-radius:20px;
-  }
-  .trend-up{background:rgba(22,199,96,0.12);color:#16C760;}
-  .trend-new{background:rgba(59,130,246,0.12);color:#60a5fa;}
+/* ═══ TABLE (mobile cards on small screens) ═══ */
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+table{width:100%;border-collapse:collapse;min-width:480px;}
+th{
+  font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--muted);padding:10px 14px;text-align:left;
+  border-bottom:1px solid var(--border);background:var(--surface2);white-space:nowrap;
+}
+td{font-size:0.8rem;padding:11px 14px;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--text);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(255,255,255,0.02);}
+.email-td{font-family:var(--mono);font-size:0.73rem;color:#93c5fd;word-break:break-all;}
+.uni-td{font-size:0.75rem;color:var(--muted);}
+.date-td{font-family:var(--mono);font-size:0.7rem;color:var(--muted);white-space:nowrap;}
+.pos-badge{
+  display:inline-block;background:rgba(22,199,96,0.1);border:1px solid rgba(22,199,96,0.2);
+  color:var(--green);border-radius:5px;padding:2px 7px;
+  font-family:'Syne',sans-serif;font-size:0.68rem;font-weight:700;
+}
 
-  /* ── PANELS ── */
-  .panels-row{display:grid;grid-template-columns:1fr 340px;gap:16px;margin-bottom:24px;}
-  @media(max-width:1000px){.panels-row{grid-template-columns:1fr;}}
+/* Member cards (mobile alternative) */
+.member-cards{display:none;flex-direction:column;gap:10px;padding:12px;}
+@media(max-width:580px){
+  .table-wrap table{min-width:unset;}
+  .member-cards{display:flex;}
+  .table-wrap{display:none;}
+}
+.member-card{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:12px;padding:14px;
+}
+.mc-email{font-family:var(--mono);font-size:0.75rem;color:#93c5fd;margin-bottom:6px;word-break:break-all;}
+.mc-row{display:flex;align-items:center;justify-content:space-between;margin-top:6px;}
+.mc-label{font-size:0.67rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;}
+.mc-val{font-size:0.75rem;color:var(--text);}
 
-  .panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
-  .panel-head{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:16px 22px;border-bottom:1px solid var(--border);
-  }
-  .panel-title{font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;}
-  .panel-action{
-    font-size:0.72rem;font-weight:600;color:var(--muted);cursor:pointer;
-    background:rgba(255,255,255,0.04);border:1px solid var(--border);
-    padding:4px 12px;border-radius:8px;transition:all 0.2s;
-  }
-  .panel-action:hover{color:var(--text);background:rgba(255,255,255,0.07);}
+/* Search */
+.search-bar{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid var(--border);}
+.search-input{
+  flex:1;background:rgba(255,255,255,0.04);border:1px solid var(--border);
+  border-radius:9px;padding:9px 12px;color:var(--text);
+  font-family:'DM Sans',sans-serif;font-size:0.84rem;outline:none;transition:border 0.2s;
+}
+.search-input:focus{border-color:rgba(22,199,96,0.3);}
+.search-input::placeholder{color:var(--muted);}
+.export-btn{
+  background:rgba(22,199,96,0.1);border:1px solid rgba(22,199,96,0.25);
+  color:var(--green);padding:9px 12px;border-radius:9px;
+  font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;
+  cursor:pointer;white-space:nowrap;transition:all 0.2s;
+}
+.export-btn:hover{background:rgba(22,199,96,0.18);}
 
-  /* ── TABLE ── */
-  .table-wrap{overflow-x:auto;}
-  table{width:100%;border-collapse:collapse;}
-  th{
-    font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
-    color:var(--muted);padding:10px 16px;text-align:left;
-    border-bottom:1px solid var(--border);background:var(--surface-2);
-    white-space:nowrap;
-  }
-  td{
-    font-size:0.82rem;padding:12px 16px;
-    border-bottom:1px solid rgba(255,255,255,0.04);
-    color:var(--text);vertical-align:middle;
-  }
-  tr:last-child td{border-bottom:none;}
-  tr:hover td{background:rgba(255,255,255,0.02);}
+/* Pagination */
+.pagination{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-top:1px solid var(--border);
+  font-size:0.75rem;color:var(--muted);flex-wrap:wrap;gap:8px;
+}
+.page-btns{display:flex;gap:6px;align-items:center;}
+.page-btn{
+  background:rgba(255,255,255,0.04);border:1px solid var(--border);
+  border-radius:7px;padding:5px 12px;cursor:pointer;
+  font-size:0.72rem;color:var(--muted);transition:all 0.2s;
+}
+.page-btn:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.page-btn.active{background:rgba(22,199,96,0.12);border-color:rgba(22,199,96,0.3);color:var(--green);}
+.page-btn:disabled{opacity:0.3;cursor:not-allowed;}
 
-  .email-cell{font-family:var(--mono);font-size:0.78rem;color:#93c5fd;}
-  .uni-cell{font-size:0.78rem;color:var(--muted);}
-  .date-cell{font-family:var(--mono);font-size:0.73rem;color:var(--muted);}
-  .pos-badge{
-    display:inline-block;background:rgba(22,199,96,0.1);
-    border:1px solid rgba(22,199,96,0.2);
-    color:var(--green);border-radius:6px;padding:2px 8px;
-    font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;
-  }
-  .source-chip{
-    display:inline-block;padding:2px 9px;border-radius:20px;
-    font-size:0.68rem;font-weight:600;letter-spacing:0.06em;
-  }
-  .chip-landing{background:rgba(59,130,246,0.1);color:#60a5fa;}
-  .chip-other{background:rgba(168,85,247,0.1);color:#c084fc;}
+/* Chart */
+.chart-wrap{padding:16px;}
+.chart-bars{display:flex;align-items:flex-end;gap:4px;height:100px;margin-bottom:6px;}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;cursor:pointer;}
+.bar{
+  width:100%;border-radius:3px 3px 0 0;
+  background:linear-gradient(180deg,rgba(22,199,96,0.75),rgba(22,199,96,0.25));
+  transition:all 0.3s;min-height:3px;position:relative;
+}
+.bar:hover{background:linear-gradient(180deg,#16C760,rgba(22,199,96,0.5));}
+.bar-tip{
+  position:absolute;bottom:calc(100%+5px);left:50%;transform:translateX(-50%);
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:5px;padding:3px 7px;font-size:0.65rem;color:var(--text);
+  white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 0.2s;z-index:10;
+}
+.bar:hover .bar-tip{opacity:1;}
+.bar-label{font-size:0.55rem;color:var(--muted);text-align:center;margin-top:3px;}
 
-  /* ── SEARCH ── */
-  .search-bar{
-    display:flex;align-items:center;gap:10px;
-    padding:14px 22px;border-bottom:1px solid var(--border);
-  }
-  .search-input{
-    flex:1;background:rgba(255,255,255,0.04);border:1px solid var(--border);
-    border-radius:10px;padding:9px 14px;color:var(--text);
-    font-family:'DM Sans',sans-serif;font-size:0.85rem;outline:none;transition:all 0.3s;
-  }
-  .search-input:focus{border-color:rgba(22,199,96,0.3);box-shadow:0 0 0 3px rgba(22,199,96,0.06);}
-  .search-input::placeholder{color:var(--muted);}
-  .export-btn{
-    background:rgba(22,199,96,0.1);border:1px solid rgba(22,199,96,0.25);
-    color:var(--green);padding:9px 16px;border-radius:10px;
-    font-family:'Syne',sans-serif;font-size:0.75rem;font-weight:700;
-    cursor:pointer;transition:all 0.2s;white-space:nowrap;
-  }
-  .export-btn:hover{background:rgba(22,199,96,0.18);}
+/* Uni list */
+.uni-row{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.04);
+}
+.uni-row:last-child{border-bottom:none;}
+.uni-name{font-size:0.8rem;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.uni-bar-wrap{width:60px;height:5px;background:rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;flex-shrink:0;}
+@media(min-width:480px){.uni-bar-wrap{width:100px;}}
+.uni-bar{height:100%;border-radius:10px;background:linear-gradient(90deg,#16C760,#3b82f6);}
+.uni-count{font-family:'Syne',sans-serif;font-size:0.78rem;font-weight:700;color:var(--muted);flex-shrink:0;}
 
-  /* ── UNIVERSITY BREAKDOWN ── */
-  .uni-list{padding:6px 0;}
-  .uni-row{
-    display:flex;align-items:center;gap:12px;
-    padding:10px 20px;transition:background 0.2s;
-  }
-  .uni-row:hover{background:rgba(255,255,255,0.03);}
-  .uni-name{font-size:0.82rem;flex:1;color:var(--text);}
-  .uni-count{font-family:'Syne',sans-serif;font-size:0.82rem;font-weight:700;color:var(--muted);}
-  .uni-bar-wrap{width:80px;height:6px;background:rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;}
-  .uni-bar{height:100%;border-radius:10px;background:linear-gradient(90deg,#16C760,#3b82f6);}
+/* Empty / loading */
+.empty{padding:40px;text-align:center;color:var(--muted);font-size:0.85rem;}
 
-  /* ── GROWTH CHART (CSS only) ── */
-  .chart-wrap{padding:20px 22px;}
-  .chart-bars{
-    display:flex;align-items:flex-end;gap:6px;
-    height:120px;margin-bottom:8px;
-  }
-  .bar-col{
-    flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;
-    cursor:pointer;
-  }
-  .bar{
-    width:100%;border-radius:4px 4px 0 0;
-    background:linear-gradient(180deg,rgba(22,199,96,0.7),rgba(22,199,96,0.3));
-    transition:all 0.3s;min-height:4px;position:relative;
-  }
-  .bar:hover{background:linear-gradient(180deg,#16C760,rgba(22,199,96,0.5));}
-  .bar-tip{
-    position:absolute;bottom:calc(100%+6px);left:50%;transform:translateX(-50%);
-    background:var(--surface-2);border:1px solid var(--border);
-    border-radius:6px;padding:4px 8px;font-size:0.68rem;
-    color:var(--text);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 0.2s;
-  }
-  .bar:hover .bar-tip{opacity:1;}
-  .bar-label{font-size:0.62rem;color:var(--muted);text-align:center;}
+/* Toast */
+#toast{
+  position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);
+  z-index:9999;background:var(--surface2);border:1px solid rgba(22,199,96,0.3);
+  border-radius:12px;padding:12px 20px;font-size:0.82rem;color:var(--text);
+  box-shadow:0 10px 40px rgba(0,0,0,0.4);opacity:0;
+  transition:all 0.3s cubic-bezier(0.23,1,0.32,1);
+  max-width:calc(100vw - 32px);text-align:center;white-space:nowrap;
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+@media(min-width:768px){#toast{bottom:24px;}}
 
-  /* ── EMPTY / LOADING ── */
-  .loading-row td{text-align:center;padding:32px;color:var(--muted);}
-  .empty-state{padding:48px;text-align:center;color:var(--muted);font-size:0.88rem;}
-
-  /* ── PAGINATION ── */
-  .pagination{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:12px 22px;border-top:1px solid var(--border);
-    font-size:0.78rem;color:var(--muted);
-  }
-  .page-btns{display:flex;gap:6px;}
-  .page-btn{
-    background:rgba(255,255,255,0.04);border:1px solid var(--border);
-    border-radius:7px;padding:5px 12px;cursor:pointer;
-    font-size:0.75rem;color:var(--muted);transition:all 0.2s;
-  }
-  .page-btn:hover{background:rgba(255,255,255,0.08);color:var(--text);}
-  .page-btn.active{background:rgba(22,199,96,0.12);border-color:rgba(22,199,96,0.3);color:var(--green);}
-  .page-btn:disabled{opacity:0.3;cursor:not-allowed;}
-
-  /* ── TOAST ── */
-  #admin-toast{
-    position:fixed;bottom:24px;right:24px;z-index:9999;
-    background:var(--surface-2);border:1px solid var(--border-accent);
-    border-radius:12px;padding:14px 20px;font-size:0.83rem;
-    color:var(--text);box-shadow:0 16px 48px rgba(0,0,0,0.4);
-    transform:translateY(80px);opacity:0;
-    transition:all 0.35s cubic-bezier(0.23,1,0.32,1);
-    max-width:320px;
-  }
-  #admin-toast.show{transform:translateY(0);opacity:1;}
-
-  /* ── SCROLLBAR ── */
-  ::-webkit-scrollbar{width:5px;height:5px;}
-  ::-webkit-scrollbar-track{background:transparent;}
-  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:10px;}
-  ::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.2);}
-
-  .skeleton{
-    background:linear-gradient(90deg,rgba(255,255,255,0.04) 25%,rgba(255,255,255,0.08) 50%,rgba(255,255,255,0.04) 75%);
-    background-size:200% 100%;
-    animation:shimmer 1.5s infinite;
-    border-radius:6px;height:14px;
-  }
-  @keyframes shimmer{from{background-position:200% 0}to{background-position:-200% 0}}
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:10px;}
 </style>
 </head>
 <body>
 
-<!-- ══ LOGIN SCREEN ══ -->
+<!-- ══ LOGIN ══ -->
 <div id="login-screen">
   <div class="login-box">
     <div class="login-logo"><span class="uni">Uni</span><span class="verse">Verse</span></div>
     <div class="login-sub">Admin Dashboard · ICOS</div>
 
-    <label class="login-label">Supabase Project URL</label>
-    <input type="text" class="login-input" id="login-url"
-      placeholder="https://xxxx.supabase.co"
-      value="">
+    <label class="lbl">Supabase Project URL</label>
+    <input type="text" class="linput" id="login-url" placeholder="https://xxxx.supabase.co">
 
-    <label class="login-label">Service Role Key <span style="color:var(--muted);font-weight:400;">(kept in browser only)</span></label>
-    <input type="password" class="login-input" id="login-key"
-      placeholder="eyJhbGci...">
+    <label class="lbl">Service Role Key</label>
+    <input type="password" class="linput" id="login-key" placeholder="eyJhbGci...">
 
-    <label class="login-label">Admin Password</label>
-    <input type="password" class="login-input" id="login-pass"
-      placeholder="Set in code below"
+    <label class="lbl">Admin Password</label>
+    <input type="password" class="linput" id="login-pass" placeholder="••••••••"
       onkeydown="if(event.key==='Enter')doLogin()">
 
     <button class="login-btn" onclick="doLogin()">🚀 Enter Dashboard</button>
     <div class="login-error" id="login-error"></div>
-
     <div class="login-note">
-      🔒 Your Service Role key never leaves your browser.<br>
-      Set your admin password by editing <code style="color:var(--green);">ADMIN_PASS</code> in the script below.<br>
-      Default: <code style="color:var(--green);">universe2026</code>
+      Default password: <strong style="color:var(--green);">universe2026</strong><br>
+      Service Role key: Supabase → Settings → API
     </div>
   </div>
 </div>
@@ -357,236 +322,209 @@
 <!-- ══ APP ══ -->
 <div id="app">
 
-  <!-- TOP BAR -->
+  <!-- TOPBAR -->
   <div class="topbar">
-    <div style="display:flex;align-items:center;gap:8px;">
+    <div style="display:flex;align-items:center;gap:10px;">
       <div class="topbar-logo"><span class="uni">Uni</span><span class="verse">Verse</span></div>
-      <span class="topbar-badge">ICOS Admin</span>
+      <span style="font-size:0.62rem;color:var(--muted);background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.2);padding:2px 8px;border-radius:20px;letter-spacing:0.08em;">ADMIN</span>
     </div>
     <div class="topbar-right">
-      <div style="display:flex;align-items:center;gap:7px;">
-        <div class="live-dot"></div>
-        <span class="live-label" id="last-refresh">Loading...</span>
-      </div>
-      <button class="refresh-btn" onclick="loadAll()">↻ Refresh</button>
-      <button class="logout-btn" onclick="doLogout()">Logout</button>
+      <div class="live-badge"><div class="live-dot"></div><span id="last-refresh">Loading...</span></div>
+      <button class="icon-btn" onclick="loadAll()">↻</button>
+      <button class="logout-btn" onclick="doLogout()">Exit</button>
     </div>
   </div>
 
-  <div class="main">
-    <!-- SIDEBAR -->
+  <div class="app-body">
+
+    <!-- SIDEBAR (desktop only) -->
     <div class="sidebar">
-      <div class="nav-section">
-        <div class="nav-section-label">Monitor</div>
-        <div class="nav-item active" onclick="showView('overview')">
-          <span class="nav-icon">📊</span> Overview
-        </div>
-        <div class="nav-item" onclick="showView('members')">
-          <span class="nav-icon">👥</span> All Members
-        </div>
-        <div class="nav-item" onclick="showView('universities')">
-          <span class="nav-icon">🎓</span> Universities
-        </div>
-      </div>
-      <div class="nav-section">
-        <div class="nav-section-label">Actions</div>
-        <div class="nav-item" onclick="exportCSV()">
-          <span class="nav-icon">📥</span> Export CSV
-        </div>
-        <div class="nav-item" onclick="loadAll()">
-          <span class="nav-icon">↻</span> Refresh Data
-        </div>
-      </div>
-      <div class="sidebar-footer">
-        <strong style="color:var(--muted);">UniVerse ICOS</strong><br>
-        Admin v1.0 · 2026<br>
-        Built for the National Asset
-      </div>
+      <div class="nav-section-label">Monitor</div>
+      <div class="nav-item active" onclick="showView('overview')"><span>📊</span> Overview</div>
+      <div class="nav-item" onclick="showView('members')"><span>👥</span> Members</div>
+      <div class="nav-item" onclick="showView('universities')"><span>🎓</span> Universities</div>
+      <div class="nav-section-label" style="margin-top:8px;">Actions</div>
+      <div class="nav-item" onclick="exportCSV()"><span>📥</span> Export CSV</div>
+      <div class="nav-item" onclick="loadAll()"><span>↻</span> Refresh</div>
+      <div class="sidebar-footer">UniVerse ICOS Admin v2<br>© 2026</div>
     </div>
 
     <!-- CONTENT -->
-    <div class="content" id="content">
+    <div class="content">
 
-      <!-- ── OVERVIEW VIEW ── -->
-      <div id="view-overview">
-        <!-- Stat cards -->
-        <div class="stats-row">
-          <div class="stat-card" style="--accent:rgba(22,199,96,0.4);">
-            <div class="stat-trend trend-up" id="trend-today">+0 today</div>
+      <!-- ── OVERVIEW ── -->
+      <div class="view active" id="view-overview">
+
+        <div class="stats-grid">
+          <div class="stat-card" style="--c:rgba(22,199,96,0.5);">
+            <div class="stat-badge badge-green" id="today-badge">+0 today</div>
             <div class="stat-label">Total Signups</div>
             <div class="stat-value" id="stat-total">—</div>
-            <div class="stat-sub">All-time waitlist members</div>
+            <div class="stat-sub">All waitlist members</div>
           </div>
-          <div class="stat-card" style="--accent:rgba(59,130,246,0.4);">
-            <div class="stat-trend trend-new" id="stat-week-badge">This week</div>
+          <div class="stat-card" style="--c:rgba(59,130,246,0.5);">
+            <div class="stat-badge badge-blue">7 days</div>
             <div class="stat-label">This Week</div>
             <div class="stat-value" id="stat-week">—</div>
-            <div class="stat-sub">New in last 7 days</div>
+            <div class="stat-sub">New signups</div>
           </div>
-          <div class="stat-card" style="--accent:rgba(168,85,247,0.4);">
+          <div class="stat-card" style="--c:rgba(168,85,247,0.5);">
             <div class="stat-label">Universities</div>
             <div class="stat-value" id="stat-unis">—</div>
-            <div class="stat-sub">Distinct institutions</div>
+            <div class="stat-sub">Institutions reached</div>
           </div>
-          <div class="stat-card" style="--accent:rgba(245,158,11,0.4);">
+          <div class="stat-card" style="--c:rgba(245,158,11,0.5);">
             <div class="stat-label">Latest Signup</div>
-            <div class="stat-value" style="font-size:1rem;line-height:1.4;" id="stat-latest">—</div>
+            <div class="stat-value" style="font-size:1rem;line-height:1.3;word-break:break-all;" id="stat-latest">—</div>
             <div class="stat-sub" id="stat-latest-time">—</div>
           </div>
         </div>
 
-        <!-- Growth + Top unis -->
-        <div class="panels-row">
-          <!-- Growth chart -->
-          <div class="panel">
-            <div class="panel-head">
-              <span class="panel-title">📈 Signup Growth — Last 14 Days</span>
-              <span class="panel-action" onclick="loadAll()">Refresh</span>
-            </div>
-            <div class="chart-wrap">
-              <div class="chart-bars" id="chart-bars">
-                <!-- Injected by JS -->
-              </div>
-              <div style="display:flex;justify-content:space-between;padding-top:4px;" id="chart-labels"></div>
-            </div>
+        <!-- Growth chart -->
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">📈 Daily Signups — Last 14 Days</span>
+            <button class="panel-btn" onclick="loadAll()">Refresh</button>
           </div>
+          <div class="chart-wrap">
+            <div class="chart-bars" id="chart-bars"></div>
+            <div style="display:flex;justify-content:space-between;" id="chart-labels"></div>
+          </div>
+        </div>
 
-          <!-- Top universities -->
-          <div class="panel">
-            <div class="panel-head">
-              <span class="panel-title">🎓 Top Universities</span>
-              <span class="panel-action" onclick="showView('universities')">View all →</span>
-            </div>
-            <div class="uni-list" id="top-unis-list">
-              <!-- Injected -->
-            </div>
+        <!-- Top universities -->
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">🎓 Top Universities</span>
+            <button class="panel-btn" onclick="showView('universities')">All →</button>
           </div>
+          <div id="top-unis"></div>
         </div>
 
         <!-- Recent signups -->
         <div class="panel">
           <div class="panel-head">
             <span class="panel-title">🕐 Recent Signups</span>
-            <span class="panel-action" onclick="showView('members')">View all →</span>
+            <button class="panel-btn" onclick="showView('members')">All →</button>
           </div>
+          <!-- Mobile cards -->
+          <div class="member-cards" id="recent-cards"></div>
+          <!-- Desktop table -->
           <div class="table-wrap">
             <table>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Email</th>
-                  <th>University Domain</th>
-                  <th>Source</th>
-                  <th>Joined</th>
-                </tr>
-              </thead>
-              <tbody id="recent-tbody">
-                <tr class="loading-row"><td colspan="5">Loading...</td></tr>
-              </tbody>
+              <thead><tr><th>#</th><th>Email</th><th>University</th><th>Joined</th></tr></thead>
+              <tbody id="recent-tbody"><tr><td colspan="4" style="text-align:center;padding:24px;color:var(--muted);">Loading...</td></tr></tbody>
             </table>
           </div>
         </div>
+
       </div>
 
-      <!-- ── ALL MEMBERS VIEW ── -->
-      <div id="view-members" style="display:none;">
+      <!-- ── MEMBERS ── -->
+      <div class="view" id="view-members">
         <div class="panel">
           <div class="panel-head">
-            <span class="panel-title">👥 All Waitlist Members</span>
-            <span class="panel-action" onclick="exportCSV()">📥 Export CSV</span>
+            <span class="panel-title">👥 All Members</span>
+            <button class="export-btn" onclick="exportCSV()">📥 CSV</button>
           </div>
           <div class="search-bar">
             <input type="text" class="search-input" id="search-input"
-              placeholder="🔍  Search by email or university..."
-              oninput="filterMembers()">
-            <button class="export-btn" onclick="exportCSV()">Download CSV</button>
+              placeholder="Search email or university..." oninput="filterMembers()">
           </div>
+          <!-- Mobile cards -->
+          <div class="member-cards" id="all-cards"></div>
+          <!-- Desktop table -->
           <div class="table-wrap">
             <table>
-              <thead>
-                <tr>
-                  <th>Position</th>
-                  <th>Email</th>
-                  <th>University Domain</th>
-                  <th>Source</th>
-                  <th>Date Joined</th>
-                  <th>Time</th>
-                </tr>
-              </thead>
-              <tbody id="all-tbody">
-                <tr class="loading-row"><td colspan="6">Loading...</td></tr>
-              </tbody>
+              <thead><tr><th>#</th><th>Email</th><th>University</th><th>Source</th><th>Date Joined</th></tr></thead>
+              <tbody id="all-tbody"><tr><td colspan="5" style="text-align:center;padding:24px;color:var(--muted);">Loading...</td></tr></tbody>
             </table>
           </div>
           <div class="pagination">
-            <span id="page-info">Showing 0 of 0</span>
+            <span id="page-info">—</span>
             <div class="page-btns">
               <button class="page-btn" id="prev-btn" onclick="changePage(-1)" disabled>← Prev</button>
-              <span id="page-indicator" style="padding:5px 10px;font-size:0.75rem;color:var(--muted);">1</span>
+              <span id="page-num" style="font-size:0.72rem;padding:0 4px;color:var(--muted);">1</span>
               <button class="page-btn" id="next-btn" onclick="changePage(1)">Next →</button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ── UNIVERSITIES VIEW ── -->
-      <div id="view-universities" style="display:none;">
+      <!-- ── UNIVERSITIES ── -->
+      <div class="view" id="view-universities">
         <div class="panel">
           <div class="panel-head">
-            <span class="panel-title">🎓 All Universities / Institutions</span>
-            <span id="uni-count-badge" class="panel-action" style="cursor:default;"></span>
+            <span class="panel-title">🎓 All Universities</span>
+            <span id="uni-total" style="font-size:0.72rem;color:var(--muted);"></span>
           </div>
-          <div class="uni-list" id="all-unis-list" style="max-height:none;"></div>
+          <div id="all-unis"></div>
         </div>
       </div>
 
     </div><!-- /content -->
-  </div><!-- /main -->
+  </div><!-- /app-body -->
+
+  <!-- BOTTOM NAV (mobile) -->
+  <div class="bottom-nav">
+    <div class="bnav-item active" onclick="showView('overview')">
+      <div class="bnav-icon">📊</div>
+      <div class="bnav-label">Overview</div>
+    </div>
+    <div class="bnav-item" onclick="showView('members')">
+      <div class="bnav-icon">👥</div>
+      <div class="bnav-label">Members</div>
+    </div>
+    <div class="bnav-item" onclick="showView('universities')">
+      <div class="bnav-icon">🎓</div>
+      <div class="bnav-label">Unis</div>
+    </div>
+    <div class="bnav-item" onclick="exportCSV()">
+      <div class="bnav-icon">📥</div>
+      <div class="bnav-label">Export</div>
+    </div>
+    <div class="bnav-item" onclick="doLogout()">
+      <div class="bnav-icon">🚪</div>
+      <div class="bnav-label">Logout</div>
+    </div>
+  </div>
+
 </div><!-- /app -->
 
-<div id="admin-toast"></div>
+<div id="toast"></div>
 
 <script>
-/* ══════════════════════════════════════════════
-   CONFIGURATION — change these before deploying
-   ══════════════════════════════════════════════ */
-const ADMIN_PASS    = 'universe2026'; // ← Change to your own strong password
-const PAGE_SIZE     = 25;
+/* ════════════════════════════════
+   CONFIG — change password here
+   ════════════════════════════════ */
+const ADMIN_PASS = 'universe2026';
+const PAGE_SIZE  = 20;
 
-/* Runtime state */
 let SB_URL = '', SB_KEY = '';
-let allMembers  = [];
-let filteredMembers = [];
+let allMembers = [], filteredMembers = [];
 let currentPage = 1;
 
 /* ── AUTH ── */
 function doLogin(){
-  const url  = document.getElementById('login-url').value.trim();
+  const url  = document.getElementById('login-url').value.trim().replace(/\/$/,'');
   const key  = document.getElementById('login-key').value.trim();
   const pass = document.getElementById('login-pass').value.trim();
   const err  = document.getElementById('login-error');
-
   err.style.display = 'none';
 
   if(pass !== ADMIN_PASS){
-    err.textContent = '⚠️ Incorrect admin password.';
-    err.style.display = 'block'; return;
+    err.textContent = '⚠️ Wrong admin password.'; err.style.display='block'; return;
   }
-  if(!url || !url.startsWith('https://')){
-    err.textContent = '⚠️ Enter your Supabase project URL.';
-    err.style.display = 'block'; return;
+  if(!url.startsWith('https://')){
+    err.textContent = '⚠️ Enter your Supabase project URL.'; err.style.display='block'; return;
   }
-  if(!key || key.length < 20){
-    err.textContent = '⚠️ Enter your Service Role key.';
-    err.style.display = 'block'; return;
+  if(key.length < 20){
+    err.textContent = '⚠️ Enter your Service Role key.'; err.style.display='block'; return;
   }
 
-  SB_URL = url.replace(/\/$/, '');
-  SB_KEY = key;
-
+  SB_URL = url; SB_KEY = key;
   sessionStorage.setItem('uv_url', SB_URL);
   sessionStorage.setItem('uv_key', SB_KEY);
-
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('app').classList.add('active');
   loadAll();
@@ -594,17 +532,15 @@ function doLogin(){
 
 function doLogout(){
   sessionStorage.clear();
-  SB_URL = ''; SB_KEY = '';
   location.reload();
 }
 
-// Restore session
+/* Restore session on page load */
 window.addEventListener('load', ()=>{
   const u = sessionStorage.getItem('uv_url');
   const k = sessionStorage.getItem('uv_key');
   if(u && k){
     SB_URL = u; SB_KEY = k;
-    document.getElementById('login-url').value = u;
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('app').classList.add('active');
     loadAll();
@@ -613,38 +549,47 @@ window.addEventListener('load', ()=>{
 
 /* ── NAVIGATION ── */
 function showView(name){
-  ['overview','members','universities'].forEach(v=>{
-    document.getElementById(`view-${v}`).style.display = v===name?'block':'none';
-  });
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-'+name).classList.add('active');
+  // Sidebar
+  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(el=>{
-    el.classList.remove('active');
-    if(el.textContent.toLowerCase().includes(name.slice(0,4))) el.classList.add('active');
+    if(el.textContent.toLowerCase().includes(name.substring(0,4))) el.classList.add('active');
+  });
+  // Bottom nav
+  document.querySelectorAll('.bnav-item').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.bnav-item').forEach(el=>{
+    if(el.querySelector('.bnav-label')?.textContent.toLowerCase().includes(
+      name==='overview'?'over':name==='members'?'mem':name==='universities'?'uni':'xxx'
+    )) el.classList.add('active');
   });
 }
 
-/* ── SUPABASE FETCH HELPER ── */
-async function sb(path, opts={}){
+/* ── SUPABASE FETCH ── */
+async function sbFetch(path, extraHeaders={}){
   const res = await fetch(`${SB_URL}/rest/v1${path}`, {
     headers:{
       'apikey': SB_KEY,
       'Authorization': `Bearer ${SB_KEY}`,
       'Content-Type': 'application/json',
-      ...(opts.headers||{})
-    },
-    ...opts
+      ...extraHeaders
+    }
   });
-  if(!res.ok) throw new Error(`${res.status} ${res.statusText}`);
   return res;
 }
 
 /* ── LOAD ALL DATA ── */
 async function loadAll(){
-  document.getElementById('last-refresh').textContent = 'Loading...';
+  document.getElementById('last-refresh').textContent = 'Syncing...';
   try {
-    // Fetch all members ordered by join date desc
-    const res = await sb('/waitlist?select=*&order=joined_at.desc', {
-      headers:{ 'Prefer':'count=exact' }
-    });
+    /* Fetch ALL waitlist rows — real data from Supabase */
+    const res = await sbFetch('/waitlist?select=*&order=joined_at.desc&limit=1000');
+
+    if(!res.ok){
+      const body = await res.text();
+      throw new Error(`${res.status}: ${body}`);
+    }
+
     allMembers = await res.json();
     filteredMembers = [...allMembers];
 
@@ -653,41 +598,17 @@ async function loadAll(){
     renderTopUnis();
     renderRecentTable();
     renderAllTable();
-    renderAllUnisView();
+    renderAllUnis();
 
-    const now = new Date();
+    const t = new Date();
     document.getElementById('last-refresh').textContent =
-      `Live · ${now.toLocaleTimeString('en-NG',{hour:'2-digit',minute:'2-digit'})}`;
+      `Live · ${t.toLocaleTimeString('en-NG',{hour:'2-digit',minute:'2-digit'})}`;
 
   } catch(e){
-    toast(`⚠️ Error loading data: ${e.message}`,'error');
-    document.getElementById('last-refresh').textContent = 'Error — check credentials';
-
-    // Show demo data if Supabase not connected
-    allMembers = getDemoData();
-    filteredMembers = [...allMembers];
-    renderStats(); renderChart(); renderTopUnis();
-    renderRecentTable(); renderAllTable(); renderAllUnisView();
+    console.error('Load error:', e);
+    document.getElementById('last-refresh').textContent = 'Error';
+    toast(`❌ ${e.message || 'Could not load data. Check credentials.'}`, true);
   }
-}
-
-/* ── DEMO DATA (shown when Supabase not configured) ── */
-function getDemoData(){
-  const domains=['unilag.edu.ng','ui.edu.ng','futa.edu.ng','abu.edu.ng','uniben.edu.ng','oau.edu.ng','unn.edu.ng','lasu.edu.ng'];
-  const sources=['landing_page','landing_page','landing_page','cta_section'];
-  const now = Date.now();
-  return Array.from({length:47},(_,i)=>{
-    const d = domains[i%domains.length];
-    const daysAgo = Math.floor(Math.random()*14);
-    const dt = new Date(now - daysAgo*86400000 - Math.random()*86400000);
-    return {
-      id: i+1,
-      email: `student${1000+i}@${d}`,
-      university: d,
-      source: sources[i%sources.length],
-      joined_at: dt.toISOString()
-    };
-  }).sort((a,b)=>new Date(b.joined_at)-new Date(a.joined_at));
 }
 
 /* ── STATS ── */
@@ -695,192 +616,234 @@ function renderStats(){
   const total = allMembers.length;
   document.getElementById('stat-total').textContent = total.toLocaleString();
 
-  // Today
   const today = new Date(); today.setHours(0,0,0,0);
   const todayCount = allMembers.filter(m=>new Date(m.joined_at)>=today).length;
-  document.getElementById('trend-today').textContent = `+${todayCount} today`;
+  document.getElementById('today-badge').textContent = `+${todayCount} today`;
 
-  // This week
-  const weekAgo = new Date(Date.now() - 7*86400000);
+  const weekAgo = new Date(Date.now()-7*86400000);
   const weekCount = allMembers.filter(m=>new Date(m.joined_at)>=weekAgo).length;
   document.getElementById('stat-week').textContent = weekCount.toLocaleString();
 
-  // Universities
-  const unis = new Set(allMembers.map(m=>m.university).filter(Boolean));
+  /* Use university_name (dropdown selection) for unique count */
+  const unis = new Set(allMembers.map(m=>(m.university_name||m.university)).filter(Boolean));
   document.getElementById('stat-unis').textContent = unis.size;
 
-  // Latest
   if(allMembers.length){
     const latest = allMembers[0];
-    const email = latest.email || '—';
-    document.getElementById('stat-latest').textContent = email.length>22 ? email.slice(0,20)+'…' : email;
-    document.getElementById('stat-latest-time').textContent =
-      timeAgo(new Date(latest.joined_at));
+    /* Show name if available, fall back to email */
+    const display = latest.full_name || latest.email || '—';
+    document.getElementById('stat-latest').textContent = display.length>18 ? display.slice(0,16)+'…' : display;
+    document.getElementById('stat-latest-time').textContent = timeAgo(new Date(latest.joined_at));
+  } else {
+    document.getElementById('stat-latest').textContent = 'No signups yet';
+    document.getElementById('stat-latest-time').textContent = '—';
   }
 }
 
 /* ── CHART ── */
 function renderChart(){
-  const barsEl   = document.getElementById('chart-bars');
-  const labelsEl = document.getElementById('chart-labels');
-  barsEl.innerHTML = ''; labelsEl.innerHTML = '';
+  const barsEl = document.getElementById('chart-bars');
+  const labsEl = document.getElementById('chart-labels');
+  barsEl.innerHTML=''; labsEl.innerHTML='';
 
-  const days = 14;
-  const buckets = [];
-  for(let i=days-1;i>=0;i--){
-    const d = new Date(); d.setHours(0,0,0,0);
-    d.setDate(d.getDate()-i);
-    const next = new Date(d); next.setDate(next.getDate()+1);
-    const count = allMembers.filter(m=>{
-      const dt = new Date(m.joined_at);
-      return dt>=d && dt<next;
-    }).length;
-    buckets.push({ label: d.toLocaleDateString('en-NG',{day:'numeric',month:'short'}), count });
+  const buckets=[];
+  for(let i=13;i>=0;i--){
+    const d=new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()-i);
+    const next=new Date(d); next.setDate(next.getDate()+1);
+    const count=allMembers.filter(m=>{const dt=new Date(m.joined_at);return dt>=d&&dt<next;}).length;
+    buckets.push({label:d.toLocaleDateString('en-NG',{day:'numeric',month:'short'}),count});
   }
-
-  const max = Math.max(...buckets.map(b=>b.count), 1);
-
+  const max=Math.max(...buckets.map(b=>b.count),1);
   buckets.forEach(b=>{
-    const pct = Math.max((b.count/max)*100, b.count>0?4:0);
-    barsEl.innerHTML += `
-      <div class="bar-col">
-        <div class="bar" style="height:${pct}%;">
-          <div class="bar-tip">${b.count} signup${b.count!==1?'s':''}</div>
-        </div>
-      </div>`;
-    labelsEl.innerHTML += `<span style="font-size:0.6rem;color:var(--muted);flex:1;text-align:center;">${b.label.split(' ')[0]}</span>`;
+    const pct=Math.max((b.count/max)*100,b.count>0?4:0);
+    barsEl.innerHTML+=`<div class="bar-col"><div class="bar" style="height:${pct}%;"><div class="bar-tip">${b.count}</div></div></div>`;
+    labsEl.innerHTML+=`<span class="bar-label">${b.label.split(' ')[0]}</span>`;
   });
 }
 
 /* ── TOP UNIS ── */
 function renderTopUnis(){
-  const counts = {};
-  allMembers.forEach(m=>{ if(m.university) counts[m.university]=(counts[m.university]||0)+1; });
-  const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,6);
-  const max = sorted[0]?.[1]||1;
-
-  const list = document.getElementById('top-unis-list');
-  list.innerHTML = sorted.length ? sorted.map(([uni,count])=>`
+  const counts={};
+  /* Prefer university_name (actual dropdown), fall back to university (domain) */
+  allMembers.forEach(m=>{
+    const uni = m.university_name || m.university;
+    if(uni) counts[uni]=(counts[uni]||0)+1;
+  });
+  const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const max=sorted[0]?.[1]||1;
+  const el=document.getElementById('top-unis');
+  el.innerHTML=sorted.length?sorted.map(([uni,cnt])=>`
     <div class="uni-row">
       <span class="uni-name">${uni}</span>
-      <div class="uni-bar-wrap"><div class="uni-bar" style="width:${(count/max)*100}%;"></div></div>
-      <span class="uni-count">${count}</span>
-    </div>`).join('') : '<div class="empty-state">No data yet</div>';
+      <div class="uni-bar-wrap"><div class="uni-bar" style="width:${(cnt/max)*100}%"></div></div>
+      <span class="uni-count">${cnt}</span>
+    </div>`).join(''):'<div class="empty">No university data yet</div>';
 }
 
-/* ── RECENT TABLE ── */
+/* ── RECENT TABLE + CARDS ── */
 function renderRecentTable(){
-  const tbody = document.getElementById('recent-tbody');
-  const recent = allMembers.slice(0,10);
-  if(!recent.length){ tbody.innerHTML='<tr class="loading-row"><td colspan="5">No signups yet</td></tr>'; return; }
-  tbody.innerHTML = recent.map((m,i)=>`
-    <tr>
+  const recent=allMembers.slice(0,10);
+
+  // Mobile cards
+  const cardsEl=document.getElementById('recent-cards');
+  cardsEl.innerHTML=recent.length?recent.map((m,i)=>memberCard(m,i+1)).join(''):'<div class="empty">No signups yet</div>';
+
+  // Desktop table
+  const tbody=document.getElementById('recent-tbody');
+  if(!recent.length){tbody.innerHTML='<tr><td colspan="5" class="empty">No signups yet</td></tr>';return;}
+  tbody.innerHTML=recent.map((m,i)=>{
+    const dt=new Date(m.joined_at);
+    const uni = m.university_name || m.university || '—';
+    return`<tr>
       <td><span class="pos-badge">#${i+1}</span></td>
-      <td class="email-cell">${m.email}</td>
-      <td class="uni-cell">${m.university||'—'}</td>
-      <td><span class="source-chip ${m.source==='landing_page'?'chip-landing':'chip-other'}">${(m.source||'—').replace('_',' ')}</span></td>
-      <td class="date-cell">${timeAgo(new Date(m.joined_at))}</td>
-    </tr>`).join('');
+      <td style="font-size:0.8rem;font-weight:500;">${m.full_name||'—'}</td>
+      <td class="email-td">${m.email||'—'}</td>
+      <td class="uni-td">${uni}</td>
+      <td class="date-td">${dt.toLocaleDateString('en-NG',{day:'numeric',month:'short',year:'numeric'})} ${dt.toLocaleTimeString('en-NG',{hour:'2-digit',minute:'2-digit'})}</td>
+    </tr>`;}).join('');
 }
 
-/* ── ALL MEMBERS TABLE ── */
+/* ── ALL MEMBERS TABLE + CARDS ── */
 function renderAllTable(){
-  const tbody = document.getElementById('all-tbody');
-  const start = (currentPage-1)*PAGE_SIZE;
-  const page  = filteredMembers.slice(start, start+PAGE_SIZE);
-  const total = filteredMembers.length;
+  const start=(currentPage-1)*PAGE_SIZE;
+  const page=filteredMembers.slice(start,start+PAGE_SIZE);
+  const total=filteredMembers.length;
 
-  document.getElementById('page-info').textContent =
-    `Showing ${start+1}–${Math.min(start+PAGE_SIZE,total)} of ${total.toLocaleString()}`;
-  document.getElementById('page-indicator').textContent = `Page ${currentPage}`;
-  document.getElementById('prev-btn').disabled = currentPage===1;
-  document.getElementById('next-btn').disabled = start+PAGE_SIZE>=total;
+  document.getElementById('page-info').textContent=
+    total?`${start+1}–${Math.min(start+PAGE_SIZE,total)} of ${total.toLocaleString()}`:'0 results';
+  document.getElementById('page-num').textContent=`Page ${currentPage}`;
+  document.getElementById('prev-btn').disabled=currentPage===1;
+  document.getElementById('next-btn').disabled=start+PAGE_SIZE>=total;
 
-  if(!page.length){ tbody.innerHTML='<tr class="loading-row"><td colspan="6">No results found</td></tr>'; return; }
+  // Mobile cards
+  const cardsEl=document.getElementById('all-cards');
+  cardsEl.innerHTML=page.length?page.map((m,i)=>memberCard(m,start+i+1)).join(''):'<div class="empty">No results</div>';
 
-  tbody.innerHTML = page.map((m,i)=>{
-    const globalPos = start+i+1;
-    const dt = new Date(m.joined_at);
-    return `<tr>
-      <td><span class="pos-badge">#${globalPos}</span></td>
-      <td class="email-cell">${m.email}</td>
-      <td class="uni-cell">${m.university||'—'}</td>
-      <td><span class="source-chip ${m.source==='landing_page'?'chip-landing':'chip-other'}">${(m.source||'—').replace('_',' ')}</span></td>
-      <td class="date-cell">${dt.toLocaleDateString('en-NG',{day:'numeric',month:'short',year:'numeric'})}</td>
-      <td class="date-cell">${dt.toLocaleTimeString('en-NG',{hour:'2-digit',minute:'2-digit'})}</td>
-    </tr>`;
-  }).join('');
+  // Desktop table
+  const tbody=document.getElementById('all-tbody');
+  if(!page.length){tbody.innerHTML='<tr><td colspan="6" class="empty">No results found</td></tr>';return;}
+  tbody.innerHTML=page.map((m,i)=>{
+    const dt=new Date(m.joined_at);
+    const uni = m.university_name || m.university || '—';
+    return`<tr>
+      <td><span class="pos-badge">#${start+i+1}</span></td>
+      <td style="font-size:0.8rem;font-weight:500;color:var(--text);">${m.full_name||'—'}</td>
+      <td class="email-td">${m.email||'—'}</td>
+      <td class="uni-td">${uni}</td>
+      <td class="uni-td" style="font-size:0.72rem;">${(m.source||'—').replace('_',' ')}</td>
+      <td class="date-td">${dt.toLocaleDateString('en-NG',{day:'numeric',month:'short',year:'numeric'})}<br><span style="opacity:0.6;">${dt.toLocaleTimeString('en-NG',{hour:'2-digit',minute:'2-digit'})}</span></td>
+    </tr>`;}).join('');
 }
 
+function memberCard(m,pos){
+  const dt=new Date(m.joined_at);
+  const uni = m.university_name || m.university || '—';
+  return`<div class="member-card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+      <span class="pos-badge">#${pos}</span>
+      <span style="font-size:0.68rem;color:var(--muted);">${dt.toLocaleDateString('en-NG',{day:'numeric',month:'short',year:'numeric'})}</span>
+    </div>
+    <div style="font-size:0.88rem;font-weight:600;color:var(--text);margin-bottom:4px;">${m.full_name||'No name provided'}</div>
+    <div class="mc-email">${m.email||'—'}</div>
+    <div class="mc-row">
+      <div style="flex:1;min-width:0;">
+        <div class="mc-label">Institution</div>
+        <div class="mc-val" style="white-space:normal;font-size:0.72rem;line-height:1.4;">${uni}</div>
+      </div>
+      <div style="text-align:right;flex-shrink:0;margin-left:10px;">
+        <div class="mc-label">Time</div>
+        <div class="mc-val">${dt.toLocaleTimeString('en-NG',{hour:'2-digit',minute:'2-digit'})}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ── ALL UNIS VIEW ── */
+function renderAllUnis(){
+  const counts={};
+  /* Use university_name (actual institution selected from dropdown) */
+  allMembers.forEach(m=>{
+    const uni = m.university_name || m.university;
+    if(uni) counts[uni]=(counts[uni]||0)+1;
+  });
+  const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  const max=sorted[0]?.[1]||1;
+  document.getElementById('uni-total').textContent=`${sorted.length} institutions`;
+  const el=document.getElementById('all-unis');
+  el.innerHTML=sorted.length?sorted.map(([uni,cnt],i)=>`
+    <div class="uni-row">
+      <span style="font-size:0.68rem;color:var(--muted);min-width:20px;">${i+1}</span>
+      <span class="uni-name">${uni}</span>
+      <div class="uni-bar-wrap"><div class="uni-bar" style="width:${(cnt/max)*100}%"></div></div>
+      <span class="uni-count">${cnt}</span>
+    </div>`).join(''):'<div class="empty">No data yet</div>';
+}
+
+/* ── SEARCH ── */
 function filterMembers(){
-  const q = document.getElementById('search-input').value.toLowerCase();
-  filteredMembers = q
-    ? allMembers.filter(m=>(m.email||'').toLowerCase().includes(q)||(m.university||'').toLowerCase().includes(q))
-    : [...allMembers];
-  currentPage = 1;
+  const q=document.getElementById('search-input').value.toLowerCase();
+  filteredMembers=q
+    ?allMembers.filter(m=>
+        (m.full_name||'').toLowerCase().includes(q)||
+        (m.email||'').toLowerCase().includes(q)||
+        (m.university_name||m.university||'').toLowerCase().includes(q)
+      )
+    :[...allMembers];
+  currentPage=1;
   renderAllTable();
 }
 
 function changePage(dir){
-  currentPage += dir;
+  currentPage+=dir;
   renderAllTable();
   document.querySelector('.content').scrollTo({top:0,behavior:'smooth'});
 }
 
-/* ── ALL UNIS VIEW ── */
-function renderAllUnisView(){
-  const counts = {};
-  allMembers.forEach(m=>{ if(m.university) counts[m.university]=(counts[m.university]||0)+1; });
-  const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
-  const max = sorted[0]?.[1]||1;
-
-  document.getElementById('uni-count-badge').textContent = `${sorted.length} institutions`;
-  const list = document.getElementById('all-unis-list');
-  list.innerHTML = sorted.length ? sorted.map(([uni,count],i)=>`
-    <div class="uni-row">
-      <span style="font-size:0.72rem;color:var(--muted);min-width:24px;">${i+1}</span>
-      <span class="uni-name">${uni}</span>
-      <div class="uni-bar-wrap" style="width:120px;"><div class="uni-bar" style="width:${(count/max)*100}%;"></div></div>
-      <span class="uni-count">${count} member${count!==1?'s':''}</span>
-    </div>`).join('')
-    : '<div class="empty-state">No university data yet</div>';
-}
-
 /* ── EXPORT CSV ── */
 function exportCSV(){
-  if(!allMembers.length){ toast('No data to export','error'); return; }
-  const headers = ['Position','Email','University','Source','Joined At'];
-  const rows = allMembers.map((m,i)=>[
-    i+1, m.email, m.university||'', m.source||'', m.joined_at
-  ]);
-  const csv = [headers, ...rows].map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
-  const blob = new Blob([csv],{type:'text/csv'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `universe_waitlist_${new Date().toISOString().slice(0,10)}.csv`;
+  if(!allMembers.length){toast('No data to export',true);return;}
+  const headers=['Position','Full Name','Email','Institution','Source','Date Joined','Time Joined','Agreed to Terms'];
+  const rows=allMembers.map((m,i)=>{
+    const dt=new Date(m.joined_at);
+    const uni = m.university_name || m.university || '';
+    return[
+      i+1,
+      m.full_name||'',
+      m.email||'',
+      uni,
+      (m.source||'').replace('_',' '),
+      dt.toLocaleDateString('en-NG',{day:'numeric',month:'short',year:'numeric'}),
+      dt.toLocaleTimeString('en-NG',{hour:'2-digit',minute:'2-digit'}),
+      m.agreed_to_terms?'Yes':'No'
+    ];
+  });
+  const csv=[headers,...rows].map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download=`universe_waitlist_${new Date().toISOString().slice(0,10)}.csv`;
   a.click();
-  toast(`✅ Exported ${allMembers.length} members as CSV`);
+  toast(`✅ Exported ${allMembers.length} members`);
 }
 
 /* ── HELPERS ── */
 function timeAgo(date){
-  const s = Math.floor((Date.now()-date)/1000);
-  if(s<60) return `${s}s ago`;
-  if(s<3600) return `${Math.floor(s/60)}m ago`;
-  if(s<86400) return `${Math.floor(s/3600)}h ago`;
-  return `${Math.floor(s/86400)}d ago`;
+  const s=Math.floor((Date.now()-date)/1000);
+  if(s<60)return`${s}s ago`;
+  if(s<3600)return`${Math.floor(s/60)}m ago`;
+  if(s<86400)return`${Math.floor(s/3600)}h ago`;
+  return`${Math.floor(s/86400)}d ago`;
 }
 
-function toast(msg, type='success'){
-  const t = document.getElementById('admin-toast');
-  t.innerHTML = msg;
-  t.style.borderColor = type==='error' ? 'rgba(244,63,94,0.3)' : 'var(--border-accent)';
+function toast(msg,isErr=false){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.style.borderColor=isErr?'rgba(244,63,94,0.3)':'rgba(22,199,96,0.3)';
   t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 3500);
+  setTimeout(()=>t.classList.remove('show'),3200);
 }
 
-/* ── AUTO REFRESH every 60s ── */
-setInterval(()=>{ if(SB_URL) loadAll(); }, 60000);
+/* Auto-refresh every 60s */
+setInterval(()=>{if(SB_URL)loadAll();},60000);
 </script>
 </body>
 </html>
