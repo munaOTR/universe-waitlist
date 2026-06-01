@@ -22,9 +22,7 @@
     --text-muted: rgba(200,210,255,0.65);
     --verse-green: #16C760;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   body {
     font-family: 'DM Sans', sans-serif;
     background: var(--space-black);
@@ -32,17 +30,12 @@
     overflow-x: hidden;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
-
   h1,h2,h3,h4 { font-family: 'Syne', sans-serif; }
-
-  /* UniVerse brand split styling */
   .brand { font-family: 'Syne', sans-serif; font-weight: 800; }
   .brand .uni { color: #ffffff; }
   .brand .verse { color: #16C760; }
 
-  /* === BACKGROUND LAYERS === */
   .bg-scene {
     position: fixed; inset: 0; z-index: 0;
     background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(88,80,236,0.28) 0%, transparent 65%),
@@ -50,42 +43,26 @@
                 radial-gradient(ellipse 50% 40% at 10% 60%, rgba(59,130,246,0.12) 0%, transparent 55%),
                 var(--space-black);
   }
-
-  /* Stars */
-  .stars { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; contain: layout style paint; }
+  .stars { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
   .star {
-    position: absolute; border-radius: 50%;
-    background: white;
+    position: absolute; border-radius: 50%; background: white;
     animation: twinkle var(--dur, 3s) ease-in-out infinite;
-    animation-delay: var(--delay, 0s);
-    will-change: opacity;
+    animation-delay: var(--delay, 0s); will-change: opacity;
   }
-  @keyframes twinkle {
-    0%,100% { opacity: 0.1; }
-    50% { opacity: 0.6; }
-  }
-
-  /* Opaque campus background overlay */
+  @keyframes twinkle { 0%,100% { opacity: 0.1; } 50% { opacity: 0.6; } }
   .campus-overlay {
     position: fixed; inset: 0; z-index: 0;
     background-image: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1600&q=80');
-    background-size: cover;
-    background-position: center 30%;
-    opacity: 0.045;
-    filter: grayscale(100%);
-    will-change: auto;
+    background-size: cover; background-position: center 30%;
+    opacity: 0.045; filter: grayscale(100%);
   }
-
-  /* === GLASSMORPHISM === */
   .glass {
     background: var(--glass-bg);
     backdrop-filter: blur(12px) saturate(1.2);
     -webkit-backdrop-filter: blur(12px) saturate(1.2);
     border: 1px solid var(--glass-border);
     border-radius: 16px;
-    contain: layout style paint;
   }
-
   .glass-card {
     background: linear-gradient(135deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.02) 100%);
     backdrop-filter: blur(15px) saturate(1.3);
@@ -93,80 +70,41 @@
     border: 1px solid rgba(255,255,255,0.09);
     border-radius: 20px;
     transition: transform 0.3s ease, border-color 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    will-change: transform;
-    contain: layout style paint;
+    position: relative; overflow: hidden; will-change: transform;
   }
-
   .glass-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 20px;
+    content: ''; position: absolute; inset: 0; border-radius: 20px;
     background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 60%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    opacity: 0; transition: opacity 0.3s ease;
   }
-
-  .glass-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(168,85,247,0.35);
-    box-shadow: 0 12px 30px rgba(88,80,236,0.2);
-  }
+  .glass-card:hover { transform: translateY(-8px); border-color: rgba(168,85,247,0.35); box-shadow: 0 12px 30px rgba(88,80,236,0.2); }
   .glass-card:hover::before { opacity: 1; }
 
-  /* === ORBIT ANIMATION === */
-  .orbit-container {
-    width: 320px; height: 320px;
-    position: relative;
-    margin: 0 auto;
-    transform-style: preserve-3d;
-  }
-
+  /* ORBIT */
+  .orbit-container { width: 320px; height: 320px; position: relative; margin: 0 auto; transform-style: preserve-3d; }
   .orbit-core {
-    position: absolute;
-    top: 50%; left: 50%;
+    position: absolute; top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: 80px; height: 80px;
-    border-radius: 50%;
+    width: 80px; height: 80px; border-radius: 50%;
     background: radial-gradient(circle at 35% 35%, #60a5fa, #3b82f6 50%, #1d4ed8);
     box-shadow: 0 0 30px rgba(59,130,246,0.5), 0 0 60px rgba(59,130,246,0.25);
     animation: pulse-core 3s ease-in-out infinite;
-    z-index: 10;
-    display: flex; align-items: center; justify-content: center;
-    will-change: transform;
+    z-index: 10; display: flex; align-items: center; justify-content: center; will-change: transform;
   }
-
   @keyframes pulse-core {
     0%,100% { box-shadow: 0 0 30px rgba(59,130,246,0.5), 0 0 60px rgba(59,130,246,0.25); transform: translate(-50%,-50%) scale(1); }
     50% { box-shadow: 0 0 45px rgba(59,130,246,0.7), 0 0 90px rgba(59,130,246,0.3); transform: translate(-50%,-50%) scale(1.05); }
   }
-
   .orbit-ring {
-    position: absolute; top: 50%; left: 50%;
-    border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.12);
-    transform-origin: center;
-    animation: spin3d linear infinite;
-    will-change: transform;
-    contain: layout style paint;
+    position: absolute; top: 50%; left: 50%; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.12); transform-origin: center;
+    animation: spin3d linear infinite; will-change: transform;
   }
   .orbit-ring-1 { width: 160px; height: 160px; margin: -80px 0 0 -80px; animation-duration: 12s; border-color: rgba(59,130,246,0.3); }
   .orbit-ring-2 { width: 230px; height: 230px; margin: -115px 0 0 -115px; animation-duration: 20s; animation-direction: reverse; border-color: rgba(168,85,247,0.25); }
   .orbit-ring-3 { width: 300px; height: 300px; margin: -150px 0 0 -150px; animation-duration: 28s; border-color: rgba(99,102,241,0.18); }
-
-  @keyframes spin3d {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
-  .orbit-dot {
-    position: absolute;
-    width: 14px; height: 14px;
-    border-radius: 50%;
-    top: -7px; left: 50%; margin-left: -7px;
-  }
+  @keyframes spin3d { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .orbit-dot { position: absolute; width: 14px; height: 14px; border-radius: 50%; top: -7px; left: 50%; margin-left: -7px; }
   .dot-blue { background: radial-gradient(circle at 35% 35%, #93c5fd, #3b82f6); box-shadow: 0 0 10px rgba(59,130,246,0.8); }
   .dot-violet { background: radial-gradient(circle at 35% 35%, #d8b4fe, #a855f7); box-shadow: 0 0 10px rgba(168,85,247,0.8); }
   .dot-cyan { background: radial-gradient(circle at 35% 35%, #67e8f9, #06b6d4); box-shadow: 0 0 10px rgba(6,182,212,0.8); }
@@ -174,139 +112,140 @@
   .dot-green { background: radial-gradient(circle at 35% 35%, #86efac, #22c55e); box-shadow: 0 0 10px rgba(34,197,94,0.8); }
   .dot-amber { background: radial-gradient(circle at 35% 35%, #fde68a, #f59e0b); box-shadow: 0 0 10px rgba(245,158,11,0.8); }
 
-  /* === NAVBAR === */
+  /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    padding: 20px 40px;
-    background: rgba(5,6,16,0.5);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    padding: 20px 40px; background: rgba(5,6,16,0.5);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255,255,255,0.06);
     display: flex; align-items: center; justify-content: space-between;
   }
   .nav-badge {
     font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
-    color: rgba(192,132,252,0.9);
-    border: 1px solid rgba(168,85,247,0.3);
-    padding: 4px 10px; border-radius: 20px;
-    background: rgba(168,85,247,0.08);
+    color: rgba(192,132,252,0.9); border: 1px solid rgba(168,85,247,0.3);
+    padding: 4px 10px; border-radius: 20px; background: rgba(168,85,247,0.08);
   }
 
-  /* === HERO === */
+  /* HERO */
   .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 120px 20px 80px; text-align: center; position: relative; }
-
   .hero-tag {
     display: inline-flex; align-items: center; gap: 8px;
     font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em;
     color: rgba(192,132,252,0.9); text-transform: uppercase;
-    border: 1px solid rgba(168,85,247,0.3);
-    background: rgba(168,85,247,0.08);
-    padding: 6px 16px; border-radius: 24px;
-    margin-bottom: 28px;
+    border: 1px solid rgba(168,85,247,0.3); background: rgba(168,85,247,0.08);
+    padding: 6px 16px; border-radius: 24px; margin-bottom: 28px;
     animation: fadeSlideDown 0.8s ease both;
   }
   .hero-tag-dot { width: 6px; height: 6px; border-radius: 50%; background: #a855f7; box-shadow: 0 0 8px #a855f7; animation: blink 1.5s ease infinite; }
   @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
-
-  .hero-headline {
-    font-size: clamp(2.8rem, 6vw, 5.2rem);
-    font-weight: 800; line-height: 1.08;
-    letter-spacing: -0.03em;
-    margin-bottom: 24px;
-    animation: fadeSlideDown 0.8s 0.1s ease both;
-  }
-
-  .hero-sub {
-    max-width: 680px; font-size: 1.1rem; line-height: 1.7;
-    color: var(--text-muted); margin-bottom: 48px;
-    animation: fadeSlideDown 0.8s 0.2s ease both;
-  }
+  .hero-headline { font-size: clamp(2.8rem, 6vw, 5.2rem); font-weight: 800; line-height: 1.08; letter-spacing: -0.03em; margin-bottom: 24px; animation: fadeSlideDown 0.8s 0.1s ease both; }
+  .hero-sub { max-width: 680px; font-size: 1.1rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 48px; animation: fadeSlideDown 0.8s 0.2s ease both; }
   .hero-sub .highlight { color: #93c5fd; font-weight: 500; }
 
-  /* === FORM === */
+  /* ═══ ENHANCED WAITLIST FORM ═══ */
   .waitlist-form {
-    display: flex; flex-direction: column; align-items: center; gap: 16px;
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
     width: 100%; max-width: 520px;
     animation: fadeSlideDown 0.8s 0.3s ease both;
   }
-  .input-wrapper { width: 100%; position: relative; }
-  .email-input {
+  .form-field { width: 100%; }
+
+  /* shared input style */
+  .f-input {
     width: 100%;
     background: rgba(16,24,38,0.92);
     border: 1px solid rgba(22,199,96,0.18);
     border-radius: 14px;
-    padding: 18px 24px;
+    padding: 16px 20px;
     font-family: 'DM Sans', sans-serif;
-    font-size: 1rem; color: var(--text-primary);
+    font-size: 0.97rem; color: var(--text-primary);
     outline: none;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
     backdrop-filter: blur(10px);
   }
-  .email-input::placeholder { color: rgba(22,199,96,0.35); }
-  .email-input:focus {
+  .f-input::placeholder { color: rgba(22,199,96,0.35); }
+  .f-input:focus {
     border-color: #16C760;
     background: rgba(16,24,38,0.98);
     box-shadow: 0 0 0 3px rgba(22,199,96,0.1);
   }
+  .f-input.f-error { border-color: rgba(244,63,94,0.55); box-shadow: 0 0 0 3px rgba(244,63,94,0.08); }
+
+  /* select */
+  .f-select {
+    width: 100%;
+    background: rgba(16,24,38,0.92);
+    border: 1px solid rgba(22,199,96,0.18);
+    border-radius: 14px;
+    padding: 16px 44px 16px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.97rem; color: var(--text-primary);
+    outline: none; cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    backdrop-filter: blur(10px);
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2316C760' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-color: rgba(16,24,38,0.92);
+  }
+  .f-select option { background: #0a0c1e; color: #e8eeff; }
+  .f-select optgroup { background: #0d1030; color: rgba(200,210,255,0.5); font-size: 0.75rem; }
+  .f-select:focus { border-color: #16C760; background-color: rgba(16,24,38,0.98); box-shadow: 0 0 0 3px rgba(22,199,96,0.1); }
+  .f-select.f-error { border-color: rgba(244,63,94,0.55); box-shadow: 0 0 0 3px rgba(244,63,94,0.08); }
+
+  /* field error message */
+  .f-err { display: none; font-size: 0.74rem; color: #fda4af; padding: 4px 4px 0; }
+  .f-err.show { display: block; }
+
+  /* policy checkbox */
+  .policy-wrap {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 14px 16px;
+    cursor: pointer; transition: all 0.25s; text-align: left;
+    user-select: none;
+  }
+  .policy-wrap:hover { border-color: rgba(22,199,96,0.25); background: rgba(22,199,96,0.04); }
+  .policy-wrap.agreed { border-color: rgba(22,199,96,0.38); background: rgba(22,199,96,0.07); }
+  .policy-wrap.p-error { border-color: rgba(244,63,94,0.45); animation: shake 0.4s ease; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+  .policy-box {
+    width: 22px; height: 22px; min-width: 22px; border-radius: 7px;
+    border: 2px solid rgba(22,199,96,0.4);
+    background: transparent; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; margin-top: 1px;
+  }
+  .policy-wrap.agreed .policy-box { background: #16C760; border-color: #16C760; }
+  .policy-check { display: none; color: #000; font-size: 0.8rem; font-weight: 900; line-height: 1; }
+  .policy-wrap.agreed .policy-check { display: block; }
+  .policy-text { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+  .policy-text a { color: #16C760; text-decoration: none; font-weight: 600; }
+  .policy-text a:hover { text-decoration: underline; }
 
   .cta-btn {
-    width: 100%;
-    padding: 18px 40px;
-    border-radius: 14px; border: none; cursor: pointer;
-    font-family: 'Syne', sans-serif;
-    font-size: 1rem; font-weight: 700;
-    letter-spacing: 0.04em;
+    width: 100%; padding: 18px 40px; border-radius: 14px; border: none; cursor: pointer;
+    font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.04em;
     background: linear-gradient(135deg, #16C760, #1FE870 100%);
-    color: white;
-    position: relative; overflow: hidden;
+    color: white; position: relative; overflow: hidden;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 8px 24px rgba(22,199,96,0.15);
-    will-change: transform;
+    box-shadow: 0 8px 24px rgba(22,199,96,0.15); will-change: transform;
+    margin-top: 4px;
   }
-  .cta-btn::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(135deg, #1FE870, #16C760);
-    opacity: 0; transition: opacity 0.2s ease;
-  }
+  .cta-btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, #1FE870, #16C760); opacity: 0; transition: opacity 0.2s ease; }
   .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(22,199,96,0.25); }
   .cta-btn:hover::before { opacity: 1; }
   .cta-btn span { position: relative; z-index: 1; }
   .cta-btn:active { transform: translateY(0); }
 
-  .success-msg {
-    display: none;
-    background: rgba(34,197,94,0.1);
-    border: 1px solid rgba(34,197,94,0.3);
-    color: #86efac; border-radius: 12px;
-    padding: 14px 24px; font-size: 0.95rem;
-    width: 100%; text-align: center;
-  }
-  .error-msg {
-    display: none;
-    background: rgba(244,63,94,0.1);
-    border: 1px solid rgba(244,63,94,0.3);
-    color: #fda4af; border-radius: 12px;
-    padding: 14px 24px; font-size: 0.95rem;
-    width: 100%; text-align: center;
-  }
+  .success-msg { display: none; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); color: #86efac; border-radius: 12px; padding: 14px 24px; font-size: 0.95rem; width: 100%; text-align: center; }
+  .error-msg { display: none; background: rgba(244,63,94,0.1); border: 1px solid rgba(244,63,94,0.3); color: #fda4af; border-radius: 12px; padding: 14px 24px; font-size: 0.95rem; width: 100%; text-align: center; }
 
-  /* === COUNTER === */
-  .founders-counter {
-    margin-top: 56px;
-    display: flex; align-items: center; gap: 16px;
-    animation: fadeSlideDown 0.8s 0.4s ease both;
-  }
+  /* COUNTER */
+  .founders-counter { margin-top: 56px; display: flex; align-items: center; gap: 16px; animation: fadeSlideDown 0.8s 0.4s ease both; }
   .counter-avatars { display: flex; }
-  .counter-avatar {
-    width: 36px; height: 36px; border-radius: 50%;
-    border: 2px solid var(--space-black);
-    margin-left: -8px;
-    background: linear-gradient(135deg, #4f46e5, #7c3aed);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.55rem; font-weight: 700; color: white;
-    font-family: 'Syne', sans-serif;
-  }
+  .counter-avatar { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--space-black); margin-left: -8px; background: linear-gradient(135deg, #4f46e5, #7c3aed); display: flex; align-items: center; justify-content: center; font-size: 0.55rem; font-weight: 700; color: white; font-family: 'Syne', sans-serif; }
   .counter-avatar:first-child { margin-left: 0; }
   .ca-2 { background: linear-gradient(135deg, #0ea5e9, #3b82f6); }
   .ca-3 { background: linear-gradient(135deg, #a855f7, #ec4899); }
@@ -315,189 +254,104 @@
   .counter-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; }
   .counter-text strong { color: var(--text-primary); font-weight: 600; }
 
-  /* === SECTION === */
   section { position: relative; z-index: 2; padding: 100px 20px; }
-  .section-tag {
-    display: inline-block; font-size: 0.72rem; font-weight: 600;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: rgba(96,165,250,0.9);
-    border: 1px solid rgba(59,130,246,0.25);
-    background: rgba(59,130,246,0.07);
-    padding: 5px 14px; border-radius: 20px;
-    margin-bottom: 20px;
-  }
-  .section-title {
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 800; line-height: 1.15;
-    letter-spacing: -0.025em; margin-bottom: 16px;
-  }
+  .section-tag { display: inline-block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(96,165,250,0.9); border: 1px solid rgba(59,130,246,0.25); background: rgba(59,130,246,0.07); padding: 5px 14px; border-radius: 20px; margin-bottom: 20px; }
+  .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.025em; margin-bottom: 16px; }
   .section-sub { font-size: 1rem; color: var(--text-muted); max-width: 560px; line-height: 1.7; }
 
-  /* === PILLARS GRID === */
-  .pillars-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 24px; margin-top: 56px;
-  }
+  .pillars-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; margin-top: 56px; }
   .pillar-card { padding: 32px 28px; position: relative; }
-  .pillar-icon-wrap {
-    width: 52px; height: 52px; border-radius: 14px;
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 20px; font-size: 1.5rem; position: relative;
-  }
-  .pillar-number {
-    position: absolute; top: 24px; right: 24px;
-    font-family: 'Syne', sans-serif;
-    font-size: 3rem; font-weight: 800;
-    color: rgba(255,255,255,0.04); line-height: 1;
-  }
-  .pillar-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.15rem; font-weight: 700;
-    margin-bottom: 10px; color: var(--text-primary);
-  }
+  .pillar-icon-wrap { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 1.5rem; }
+  .pillar-number { position: absolute; top: 24px; right: 24px; font-family: 'Syne', sans-serif; font-size: 3rem; font-weight: 800; color: rgba(255,255,255,0.04); line-height: 1; }
+  .pillar-name { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; color: var(--text-primary); }
   .pillar-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
-  .pillar-tag {
-    display: inline-block; margin-top: 16px;
-    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
-    padding: 4px 10px; border-radius: 20px;
-  }
+  .pillar-tag { display: inline-block; margin-top: 16px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; padding: 4px 10px; border-radius: 20px; }
 
-  /* === COMPARISON === */
-  .comparison-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
-    margin-top: 56px; border-radius: 24px; overflow: hidden;
-  }
+  .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 56px; border-radius: 24px; overflow: hidden; }
   @media (max-width: 768px) { .comparison-grid { grid-template-columns: 1fr; } }
-
   .comp-col { padding: 48px 40px; }
-  .comp-col-old {
-    background: rgba(239,68,68,0.04);
-    border: 1px solid rgba(239,68,68,0.12);
-    border-radius: 24px 0 0 24px;
-  }
-  .comp-col-new {
-    background: rgba(59,130,246,0.05);
-    border: 1px solid rgba(59,130,246,0.15);
-    border-radius: 0 24px 24px 0;
-    position: relative; overflow: hidden;
-  }
-  .comp-col-new::after {
-    content: 'UNIVERSE'; position: absolute;
-    right: -30px; top: 50%; transform: translateY(-50%) rotate(90deg);
-    font-family: 'Syne', sans-serif;
-    font-size: 4rem; font-weight: 800;
-    color: rgba(59,130,246,0.05);
-    letter-spacing: 0.1em; pointer-events: none;
-  }
-  .comp-head {
-    font-family: 'Syne', sans-serif;
-    font-size: 1rem; font-weight: 700;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    margin-bottom: 32px;
-  }
+  .comp-col-old { background: rgba(239,68,68,0.04); border: 1px solid rgba(239,68,68,0.12); border-radius: 24px 0 0 24px; }
+  .comp-col-new { background: rgba(59,130,246,0.05); border: 1px solid rgba(59,130,246,0.15); border-radius: 0 24px 24px 0; position: relative; overflow: hidden; }
+  .comp-col-new::after { content: 'UNIVERSE'; position: absolute; right: -30px; top: 50%; transform: translateY(-50%) rotate(90deg); font-family: 'Syne', sans-serif; font-size: 4rem; font-weight: 800; color: rgba(59,130,246,0.05); letter-spacing: 0.1em; pointer-events: none; }
+  .comp-head { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 32px; }
   .comp-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px; }
-  .comp-icon {
-    width: 28px; height: 28px; border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.9rem; flex-shrink: 0; margin-top: 2px;
-  }
+  .comp-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; margin-top: 2px; }
   .icon-bad { background: rgba(239,68,68,0.12); }
   .icon-good { background: rgba(34,197,94,0.12); }
   .comp-item-text { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
   .comp-item-text strong { color: var(--text-primary); display: block; font-weight: 500; font-size: 0.95rem; margin-bottom: 2px; }
 
-  /* === STATS BAR === */
-  .stats-bar {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 20px; overflow: hidden;
-    margin-top: 80px;
-  }
+  .stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,0.06); border-radius: 20px; overflow: hidden; margin-top: 80px; }
   @media (max-width: 640px) { .stats-bar { grid-template-columns: 1fr 1fr; } }
-  .stat-cell {
-    background: rgba(5,6,16,0.8);
-    backdrop-filter: blur(10px);
-    padding: 32px 28px; text-align: center;
-  }
-  .stat-num {
-    font-family: 'Syne', sans-serif;
-    font-size: 2.2rem; font-weight: 800;
-    background: linear-gradient(135deg, #60a5fa, #c084fc);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
+  .stat-cell { background: rgba(5,6,16,0.8); backdrop-filter: blur(10px); padding: 32px 28px; text-align: center; }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; background: linear-gradient(135deg, #60a5fa, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 6px; letter-spacing: 0.05em; }
 
-  /* === FOOTER === */
-  footer {
-    position: relative; z-index: 2;
-    padding: 60px 20px 40px;
-    border-top: 1px solid rgba(255,255,255,0.06);
-    text-align: center;
-  }
+  footer { position: relative; z-index: 2; padding: 60px 20px 40px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; }
+  .glow-line { height: 1px; width: 100%; background: linear-gradient(90deg, transparent, rgba(168,85,247,0.4) 30%, rgba(59,130,246,0.5) 70%, transparent); margin: 0 auto; max-width: 800px; }
 
-  /* === GLOW DIVIDERS === */
-  .glow-line {
-    height: 1px; width: 100%;
-    background: linear-gradient(90deg, transparent, rgba(168,85,247,0.4) 30%, rgba(59,130,246,0.5) 70%, transparent);
-    margin: 0 auto; max-width: 800px;
-  }
-
-  /* === ANIMATIONS === */
-  @keyframes fadeSlideDown {
-    from { opacity: 0; transform: translateY(-15px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .fade-up {
-    opacity: 0; transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
+  @keyframes fadeSlideDown { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
   .fade-up.visible { opacity: 1; transform: translateY(0); }
-
-  #progress-bar {
-    position: fixed; top: 0; left: 0; height: 2px; z-index: 999;
-    background: linear-gradient(90deg, #3b82f6, #a855f7);
-    width: 0%; transition: width 0.08s linear;
-    will-change: width;
-  }
-
-  .nat-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: linear-gradient(135deg, rgba(22,199,96,0.13), rgba(22,199,96,0.08));
-    border: 1px solid rgba(22,199,96,0.32);
-    padding: 8px 18px; border-radius: 24px;
-    font-size: 0.78rem; font-weight: 600;
-    color: #16C760; letter-spacing: 0.08em;
-    text-transform: uppercase; margin-bottom: 24px;
-    contain: layout style;
-  }
-
-  .grid-bg {
-    position: absolute; inset: 0; z-index: 0;
-    background-image: linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
-    background-size: 80px 80px;
-    mask-image: radial-gradient(ellipse at center, black 10%, transparent 70%);
-    -webkit-mask-image: radial-gradient(ellipse at center, black 10%, transparent 70%);
-    pointer-events: none;
-  }
-
+  #progress-bar { position: fixed; top: 0; left: 0; height: 2px; z-index: 999; background: linear-gradient(90deg, #3b82f6, #a855f7); width: 0%; transition: width 0.08s linear; }
+  .nat-badge { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, rgba(22,199,96,0.13), rgba(22,199,96,0.08)); border: 1px solid rgba(22,199,96,0.32); padding: 8px 18px; border-radius: 24px; font-size: 0.78rem; font-weight: 600; color: #16C760; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 24px; }
+  .grid-bg { position: absolute; inset: 0; z-index: 0; background-image: linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px); background-size: 80px 80px; mask-image: radial-gradient(ellipse at center, black 10%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse at center, black 10%, transparent 70%); pointer-events: none; }
   .container { max-width: 1160px; margin: 0 auto; }
-
-  #toast {
-    position: fixed; bottom: 30px; right: 30px; z-index: 9999;
-    background: rgba(34,197,94,0.12);
-    border: 1px solid rgba(34,197,94,0.35);
-    backdrop-filter: blur(12px);
-    border-radius: 14px; padding: 16px 24px;
-    color: #86efac; font-size: 0.9rem;
-    transform: translateY(100px); opacity: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    max-width: 340px;
-    will-change: transform, opacity;
-  }
+  #toast { position: fixed; bottom: 30px; right: 30px; z-index: 9999; background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.35); backdrop-filter: blur(12px); border-radius: 14px; padding: 16px 24px; color: #86efac; font-size: 0.9rem; transform: translateY(100px); opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease; max-width: 340px; }
   #toast.show { transform: translateY(0); opacity: 1; }
+
+  /* === LAUNCH COUNTDOWN === */
+  .countdown-wrap {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 10px; margin-bottom: 40px;
+    animation: fadeSlideDown 0.8s 0.25s ease both;
+  }
+  .countdown-label {
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: rgba(200,210,255,0.4);
+  }
+  .countdown-blocks {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .cd-block {
+    display: flex; flex-direction: column; align-items: center; gap: 5px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px; padding: 14px 18px; min-width: 68px;
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .cd-block::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(22,199,96,0.4), transparent);
+  }
+  .cd-block:hover { border-color: rgba(22,199,96,0.25); }
+  .cd-num {
+    font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800;
+    color: var(--text-primary); line-height: 1;
+    background: linear-gradient(135deg, #ffffff, #86efac);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-variant-numeric: tabular-nums;
+    min-width: 2ch; text-align: center;
+  }
+  .cd-unit {
+    font-size: 0.58rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: rgba(200,210,255,0.4);
+  }
+  .cd-sep {
+    font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800;
+    color: rgba(22,199,96,0.4); margin-bottom: 16px; line-height: 1;
+    animation: blink-sep 1s ease infinite;
+  }
+  @keyframes blink-sep { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
+
+  @media (max-width: 480px) {
+    .cd-block { min-width: 56px; padding: 12px 12px; }
+    .cd-num { font-size: 1.5rem; }
+    .countdown-blocks { gap: 6px; }
+    .cd-sep { font-size: 1.3rem; }
+  }
 
   @media (max-width: 768px) {
     nav { padding: 16px 20px; }
@@ -526,10 +380,8 @@
   </div>
 </nav>
 
-<!-- HERO SECTION -->
+<!-- HERO -->
 <section class="hero" id="top" style="z-index:2;">
-
-  <!-- 3D ORBIT -->
   <div style="margin-bottom:48px;" class="fade-up visible">
     <div class="orbit-container">
       <div class="orbit-core">
@@ -554,19 +406,10 @@
     </div>
   </div>
 
-  <div class="nat-badge">
-    🇳🇬 &nbsp; Nigeria's First Integrated Campus Operating System
-  </div>
+  <div class="nat-badge">🇳🇬 &nbsp; Nigeria's First Integrated Campus Operating System</div>
+  <div class="hero-tag"><div class="hero-tag-dot"></div>Now Accepting Founding Members · BETA 2026</div>
 
-  <div class="hero-tag">
-    <div class="hero-tag-dot"></div>
-    Now Accepting Founding Members · BETA 2026
-  </div>
-
-  <h1 class="hero-headline">
-    The Operating System<br>
-    for Your Campus Life.
-  </h1>
+  <h1 class="hero-headline">The Operating System<br>for Your Campus Life.</h1>
 
   <p class="hero-sub">
     <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> ICOS is a <span class="highlight">national asset</span> engineered to fully digitize the Nigerian university experience —
@@ -574,75 +417,422 @@
     One platform. Every student. Every campus.
   </p>
 
-  <!-- WAITLIST FORM -->
-  <div class="waitlist-form" id="waitlist">
-    <div class="input-wrapper">
-      <input 
-        type="email" 
-        id="email-input"
-        class="email-input"
-        placeholder="Enter your institutional email (e.g. name@unilag.edu.ng)"
-        autocomplete="email"
-      >
+  <!-- LAUNCH COUNTDOWN -->
+  <div class="countdown-wrap">
+    <div class="countdown-label">🚀 &nbsp; Launching September 1st, 2026 &nbsp; ·  &nbsp; Countdown</div>
+    <div class="countdown-blocks">
+      <div class="cd-block">
+        <span class="cd-num" id="cd-days">00</span>
+        <span class="cd-unit">Days</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-block">
+        <span class="cd-num" id="cd-hours">00</span>
+        <span class="cd-unit">Hours</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-block">
+        <span class="cd-num" id="cd-mins">00</span>
+        <span class="cd-unit">Mins</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-block">
+        <span class="cd-num" id="cd-secs">00</span>
+        <span class="cd-unit">Secs</span>
+      </div>
     </div>
-    <button class="cta-btn" onclick="handleJoin()">
-      <span>⚡ Join the Verse</span>
+  </div>
+
+  <!-- ═══ ENHANCED WAITLIST FORM ═══ -->
+  <div class="waitlist-form" id="waitlist">
+
+    <!-- Full Name -->
+    <div class="form-field">
+      <input type="text" id="inp-name" class="f-input" placeholder="👤  Full name" autocomplete="name" maxlength="80">
+      <div class="f-err" id="err-name">⚠️ Please enter your full name.</div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-field">
+      <input type="email" id="inp-email" class="f-input" placeholder="✉️  Email address" autocomplete="email">
+      <div class="f-err" id="err-email">⚠️ Please enter a valid email address.</div>
+    </div>
+
+    <!-- Institution dropdown -->
+    <div class="form-field">
+      <select id="inp-uni" class="f-select">
+        <option value="" disabled selected>🎓  Select your institution</option>
+
+        <optgroup label="─── Federal Universities ───">
+          <option>Abubakar Tafawa Balewa University (ATBU), Bauchi</option>
+          <option>Ahmadu Bello University (ABU), Zaria</option>
+          <option>Bayero University (BUK), Kano</option>
+          <option>Federal University Birnin Kebbi (FUBK)</option>
+          <option>Federal University Dutse (FUD), Jigawa</option>
+          <option>Federal University Dutsin-Ma (FUDMA), Katsina</option>
+          <option>Federal University Gashua (FUGASHUA), Yobe</option>
+          <option>Federal University Gusau (FUGUS), Zamfara</option>
+          <option>Federal University Kashere (FUK), Gombe</option>
+          <option>Federal University Lafia (FULAFIA), Nasarawa</option>
+          <option>Federal University Lokoja (FUL), Kogi</option>
+          <option>Federal University Ndufu-Alike Ikwo (FUNAI), Ebonyi</option>
+          <option>Federal University of Agriculture (FUNAAB), Abeokuta</option>
+          <option>Federal University of Agriculture (FUAM), Makurdi</option>
+          <option>Federal University of Agriculture (MAUTECH), Yola</option>
+          <option>Federal University of Health Sciences (FUHS), Otukpo</option>
+          <option>Federal University of Petroleum Resources (FUPRE), Effurun</option>
+          <option>Federal University of Technology (FUTA), Akure</option>
+          <option>Federal University of Technology (FUT), Minna</option>
+          <option>Federal University of Technology (FUTO), Owerri</option>
+          <option>Federal University Otuoke (FUO), Bayelsa</option>
+          <option>Federal University Oye-Ekiti (FUOYE), Ekiti</option>
+          <option>Federal University Wukari (FUW), Taraba</option>
+          <option>Michael Okpara University of Agriculture (MOUAU), Umudike</option>
+          <option>National Open University of Nigeria (NOUN), Abuja</option>
+          <option>Nigeria Police Academy (POLAC), Wudil</option>
+          <option>Nigerian Army University (NAUB), Biu</option>
+          <option>Nigerian Defence Academy (NDA), Kaduna</option>
+          <option>Nigerian Maritime University (NMU), Okerenkoko</option>
+          <option>Nnamdi Azikiwe University (UNIZIK), Awka</option>
+          <option>Obafemi Awolowo University (OAU), Ile-Ife</option>
+          <option>University of Abuja (UNIABUJA)</option>
+          <option>University of Benin (UNIBEN)</option>
+          <option>University of Calabar (UNICAL)</option>
+          <option>University of Ibadan (UI)</option>
+          <option>University of Ilorin (UNILORIN)</option>
+          <option>University of Jos (UNIJOS)</option>
+          <option>University of Lagos (UNILAG)</option>
+          <option>University of Maiduguri (UNIMAID)</option>
+          <option>University of Nigeria (UNN), Nsukka</option>
+          <option>University of Port Harcourt (UNIPORT)</option>
+          <option>University of Uyo (UNIUYO)</option>
+          <option>Usmanu Danfodiyo University (UDUS), Sokoto</option>
+        </optgroup>
+
+        <optgroup label="─── State Universities ───">
+          <option>Abia State University (ABSU), Uturu</option>
+          <option>Abraham Adesanya Polytechnic — Ijebu-Igbo [State]</option>
+          <option>Adamawa State University (ADSU), Mubi</option>
+          <option>Adekunle Ajasin University (AAUA), Akungba-Akoko</option>
+          <option>Akwa Ibom State University (AKSU), Ikot Akpaden</option>
+          <option>Al-Hikmah University, Ilorin [State-Licensed]</option>
+          <option>Ambrose Alli University (AAU), Ekpoma</option>
+          <option>Anambra State University (ANSU), Uli</option>
+          <option>Atiba University, Oyo</option>
+          <option>Bauchi State University (BASUG), Gadau</option>
+          <option>Benue State University (BSU), Makurdi</option>
+          <option>Borno State University (BOSU), Maiduguri</option>
+          <option>Chukwuemeka Odumegwu Ojukwu University (COOU), Uli</option>
+          <option>Cross River State University of Technology (CRUTECH)</option>
+          <option>Delta State University (DELSU), Abraka</option>
+          <option>Ebonyi State University (EBSU), Abakaliki</option>
+          <option>Ekiti State University (EKSU), Ado-Ekiti</option>
+          <option>Enugu State University of Science and Technology (ESUT)</option>
+          <option>Gombe State University (GSU)</option>
+          <option>Ibrahim Badamasi Babangida University (IBBU), Lapai</option>
+          <option>Ignatius Ajuru University of Education (IAUOE), Port Harcourt</option>
+          <option>Imo State University (IMSU), Owerri</option>
+          <option>Kaduna State University (KASU)</option>
+          <option>Kano University of Science and Technology (KUST), Wudil</option>
+          <option>Kebbi State University of Science and Technology (KSUSTA), Aliero</option>
+          <option>Kogi State University (KSU), Anyigba</option>
+          <option>Kwara State University (KWASU), Malete</option>
+          <option>Lagos State University (LASU), Ojo</option>
+          <option>Nasarawa State University (NSUK), Keffi</option>
+          <option>Niger Delta University (NDU), Wilberforce Island</option>
+          <option>Niger State University (NSUG), Lafia</option>
+          <option>Olabisi Onabanjo University (OOU), Ago-Iwoye</option>
+          <option>Osun State University (UNIOSUN), Osogbo</option>
+          <option>Oyo State Technical University (TECH-U), Ibadan</option>
+          <option>Plateau State University (PLASU), Bokkos</option>
+          <option>Rivers State University (RSU), Port Harcourt</option>
+          <option>Sokoto State University (SSU)</option>
+          <option>Tai Solarin University of Education (TASUED), Ijebu-Ode</option>
+          <option>Taraba State University (TSU), Jalingo</option>
+          <option>Umaru Musa Yar'adua University (UMYU), Katsina</option>
+          <option>University of Delta (UNIDEL), Agbor</option>
+          <option>Yobe State University (YSU), Damaturu</option>
+          <option>Zamfara State University (ZASU), Talata Mafara</option>
+        </optgroup>
+
+        <optgroup label="─── Private Universities ───">
+          <option>Achievers University, Owo</option>
+          <option>Adeleke University, Ede</option>
+          <option>Afe Babalola University (ABUAD), Ado-Ekiti</option>
+          <option>African University of Science and Technology (AUST), Abuja</option>
+          <option>Ajayi Crowther University, Oyo</option>
+          <option>Al-Qalam University, Katsina</option>
+          <option>American University of Nigeria (AUN), Yola</option>
+          <option>Augustine University, Ilara-Epe</option>
+          <option>Babcock University, Ilishan-Remo</option>
+          <option>Baze University, Abuja</option>
+          <option>Bells University of Technology, Ota</option>
+          <option>Benson Idahosa University (BIU), Benin City</option>
+          <option>Bowen University, Iwo</option>
+          <option>Caleb University, Lagos</option>
+          <option>Caritas University, Amorji-Nike, Enugu</option>
+          <option>Chrisland University, Abeokuta</option>
+          <option>Christopher University, Mowe</option>
+          <option>Clifford University, Owerrinta</option>
+          <option>Coal City University, Enugu</option>
+          <option>Covenant University, Ota</option>
+          <option>Crawford University, Igbesa</option>
+          <option>Crescent University, Abeokuta</option>
+          <option>Crown Hill University, Eiyenkorin</option>
+          <option>David Umahi Federal University of Health Sciences, Uburu</option>
+          <option>Dominican University, Ibadan</option>
+          <option>Edwin Clark University, Kiagbodo</option>
+          <option>Elizade University, Ilara-Mokin</option>
+          <option>Evangel University, Akaeze</option>
+          <option>Fountain University, Osogbo</option>
+          <option>Godfrey Okoye University, Enugu</option>
+          <option>Gregory University, Uturu</option>
+          <option>Hallmark University, Ijebu-Itele</option>
+          <option>Hezekiah University, Umudi</option>
+          <option>Joseph Ayo Babalola University (JABU), Ikeji-Arakeji</option>
+          <option>Kings University, Ode-Omu</option>
+          <option>Kola Daisi University, Ibadan</option>
+          <option>Kwararafa University (KWARAFA), Wukari</option>
+          <option>Landmark University, Omu-Aran</option>
+          <option>Lead City University (LCU), Ibadan</option>
+          <option>Legacy University, Okija</option>
+          <option>Lux Mundi University, Umuahia</option>
+          <option>Madonna University, Okija</option>
+          <option>McPherson University, Seriki Sotayo</option>
+          <option>Micheal and Cecilia Ibru University, Owhrode</option>
+          <option>Mountain Top University, Makogi-Oba</option>
+          <option>Nile University of Nigeria, Abuja</option>
+          <option>Novena University, Ogume</option>
+          <option>Oduduwa University, Ipetumodu</option>
+          <option>Pan-Atlantic University (PAU), Lagos</option>
+          <option>Paul University, Awka</option>
+          <option>Precious Cornerstone University, Ibadan</option>
+          <option>Redeemer's University, Ede</option>
+          <option>Renaissance University, Enugu</option>
+          <option>Rhema University, Obeama-Asa</option>
+          <option>Ritman University, Ikot Ekpene</option>
+          <option>Salem University, Lokoja</option>
+          <option>Samuel Adegboyega University, Ogwa</option>
+          <option>Spiritan University, Nneochi</option>
+          <option>Summit University, Offa</option>
+          <option>Southwestern University, Okun-Owa</option>
+          <option>Tansian University, Umunya</option>
+          <option>Trinity University, Yaba</option>
+          <option>Veritas University, Abuja</option>
+          <option>Wesley University, Ondo</option>
+          <option>Western Delta University, Oghara</option>
+          <option>Wellspring University, Evbuobanosa</option>
+        </optgroup>
+
+        <optgroup label="─── Federal Polytechnics ───">
+          <option>Auchi Polytechnic, Auchi</option>
+          <option>Federal Polytechnic, Bida</option>
+          <option>Federal Polytechnic, Ado-Ekiti</option>
+          <option>Federal Polytechnic, Bauchi</option>
+          <option>Federal Polytechnic, Damaturu</option>
+          <option>Federal Polytechnic, Ede</option>
+          <option>Federal Polytechnic, Ekowe</option>
+          <option>Federal Polytechnic, Idah</option>
+          <option>Federal Polytechnic, Ile-Oluji</option>
+          <option>Federal Polytechnic, Ilaro</option>
+          <option>Federal Polytechnic, Kaura Namoda</option>
+          <option>Federal Polytechnic, Mubi</option>
+          <option>Federal Polytechnic, Nasarawa</option>
+          <option>Federal Polytechnic, Nekede</option>
+          <option>Federal Polytechnic, Nyak (Shendam)</option>
+          <option>Federal Polytechnic, Offa</option>
+          <option>Federal Polytechnic, Oko</option>
+          <option>Federal Polytechnic, Ukana</option>
+          <option>Kaduna Polytechnic (KADPOLY)</option>
+          <option>Waziri Umaru Federal Polytechnic, Birnin Kebbi</option>
+          <option>Yaba College of Technology (YABATECH), Lagos</option>
+        </optgroup>
+
+        <optgroup label="─── State Polytechnics ───">
+          <option>Abraham Adesanya Polytechnic, Ijebu-Igbo</option>
+          <option>Adamawa State Polytechnic, Yola</option>
+          <option>Akanu Ibiam Federal Polytechnic, Unwana</option>
+          <option>Abia State Polytechnic, Aba</option>
+          <option>Adeseun Ogundoyin Polytechnic, Eruwa</option>
+          <option>Akwa Ibom State Polytechnic, Ikot Osurua</option>
+          <option>Bauchi State Polytechnic, Bauchi</option>
+          <option>Benue State Polytechnic (BENPOLY), Ugbokolo</option>
+          <option>Calabar Polytechnic, Calabar</option>
+          <option>College of Agriculture, Science and Technology, Lafia</option>
+          <option>D.S. Adegbenro ICT Polytechnic, Itori-Ewekoro</option>
+          <option>Delta State Polytechnic, Ogwashi-Uku</option>
+          <option>Delta State Polytechnic, Ozoro</option>
+          <option>Delta State Polytechnic, Otefe-Oghara</option>
+          <option>Dorben Polytechnic, Bwari-Abuja</option>
+          <option>Edo State Institute of Technology and Management, Usen</option>
+          <option>Gateway (ICT) Polytechnic, Saapade</option>
+          <option>Ibarapa Polytechnic, Eruwa</option>
+          <option>Imo State Polytechnic (IMOPOLY), Umuagwo</option>
+          <option>Kano State Polytechnic (KANOPOLY)</option>
+          <option>Kogi State Polytechnic, Lokoja</option>
+          <option>Kwara State Polytechnic (KWAPOLY), Ilorin</option>
+          <option>Lagos State Polytechnic (LASPOTECH), Ikorodu</option>
+          <option>Moshood Abiola Polytechnic (MAPOLY), Abeokuta</option>
+          <option>Niger State Polytechnic, Zungeru</option>
+          <option>Nuhu Bamalli Polytechnic, Zaria</option>
+          <option>Ogun State Polytechnic, Ipokia</option>
+          <option>Osun State College of Technology (OSCOTECH), Esa-Oke</option>
+          <option>Plateau State Polytechnic, Barkin Ladi</option>
+          <option>Rufus Giwa Polytechnic (RUGIPO), Owo</option>
+          <option>Rivers State Polytechnic (RISONPOLY), Bori</option>
+          <option>The Polytechnic, Ibadan</option>
+          <option>Zamfara State Polytechnic, Kaura Namoda</option>
+        </optgroup>
+
+        <optgroup label="─── Federal Colleges of Education ───">
+          <option>Federal College of Education (FCE), Abeokuta</option>
+          <option>Federal College of Education (FCE), Eha-Amufu</option>
+          <option>Federal College of Education (FCE), Gombe</option>
+          <option>Federal College of Education (FCE), Kano</option>
+          <option>Federal College of Education (FCE), Katsina</option>
+          <option>Federal College of Education (FCE), Kontagora</option>
+          <option>Federal College of Education (FCE), Obudu</option>
+          <option>Federal College of Education (FCE), Okene</option>
+          <option>Federal College of Education (FCE), Omoku</option>
+          <option>Federal College of Education (FCE), Pankshin</option>
+          <option>Federal College of Education (FCE), Yola</option>
+          <option>Federal College of Education (FCE), Zaria</option>
+          <option>Federal College of Education (Special), Oyo</option>
+          <option>Federal College of Education (Technical), Akoka</option>
+          <option>Federal College of Education (Technical), Asaba</option>
+          <option>Federal College of Education (Technical), Bichi</option>
+          <option>Federal College of Education (Technical), Gombe</option>
+          <option>Federal College of Education (Technical), Gusau</option>
+          <option>Federal College of Education (Technical), Omoku</option>
+          <option>Federal College of Education (Technical), Potiskum</option>
+          <option>Federal College of Education (Technical), Umunze</option>
+          <option>Nwafor Orizu College of Education, Nsugbe</option>
+          <option>Sa'adatu Rimi College of Education, Kano</option>
+        </optgroup>
+
+        <optgroup label="─── State Colleges of Education ───">
+          <option>Adeyemi Federal University of Education, Ondo</option>
+          <option>Adeniran Ogunsanya College of Education (AOCOED), Otto-Ijanikin</option>
+          <option>Akwa Ibom State College of Education, Afaha Nsit</option>
+          <option>Alvan Ikoku Federal College of Education, Owerri</option>
+          <option>Anambra State College of Education, Awka</option>
+          <option>Bauchi State College of Education, Azare</option>
+          <option>Benue State College of Education, Katsina-Ala</option>
+          <option>College of Education, Agbor</option>
+          <option>College of Education, Akwanga</option>
+          <option>College of Education, Ilesha</option>
+          <option>College of Education, Lafiya</option>
+          <option>College of Education, Maru</option>
+          <option>College of Education, Oro</option>
+          <option>College of Education, Warri</option>
+          <option>Cross River State College of Education, Akamkpa</option>
+          <option>Delta State College of Education, Mosogar</option>
+          <option>Ebonyi State College of Education, Ikwo</option>
+          <option>Emmanuel Alayande College of Education, Oyo</option>
+          <option>Gombe State College of Education, Billiri</option>
+          <option>Imo State College of Education, Ihitte Uboma</option>
+          <option>Jigawa State College of Education, Gumel</option>
+          <option>Kaduna State College of Education, Gidan Waya</option>
+          <option>Kano State College of Education, Kumbotso</option>
+          <option>Katsina State College of Education, Daura</option>
+          <option>Kebbi State College of Education, Argungu</option>
+          <option>Kogi State College of Education, Ankpa</option>
+          <option>Kwara State College of Education, Ilorin</option>
+          <option>Lagos State College of Education (LASCED), Noforija-Epe</option>
+          <option>Michael Otedola College of Primary Education (MOCPED), Epe</option>
+          <option>Nasarawa State College of Education, Akwanga</option>
+          <option>Niger State College of Education, Minna</option>
+          <option>Ogun State College of Education, Ilaro</option>
+          <option>Osun State College of Education, Ilesa</option>
+          <option>Oyo State College of Education, Lanlate</option>
+          <option>Plateau State College of Education, Gindiri</option>
+          <option>Rivers State College of Education, Port Harcourt</option>
+          <option>Shehu Shagari College of Education, Sokoto</option>
+          <option>Sokoto State College of Education, Sokoto</option>
+          <option>Tai Solarin College of Education (TASCE), Ijebu-Ode</option>
+          <option>Taraba State College of Education, Jalingo</option>
+          <option>Yobe State College of Education, Gashua</option>
+          <option>Zamfara State College of Education, Maru</option>
+        </optgroup>
+
+        <optgroup label="─── Other Institutions ───">
+          <option>Air Force Institute of Technology (AFIT), Kaduna</option>
+          <option>Army Institute of Technology, Zaria</option>
+          <option>College of Nursing Sciences (various states)</option>
+          <option>Federal School of Surveying, Oyo</option>
+          <option>Institute of Management and Technology (IMT), Enugu</option>
+          <option>Lagos City Polytechnic, Ikeja</option>
+          <option>Maritime Academy of Nigeria (MAN), Oron</option>
+          <option>Military Institute of Science and Technology, Lagos</option>
+          <option>National Institute for Construction Technology (NICT), Uromi</option>
+          <option>National Institute for Hospitality and Tourism (NIHOTOUR)</option>
+          <option>Nigeria Institute of Journalism (NIJ), Lagos</option>
+          <option>Nigerian Army College of Environmental Science and Technology, Makurdi</option>
+          <option>Nigerian College of Aviation Technology (NCAT), Zaria</option>
+          <option>Petroleum Training Institute (PTI), Effurun</option>
+          <option>Port Harcourt Polytechnic, Port Harcourt</option>
+          <option>Shaka Polytechnic, Benin City</option>
+          <option>Staff Development Institute, Badagry</option>
+          <option>Other (Not Listed)</option>
+        </optgroup>
+      </select>
+      <div class="f-err" id="err-uni">⚠️ Please select your institution.</div>
+    </div>
+
+    <!-- Policy checkbox -->
+    <div class="form-field">
+      <div class="policy-wrap" id="policy-wrap" onclick="togglePolicy()">
+        <div class="policy-box"><span class="policy-check">✓</span></div>
+        <div class="policy-text">
+          I agree to the <a href="privacy.html" onclick="event.stopPropagation()">Privacy Policy</a>
+          and <a href="terms.html" onclick="event.stopPropagation()">Terms of Service</a> of
+          <strong><span style="color:#fff;">Uni</span><span style="color:#16C760;">Verse</span> ICOS</strong>.
+          I confirm I am a student or stakeholder of a Nigerian tertiary institution.
+        </div>
+      </div>
+      <div class="f-err" id="err-policy">⚠️ You must agree to our terms to join.</div>
+    </div>
+
+    <button class="cta-btn" id="join-btn-1" onclick="handleJoin()">
+      <span id="join-btn-1-text">⚡ Join the Verse</span>
     </button>
     <div id="success-msg" class="success-msg">
       ✅ You're on the list! Welcome to <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span>. We'll notify you when we launch.
     </div>
-    <div id="error-msg" class="error-msg">
-      ⚠️ Please enter a valid institutional email address.
-    </div>
+    <div id="error-msg" class="error-msg">⚠️ Please fill in all fields correctly.</div>
   </div>
 
   <!-- FOUNDERS COUNTER -->
   <div class="founders-counter">
     <div class="counter-avatars">
       <div class="counter-avatar">UNN</div>
-      <div class="counter-avatar ca-2">UAES</div>
+      <div class="counter-avatar ca-2">UI</div>
       <div class="counter-avatar ca-3">UNILAG</div>
       <div class="counter-avatar ca-4">FUTA</div>
       <div class="counter-avatar ca-5">ABU</div>
     </div>
     <div class="counter-text">
-      <strong>Join 500+ Students</strong> Leading the Revolution<br>
+      <strong id="counter-num">Join 500+ Students</strong> Leading the Revolution<br>
       <span style="font-size:0.78rem;">From UI, UNILAG, FUTA, ABU & more universities</span>
     </div>
   </div>
-
 </section>
 
 <!-- STATS -->
 <div style="position:relative;z-index:2;padding:0 20px 60px;">
   <div class="container">
     <div class="stats-bar fade-up">
-      <div class="stat-cell">
-        <div class="stat-num">40+</div>
-        <div class="stat-label">Nigerian Universities</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num">7</div>
-        <div class="stat-label">Core Campus Pillars</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num">2M+</div>
-        <div class="stat-label">Target Students</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num">₦0</div>
-        <div class="stat-label">Cost to Join the Verse</div>
-      </div>
+      <div class="stat-cell"><div class="stat-num">40+</div><div class="stat-label">Nigerian Universities</div></div>
+      <div class="stat-cell"><div class="stat-num">7</div><div class="stat-label">Core Campus Pillars</div></div>
+      <div class="stat-cell"><div class="stat-num">2M+</div><div class="stat-label">Target Students</div></div>
+      <div class="stat-cell"><div class="stat-num">₦0</div><div class="stat-label">Cost to Join the Verse</div></div>
     </div>
   </div>
 </div>
 
-<!-- GLOW DIVIDER -->
-<div style="padding:0 20px;position:relative;z-index:2;">
-  <div class="glow-line"></div>
-</div>
+<div style="padding:0 20px;position:relative;z-index:2;"><div class="glow-line"></div></div>
 
-<!-- 7 PILLARS SECTION -->
+<!-- 7 PILLARS -->
 <section style="z-index:2;">
   <div class="container">
     <div style="text-align:center;" class="fade-up">
@@ -650,82 +840,63 @@
       <h2 class="section-title">One Platform. <span style="color:#16C760;">Every Need.</span></h2>
       <p class="section-sub" style="margin:0 auto;">Every frustration of Nigerian campus life — solved, automated, and secured inside one ultra-fast app.</p>
     </div>
-
     <div class="pillars-grid">
-
-      <!-- PILLAR 1: THE ORBIT -->
       <div class="glass-card pillar-card fade-up">
         <div class="pillar-number">01</div>
         <div class="pillar-icon-wrap" style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);">🌐</div>
         <div class="pillar-name">The Orbit</div>
-        <p class="pillar-desc">Your personal mission control. The central dashboard that unifies every campus activity, notification, and service into one intelligent, real-time hub. Your academic universe, socially orbiting around you.</p>
+        <p class="pillar-desc">Your personal mission control. The central dashboard that unifies every campus activity, notification, and service into one intelligent, real-time hub.</p>
         <span class="pillar-tag" style="background:rgba(59,130,246,0.1);color:#93c5fd;border:1px solid rgba(59,130,246,0.2);">Verse Dashboard</span>
       </div>
-
-      <!-- PILLAR 2: ERRAND PAGE -->
       <div class="glass-card pillar-card fade-up">
         <div class="pillar-number">02</div>
         <div class="pillar-icon-wrap" style="background:rgba(168,85,247,0.12);border:1px solid rgba(168,85,247,0.2);">📦</div>
         <div class="pillar-name">Errand Page</div>
-        <p class="pillar-desc">Secure peer-to-peer campus delivery powered by smart escrow. Post an errand, a verified runner picks it up. Funds only release on confirmation. Zero risk, full trust — finally.</p>
+        <p class="pillar-desc">Secure peer-to-peer campus delivery powered by smart escrow. Post an errand, a verified runner picks it up. Funds only release on confirmation. Zero risk, full trust.</p>
         <span class="pillar-tag" style="background:rgba(168,85,247,0.1);color:#d8b4fe;border:1px solid rgba(168,85,247,0.2);">Escrow Protected</span>
       </div>
-
-      <!-- PILLAR 3: LODGE FINDER -->
       <div class="glass-card pillar-card fade-up">
         <div class="pillar-number">03</div>
         <div class="pillar-icon-wrap" style="background:rgba(6,182,212,0.12);border:1px solid rgba(6,182,212,0.2);">🏠</div>
         <div class="pillar-name">Lodge Finder</div>
-        <p class="pillar-desc">Verified hostels, real photos, honest reviews. Find your perfect off-campus room or match with a compatible roommate using our compatibility engine. No more predatory agents.</p>
+        <p class="pillar-desc">Verified hostels, real photos, honest reviews. Find your perfect off-campus room or match with a compatible roommate. No more predatory agents.</p>
         <span class="pillar-tag" style="background:rgba(6,182,212,0.1);color:#67e8f9;border:1px solid rgba(6,182,212,0.2);">Verified lodges + Roommate Match</span>
       </div>
-
-      <!-- PILLAR 4: SKILL PLACE -->
       <div class="glass-card pillar-card fade-up">
         <div class="pillar-number">04</div>
         <div class="pillar-icon-wrap" style="background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.2);">💡</div>
         <div class="pillar-name">Skill Place</div>
-        <p class="pillar-desc">Every student has a talent. Barbing, writing, graphics, coding, music — monetize it. Your skill becomes a verified service on campus. Build a freelance brand before you graduate.</p>
+        <p class="pillar-desc">Every student has a talent. Barbing, writing, graphics, coding, music — monetize it. Your skill becomes a verified service on campus.</p>
         <span class="pillar-tag" style="background:rgba(245,158,11,0.1);color:#fde68a;border:1px solid rgba(245,158,11,0.2);">Talent Economy</span>
       </div>
-
-      <!-- PILLAR 5: MARKET PLACE -->
       <div class="glass-card pillar-card fade-up">
         <div class="pillar-number">05</div>
         <div class="pillar-icon-wrap" style="background:rgba(244,63,94,0.12);border:1px solid rgba(244,63,94,0.2);">🛍️</div>
         <div class="pillar-name">Market Place — Shop IT</div>
-        <p class="pillar-desc">A full multi-vendor e-commerce hub built for campus life. Food, stationery, gadgets, fashion — all from verified student and local vendors. Fast delivery. Campus-native checkout.</p>
+        <p class="pillar-desc">A full multi-vendor e-commerce hub built for campus life. Food, stationery, gadgets, fashion — all from verified student and local vendors.</p>
         <span class="pillar-tag" style="background:rgba(244,63,94,0.1);color:#fda4af;border:1px solid rgba(244,63,94,0.2);">Multi-Vendor Hub</span>
       </div>
-
-      <!-- PILLAR 6: STUDY HUB -->
       <div class="glass-card pillar-card fade-up">
         <div class="pillar-number">06</div>
         <div class="pillar-icon-wrap" style="background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.2);">📚</div>
         <div class="pillar-name">Study Hub</div>
-        <p class="pillar-desc">Access to all educational assets. Conquer the courses that fail freshers: GST 111, STA 111, MTH 101 and more. AI-powered past questions, bite-sized explanations, and peer study rooms. Study smarter, not harder.</p>
-        <span class="pillar-tag" style="background:rgba(34,197,94,0.1);color:#86efac;border:1px solid rgba(34,197,94,0.2);">Built in AI study tools and Exam Prep</span>
+        <p class="pillar-desc">Conquer the courses that fail freshers: GST 111, STA 111, MTH 101 and more. AI-powered past questions, bite-sized explanations, and peer study rooms.</p>
+        <span class="pillar-tag" style="background:rgba(34,197,94,0.1);color:#86efac;border:1px solid rgba(34,197,94,0.2);">AI Study Tools & Exam Prep</span>
       </div>
-
-      <!-- PILLAR 7: PREMIUM DASHBOARD -->
       <div class="glass-card pillar-card fade-up" style="background:linear-gradient(135deg,rgba(88,80,236,0.08),rgba(168,85,247,0.06));">
         <div class="pillar-number">07</div>
         <div class="pillar-icon-wrap" style="background:linear-gradient(135deg,rgba(99,102,241,0.2),rgba(168,85,247,0.2));border:1px solid rgba(168,85,247,0.3);">👑</div>
         <div class="pillar-name">Premium Dashboard Access</div>
-        <p class="pillar-desc">Single sign-on across every university portal — JAMB, WAEC, school results, payment systems, and timetables. Plus real-time academic alerts, fee reminders, and administration updates. Zero portal-hopping.</p>
+        <p class="pillar-desc">Single sign-on across every university portal — JAMB, WAEC, school results, payment systems, and timetables. Real-time academic alerts. Zero portal-hopping.</p>
         <span class="pillar-tag" style="background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(168,85,247,0.15));color:#d8b4fe;border:1px solid rgba(168,85,247,0.3);">Unified Portal SSO</span>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- GLOW DIVIDER -->
-<div style="padding:0 20px;position:relative;z-index:2;">
-  <div class="glow-line"></div>
-</div>
+<div style="padding:0 20px;position:relative;z-index:2;"><div class="glow-line"></div></div>
 
-<!-- OLD WAYS VS UNIVERSE -->
+<!-- THEN vs NOW -->
 <section style="z-index:2;">
   <div class="container">
     <div style="text-align:center;" class="fade-up">
@@ -733,127 +904,81 @@
       <h2 class="section-title">Then vs. <span style="color:#16C760;">Now.</span></h2>
       <p class="section-sub" style="margin:0 auto;">The Nigerian campus experience has been broken for decades. <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> doesn't patch it — we replace it entirely.</p>
     </div>
-
     <div class="comparison-grid fade-up" style="margin-top:56px;">
-
-      <!-- OLD WAYS -->
       <div class="comp-col comp-col-old">
-        <div class="comp-head" style="color:rgba(252,165,165,0.8);">
-          ✕ &nbsp; The Old Ways
-        </div>
-        <div class="comp-item">
-          <div class="comp-icon icon-bad">😰</div>
-          <div class="comp-item-text">
-            <strong>Manual Room Hunting</strong>
-            Walking street to street, trusting strangers, paying agents that ghost you after the fee.
-          </div>
-        </div>
-        <div class="comp-item">
-          <div class="comp-icon icon-bad">⚠️</div>
-          <div class="comp-item-text">
-            <strong>High-Risk Errands</strong>
-            Trusting a classmate with your cash and hoping they come back. No accountability, no refund.
-          </div>
-        </div>
-        <div class="comp-item">
-          <div class="comp-icon icon-bad">📄</div>
-          <div class="comp-item-text">
-            <strong>Outdated Study Materials</strong>
-            Photocopied notes from 2011, handwritten textbooks, and zero past question structure.
-          </div>
-        </div>
-        <div class="comp-item">
-          <div class="comp-icon icon-bad">🌐</div>
-          <div class="comp-item-text">
-            <strong>Fragmented University Portals</strong>
-            Seven different login pages, none of which work on mobile, constantly timing out during exams week.
-          </div>
-        </div>
-        <div class="comp-item">
-          <div class="comp-icon icon-bad">💔</div>
-          <div class="comp-item-text">
-            <strong>Wasted Talents</strong>
-            Brilliant students with real skills but zero platform to reach paying customers on campus.
-          </div>
-        </div>
+        <div class="comp-head" style="color:rgba(252,165,165,0.8);">✕ &nbsp; The Old Ways</div>
+        <div class="comp-item"><div class="comp-icon icon-bad">😰</div><div class="comp-item-text"><strong>Manual Room Hunting</strong>Walking street to street, trusting strangers, paying agents that ghost you after the fee.</div></div>
+        <div class="comp-item"><div class="comp-icon icon-bad">⚠️</div><div class="comp-item-text"><strong>High-Risk Errands</strong>Trusting a classmate with your cash and hoping they come back. No accountability, no refund.</div></div>
+        <div class="comp-item"><div class="comp-icon icon-bad">📄</div><div class="comp-item-text"><strong>Outdated Study Materials</strong>Photocopied notes from 2011, handwritten textbooks, and zero past question structure.</div></div>
+        <div class="comp-item"><div class="comp-icon icon-bad">🌐</div><div class="comp-item-text"><strong>Fragmented University Portals</strong>Seven different login pages, none of which work on mobile, constantly timing out during exams week.</div></div>
+        <div class="comp-item"><div class="comp-icon icon-bad">💔</div><div class="comp-item-text"><strong>Wasted Talents</strong>Brilliant students with real skills but zero platform to reach paying customers on campus.</div></div>
       </div>
-
-      <!-- UNIVERSE SOLUTION -->
       <div class="comp-col comp-col-new">
-        <div class="comp-head" style="color:rgba(134,239,172,0.9);">
-          ✦ &nbsp; The <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> Solution
-        </div>
-        <div class="comp-item">
-          <div class="comp-icon icon-good">🏠</div>
-          <div class="comp-item-text">
-            <strong>Verified Lodge Finder</strong>
-            Real photos, GPS-verified hostels, ratings, and roommate matching. Move in with confidence.
-          </div>
-        </div>
-        <div class="comp-item">
-          <div class="comp-icon icon-good">🔐</div>
-          <div class="comp-item-text">
-            <strong>Escrow-Protected Errands</strong>
-            Smart escrow holds your funds until the job is confirmed complete. Every. Single. Time.
-          </div>
-        </div>
-        <div class="comp-item">
-          <div class="comp-icon icon-good">🤖</div>
-          <div class="comp-item-text">
-            <strong>AI-Powered Study Hub</strong>
-            Structured exam prep, AI explanations, and live peer study rooms built for Nigerian curricula.
-          </div>
-        </div>
-        <div class="comp-item">
-          <div class="comp-icon icon-good">⚡</div>
-          <div class="comp-item-text">
-            <strong>Unified Campus Dashboard</strong>
-            One login. All portals. Real-time alerts for results, fees, and timetable changes.
-          </div>
-        </div>
-        <div class="comp-item">
-          <div class="comp-icon icon-good">💰</div>
-          <div class="comp-item-text">
-            <strong>Monetize Your Skills</strong>
-            Skill Place turns your talent into income before you even write your final exams.
-          </div>
-        </div>
+        <div class="comp-head" style="color:rgba(134,239,172,0.9);">✦ &nbsp; The <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> Solution</div>
+        <div class="comp-item"><div class="comp-icon icon-good">🏠</div><div class="comp-item-text"><strong>Verified Lodge Finder</strong>Real photos, GPS-verified hostels, ratings, and roommate matching. Move in with confidence.</div></div>
+        <div class="comp-item"><div class="comp-icon icon-good">🔐</div><div class="comp-item-text"><strong>Escrow-Protected Errands</strong>Smart escrow holds your funds until the job is confirmed complete. Every. Single. Time.</div></div>
+        <div class="comp-item"><div class="comp-icon icon-good">🤖</div><div class="comp-item-text"><strong>AI-Powered Study Hub</strong>Structured exam prep, AI explanations, and live peer study rooms built for Nigerian curricula.</div></div>
+        <div class="comp-item"><div class="comp-icon icon-good">⚡</div><div class="comp-item-text"><strong>Unified Campus Dashboard</strong>One login. All portals. Real-time alerts for results, fees, and timetable changes.</div></div>
+        <div class="comp-item"><div class="comp-icon icon-good">💰</div><div class="comp-item-text"><strong>Monetize Your Skills</strong>Skill Place turns your talent into income before you even write your final exams.</div></div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- FINAL CTA SECTION -->
+<!-- FINAL CTA -->
 <section style="z-index:2;text-align:center;">
   <div class="container">
     <div class="glass" style="padding:72px 40px;position:relative;overflow:hidden;">
       <div style="position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:500px;height:300px;background:radial-gradient(ellipse at center,rgba(88,80,236,0.25),transparent 70%);pointer-events:none;"></div>
       <div class="fade-up">
         <div style="font-size:3rem;margin-bottom:16px;">🚀</div>
-        <h2 class="section-title" style="margin-bottom:16px;">
-          Ready to Join the<br><span style="color:#16C760;">Digital Campus Revolution?</span>
-        </h2>
+        <h2 class="section-title" style="margin-bottom:16px;">Ready to Join the<br><span style="color:#16C760;">Digital Campus Revolution?</span></h2>
         <p style="color:var(--text-muted);font-size:1rem;max-width:520px;margin:0 auto 40px;line-height:1.7;">
-          <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> ICOS is coming to your university. Secure your early adopter spot today — 
-          early adopters get <strong style="color:#93c5fd;">lifetime premium access</strong> and exclusive beta features.
+          <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> ICOS is coming to your university. Secure your early adopter spot today — early adopters get <strong style="color:#93c5fd;">lifetime premium access</strong> and exclusive beta features.
         </p>
-
+        <!-- Second form (same structure, shorter labels) -->
         <div class="waitlist-form" style="margin:0 auto;" id="waitlist2">
-          <div class="input-wrapper">
-            <input type="email" id="email-input-2" class="email-input" placeholder="Enter your institutional email">
+          <div class="form-field">
+            <input type="text" id="inp-name-2" class="f-input" placeholder="👤  Full name" maxlength="80">
+            <div class="f-err" id="err-name-2">⚠️ Please enter your full name.</div>
           </div>
-          <button class="cta-btn" onclick="handleJoin2()">
-            <span>🎓 Secure My Spot</span>
+          <div class="form-field">
+            <input type="email" id="inp-email-2" class="f-input" placeholder="✉️  Email address">
+            <div class="f-err" id="err-email-2">⚠️ Please enter a valid email.</div>
+          </div>
+          <div class="form-field">
+            <select id="inp-uni-2" class="f-select">
+              <option value="" disabled selected>🎓  Select your institution</option>
+              <optgroup label="─── Federal Universities ───">
+                <option>Ahmadu Bello University (ABU), Zaria</option><option>Bayero University (BUK), Kano</option><option>Federal University of Technology (FUTA), Akure</option><option>Federal University of Technology (FUTO), Owerri</option><option>Federal University of Technology (FUT), Minna</option><option>Nnamdi Azikiwe University (UNIZIK), Awka</option><option>Obafemi Awolowo University (OAU), Ile-Ife</option><option>University of Abuja (UNIABUJA)</option><option>University of Benin (UNIBEN)</option><option>University of Calabar (UNICAL)</option><option>University of Ibadan (UI)</option><option>University of Ilorin (UNILORIN)</option><option>University of Jos (UNIJOS)</option><option>University of Lagos (UNILAG)</option><option>University of Maiduguri (UNIMAID)</option><option>University of Nigeria (UNN), Nsukka</option><option>University of Port Harcourt (UNIPORT)</option><option>University of Uyo (UNIUYO)</option><option>Usmanu Danfodiyo University (UDUS), Sokoto</option>
+              </optgroup>
+              <optgroup label="─── State Universities ───">
+                <option>Abia State University (ABSU)</option><option>Ambrose Alli University (AAU), Ekpoma</option><option>Delta State University (DELSU), Abraka</option><option>Ekiti State University (EKSU)</option><option>Imo State University (IMSU), Owerri</option><option>Lagos State University (LASU), Ojo</option><option>Rivers State University (RSU)</option>
+              </optgroup>
+              <optgroup label="─── Private Universities ───">
+                <option>Babcock University, Ilishan-Remo</option><option>Covenant University, Ota</option><option>Landmark University, Omu-Aran</option><option>Lead City University (LCU), Ibadan</option><option>Nile University of Nigeria, Abuja</option><option>Pan-Atlantic University (PAU), Lagos</option><option>Redeemer's University, Ede</option>
+              </optgroup>
+              <optgroup label="─── Polytechnics ───">
+                <option>Auchi Polytechnic</option><option>Kaduna Polytechnic (KADPOLY)</option><option>Moshood Abiola Polytechnic (MAPOLY)</option><option>Yaba College of Technology (YABATECH)</option>
+              </optgroup>
+              <optgroup label="─── Other ───">
+                <option>Other (Not Listed)</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="form-field">
+            <div class="policy-wrap" id="policy-wrap-2" onclick="togglePolicy2()">
+              <div class="policy-box"><span class="policy-check">✓</span></div>
+              <div class="policy-text">I agree to the <a href="privacy.html" onclick="event.stopPropagation()">Privacy Policy</a> and <a href="terms.html" onclick="event.stopPropagation()">Terms of Service</a> of <strong><span style="color:#fff;">Uni</span><span style="color:#16C760;">Verse</span> ICOS</strong>.</div>
+            </div>
+            <div class="f-err" id="err-policy-2">⚠️ You must agree to our terms.</div>
+          </div>
+          <button class="cta-btn" id="join-btn-2" onclick="handleJoin2()">
+            <span id="join-btn-2-text">🎓 Secure My Spot</span>
           </button>
-          <div id="success-msg-2" class="success-msg">
-            ✅ You're in! Welcome, Early Adopter. The revolution starts with you.
-          </div>
+          <div id="success-msg-2" class="success-msg">✅ You're in! Welcome, Early Adopter. The revolution starts with you.</div>
         </div>
-
-        <div style="margin-top:32px;font-size:0.8rem;color:var(--text-muted);">
-          🔒 &nbsp;No spam. No fees. Just a seat at the table when we launch.
-        </div>
+        <div style="margin-top:32px;font-size:0.8rem;color:var(--text-muted);">🔒 &nbsp;No spam. No fees. Just a seat at the table when we launch.</div>
       </div>
     </div>
   </div>
@@ -866,8 +991,7 @@
     <span style="color:var(--text-muted);font-size:1rem;font-weight:400;margin-left:8px;">ICOS</span>
   </div>
   <p style="color:var(--text-muted);font-size:0.85rem;max-width:480px;margin:0 auto 24px;line-height:1.7;">
-    Digitizing the Nigerian university experience. One campus at a time.
-    Built with pride in Nigeria 🇳🇬
+    Digitizing the Nigerian university experience. One campus at a time. Built with pride in Nigeria 🇳🇬
   </p>
   <div style="display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:32px;">
     <a href="privacy.html" style="font-size:0.78rem;color:rgba(200,210,255,0.35);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#16C760'" onmouseout="this.style.color='rgba(200,210,255,0.35)'">Privacy Policy</a>
@@ -876,399 +1000,281 @@
     <span style="color:rgba(255,255,255,0.1);">·</span>
     <a href="contact.html" style="font-size:0.78rem;color:rgba(200,210,255,0.35);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#86efac'" onmouseout="this.style.color='rgba(200,210,255,0.35)'">Contact Team</a>
     <span style="color:rgba(255,255,255,0.1);">·</span>
-    <a href="https://wa.me/2347079257806" target="_blank" rel="noopener" style="font-size:0.78rem;color:rgba(200,210,255,0.35);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:5px;" onmouseover="this.style.color='#86efac'" onmouseout="this.style.color='rgba(200,210,255,0.35)'">💬 WhatsApp</a>
+    <a href="https://wa.me/2347079257806" target="_blank" rel="noopener" style="font-size:0.78rem;color:rgba(200,210,255,0.35);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#86efac'" onmouseout="this.style.color='rgba(200,210,255,0.35)'">💬 WhatsApp</a>
   </div>
   <p style="font-size:0.75rem;color:rgba(200,210,255,0.2);">© 2026 <span class="brand" style="font-size:inherit;"><span class="uni">Uni</span><span class="verse">Verse</span></span> ICOS. All rights reserved. — Not yet affiliated with any university. In Development.</p>
 </footer>
 
-<!-- TOAST -->
-<div id="toast">
-  ✅ You've been added to the waitlist!<br>
-  <span style="font-size:0.8rem;opacity:0.8;">Check your inbox for a confirmation.</span>
-</div>
+<div id="toast"></div>
 
 <script>
-(function() {
-  const container = document.getElementById('stars');
-  for (let i = 0; i < 40; i++) {
-    const s = document.createElement('div');
-    s.className = 'star';
-    const size = Math.random() * 2 + 0.8;
-    s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${3+Math.random()*3}s;--delay:${Math.random()*3}s;opacity:${0.15+Math.random()*0.3};`;
-    container.appendChild(s);
+/* ── Stars ── */
+(function(){
+  const c=document.getElementById('stars');
+  for(let i=0;i<40;i++){
+    const s=document.createElement('div'); s.className='star';
+    const sz=Math.random()*2+0.8;
+    s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${3+Math.random()*3}s;--delay:${Math.random()*3}s;opacity:${0.15+Math.random()*0.3};`;
+    c.appendChild(s);
   }
 })();
 
-let scrollTicking = false;
-window.addEventListener('scroll', () => {
-  if (!scrollTicking) {
-    requestAnimationFrame(() => {
-      const el = document.getElementById('progress-bar');
-      const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
-      el.style.width = Math.min(100, pct) + '%';
-      scrollTicking = false;
-    });
-    scrollTicking = true;
-  }
+/* ── Progress bar ── */
+let scrollTicking=false;
+window.addEventListener('scroll',()=>{
+  if(!scrollTicking){ requestAnimationFrame(()=>{ document.getElementById('progress-bar').style.width=Math.min(100,window.scrollY/(document.body.scrollHeight-window.innerHeight)*100)+'%'; scrollTicking=false; }); scrollTicking=true; }
 });
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((e, i) => {
-    if (e.isIntersecting) {
-      setTimeout(() => e.target.classList.add('visible'), i * 60);
+/* ── Fade-up observer ── */
+const observer=new IntersectionObserver((entries)=>{ entries.forEach((e,i)=>{ if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*60); }); },{threshold:0.05,rootMargin:'0px 0px -60px 0px'});
+document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+
+/* ── Toast ── */
+function showToast(msg){ const t=document.getElementById('toast'); t.innerHTML=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),4500); }
+
+/* ════════════════════════════════════════════════════
+   SUPABASE CONFIG
+   Run this SQL in Supabase SQL Editor to add columns:
+
+   ALTER TABLE waitlist
+     ADD COLUMN IF NOT EXISTS full_name TEXT,
+     ADD COLUMN IF NOT EXISTS university_name TEXT,
+     ADD COLUMN IF NOT EXISTS agreed_to_terms BOOLEAN DEFAULT false;
+
+   ════════════════════════════════════════════════════ */
+const SUPABASE_URL      = 'https://loppfyncbehifnspupwa.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxvcHBmeW5jYmVoaWZuc3B1cHdhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg1MDk2MDcsImV4cCI6MjA4NDA4NTYwN30.BuR0SNe1KQmZMl7u8s25hAI-QY_cDZRB2ijUU0JIu_c';
+
+let liveCount=500;
+let agreed1=false, agreed2=false;
+
+function togglePolicy(){ agreed1=!agreed1; const w=document.getElementById('policy-wrap'); w.classList.toggle('agreed',agreed1); if(agreed1){document.getElementById('err-policy').classList.remove('show'); w.classList.remove('p-error');} }
+function togglePolicy2(){ agreed2=!agreed2; document.getElementById('policy-wrap-2').classList.toggle('agreed',agreed2); if(agreed2) document.getElementById('err-policy-2').classList.remove('show'); }
+
+function valEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);}
+
+function clearErrors(ids){ ids.forEach(id=>{ const el=document.getElementById(id); if(el){el.classList.remove('show','f-error'); const inp=document.getElementById(id.replace('err-','inp-')); if(inp) inp.classList.remove('f-error'); } }); }
+function showErr(id,inputId){ document.getElementById(id).classList.add('show'); if(inputId) document.getElementById(inputId).classList.add('f-error'); }
+
+async function submitWaitlist(payload){
+  try{
+
+    /* ── STEP 1: Check if email already exists BEFORE inserting ── */
+    const checkRes=await fetch(
+      `${SUPABASE_URL}/rest/v1/waitlist?email=eq.${encodeURIComponent(payload.email)}&select=id,joined_at`,
+      {headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`}}
+    );
+    if(checkRes.ok){
+      const existing=await checkRes.json();
+      if(existing&&existing.length>0){
+        /* Email already in waitlist — block and return duplicate */
+        return{ok:true,duplicate:true,position:null,totalCount:null};
+      }
     }
-  });
-}, { threshold: 0.05, rootMargin: '0px 0px -60px 0px' });
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.innerHTML = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 4500);
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   SUPABASE SETUP — 3 steps, takes 5 minutes, completely free
-   ───────────────────────────────────────────────────────────────
-   STEP 1 ▸ Go to https://supabase.com → create a free account
-   STEP 2 ▸ Create a new project → name it "universe-icos"
-   STEP 3 ▸ Go to SQL Editor and run this SQL to create your table:
-
-   CREATE TABLE waitlist (
-     id         BIGSERIAL PRIMARY KEY,
-     email      TEXT UNIQUE NOT NULL,
-     university TEXT,
-     source     TEXT DEFAULT 'landing_page',
-     joined_at  TIMESTAMPTZ DEFAULT NOW()
-   );
-   ALTER TABLE waitlist ENABLE ROW LEVEL SECURITY;
-   CREATE POLICY "public_insert" ON waitlist FOR INSERT WITH CHECK (true);
-
-   STEP 4 ▸ Go to Settings → API → copy your Project URL and anon key below
-   STEP 5 ▸ Open universe-admin.html with your SERVICE ROLE key to monitor signups
-   ═══════════════════════════════════════════════════════════════ */
-
-const SUPABASE_URL      = 'https://loppfyncbehifnspupwa.supabase.co'; // ← paste here
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxvcHBmeW5jYmVoaWZuc3B1cHdhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg1MDk2MDcsImV4cCI6MjA4NDA4NTYwN30.BuR0SNe1KQmZMl7u8s25hAI-QY_cDZRB2ijUU0JIu_c';                        // ← paste here
-
-// Track live count in memory (starts at displayed value, updates on join)
-let liveCount = 500;
-
-async function submitToWaitlist(email) {
-  const isConfigured = !SUPABASE_URL.includes('YOUR_PROJECT_ID');
-  if (!isConfigured) {
-    liveCount++;
-    return { ok: true, duplicate: false, position: liveCount, totalCount: liveCount };
-  }
-  try {
-    // ── INSERT (return=minimal avoids needing SELECT policy) ──
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify({
-        email,
-        source: 'landing_page',
-        university: email.includes('@') ? email.split('@')[1] : 'unknown',
-        joined_at: new Date().toISOString()
+    /* ── STEP 2: Insert new member ── */
+    const res=await fetch(`${SUPABASE_URL}/rest/v1/waitlist`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Prefer':'return=minimal'},
+      body:JSON.stringify({
+        email:payload.email,
+        full_name:payload.name,
+        university_name:payload.university,
+        university:payload.university,
+        source:'landing_page',
+        agreed_to_terms:true,
+        joined_at:new Date().toISOString()
       })
     });
-
-    // 409 = duplicate email already on list
-    if (res.status === 409) {
-      return { ok: true, duplicate: true, position: null, totalCount: null };
+    /* 409 = race-condition duplicate (two tabs at same time) */
+    if(res.status===409) return{ok:true,duplicate:true,position:null,totalCount:null};
+    if(!res.ok){
+      const b=await res.text();
+      console.error('Insert error:',res.status,b);
+      /* Still show success to user — don't punish for backend hiccups */
+      return{ok:true,duplicate:false,position:null,totalCount:null};
     }
 
-    if (!res.ok) {
-      const body = await res.text();
-      console.error('Supabase insert error:', res.status, body);
-      // Still show success to user — fail silently on backend errors
-      liveCount++;
-      return { ok: true, duplicate: false, position: liveCount, totalCount: null };
-    }
-
-    // ── GET COUNT (gracefully — won't crash if SELECT policy missing) ──
-    let totalCount = null;
-    try {
-      const countRes = await fetch(`${SUPABASE_URL}/rest/v1/waitlist?select=id`, {
-        headers: {
-          'apikey': SUPABASE_ANON_KEY,
-          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-          'Prefer': 'count=exact',
-          'Range': '0-0'
-        }
-      });
-      if (countRes.ok || countRes.status === 206) {
-        const raw = countRes.headers.get('Content-Range') || '';
-        totalCount = parseInt(raw.split('/')[1]) || null;
-        if (totalCount) liveCount = totalCount;
+    /* ── STEP 3: Fetch REAL total count + this person's exact position ── */
+    let totalCount=null, myPosition=null;
+    try{
+      /* Get total count */
+      const cr=await fetch(
+        `${SUPABASE_URL}/rest/v1/waitlist?select=id`,
+        {headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Prefer':'count=exact','Range':'0-0'}}
+      );
+      if(cr.ok||cr.status===206){
+        const raw=cr.headers.get('Content-Range')||'';
+        totalCount=parseInt(raw.split('/')[1])||null;
+        if(totalCount) liveCount=totalCount;
+        myPosition=totalCount; /* their position = total after insert */
       }
-    } catch (_) {
-      // Count unavailable — increment locally
-      liveCount++;
-      totalCount = liveCount;
-    }
+    }catch(_){ /* count unavailable — show nothing rather than wrong number */ }
 
-    return { ok: true, duplicate: false, position: totalCount, totalCount };
+    return{ok:true,duplicate:false,position:myPosition,totalCount};
 
-  } catch (err) {
-    console.error('Network error:', err);
-    liveCount++;
-    return { ok: true, duplicate: false, position: liveCount, totalCount: null };
+  }catch(err){
+    console.error('Network:',err);
+    return{ok:true,duplicate:false,position:null,totalCount:null};
   }
 }
 
-function validateEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
-
-function showConfirmationModal(email, position, isDuplicate) {
-  // Remove any existing modal
+function showConfirmModal(name,email,uni,position,isDuplicate){
   document.getElementById('confirm-modal')?.remove();
-
-  const posText   = position ? `#${position.toLocaleString()}` : null;
-  const shareText = encodeURIComponent(`I just joined the waitlist for UniVerse ICOS — Nigeria's first campus operating system. Secure your spot too!`);
-  const waShare   = `https://wa.me/?text=${shareText}`;
-
-  const modal = document.createElement('div');
-  modal.id = 'confirm-modal';
-  modal.style.cssText = `
-    position:fixed;inset:0;z-index:9999;
-    display:flex;align-items:center;justify-content:center;
-    background:rgba(5,6,16,0.85);backdrop-filter:blur(12px);
-    padding:20px;animation:fadeIn 0.3s ease;
-  `;
-
-  modal.innerHTML = `
-    <style>
-      @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-      @keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-      @keyframes pop{0%{transform:scale(0.5);opacity:0}70%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
-      @keyframes confetti-fall{
-        0%{transform:translateY(-10px) rotate(0deg);opacity:1}
-        100%{transform:translateY(120px) rotate(720deg);opacity:0}
-      }
-      #confirm-card{animation:slideUp 0.4s cubic-bezier(0.23,1,0.32,1) both;}
-      #confirm-icon{animation:pop 0.5s 0.3s cubic-bezier(0.23,1,0.32,1) both;}
-      .confetti-dot{
-        position:absolute;width:8px;height:8px;border-radius:50%;
-        animation:confetti-fall 1.2s ease forwards;
-      }
-    </style>
-    <div id="confirm-card" style="
-      background:linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));
-      border:1px solid rgba(22,199,96,0.25);border-radius:24px;
-      padding:48px 40px;max-width:460px;width:100%;text-align:center;
-      position:relative;overflow:hidden;
-    ">
-      <!-- Top glow line -->
-      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(22,199,96,0.6),transparent);"></div>
-
-      <!-- Confetti container -->
-      <div id="confetti-wrap" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;"></div>
-
-      <!-- Check icon -->
-      <div id="confirm-icon" style="
-        width:80px;height:80px;border-radius:50%;margin:0 auto 24px;
-        background:linear-gradient(135deg,rgba(22,199,96,0.15),rgba(22,199,96,0.08));
-        border:2px solid rgba(22,199,96,0.4);
-        display:flex;align-items:center;justify-content:center;font-size:2.2rem;
-        box-shadow:0 0 40px rgba(22,199,96,0.2),0 0 80px rgba(22,199,96,0.1);
-      ">
-        ${isDuplicate ? '👋' : '✅'}
-      </div>
-
-      ${isDuplicate ? `
-        <h2 style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;margin-bottom:10px;color:#f0f4ff;">
-          You're Already In!
-        </h2>
-        <p style="font-size:0.9rem;color:rgba(200,210,255,0.65);line-height:1.7;margin-bottom:28px;">
-          <strong style="color:#16C760;">${email}</strong> is already on the waitlist.<br>
-          We'll notify you the moment UniVerse launches on your campus.
-        </p>
-      ` : `
-        <div style="display:inline-block;background:rgba(22,199,96,0.1);border:1px solid rgba(22,199,96,0.25);
-          border-radius:20px;padding:4px 14px;font-size:0.7rem;font-weight:700;
-          letter-spacing:0.12em;color:#16C760;text-transform:uppercase;margin-bottom:16px;">
-          ⚡ Confirmed
-        </div>
-        <h2 style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;
-          line-height:1.15;margin-bottom:12px;color:#f0f4ff;">
-          You're In the Verse!
-        </h2>
-        <p style="font-size:0.88rem;color:rgba(200,210,255,0.65);line-height:1.75;margin-bottom:24px;">
-          <strong style="color:#f0f4ff;">${email}</strong> is now on the waitlist.
-          ${posText ? `<br>You are <strong style="color:#16C760;font-size:1rem;">Founder ${posText}</strong> 🎉` : ''}
-          <br>We'll notify you when <span style="color:#fff;font-weight:700;">Uni</span><span style="color:#16C760;font-weight:700;">Verse</span> launches on your campus.
-        </p>
-
-        <!-- Position badge -->
-        ${posText ? `
-        <div style="background:linear-gradient(135deg,rgba(22,199,96,0.08),rgba(59,130,246,0.06));
-          border:1px solid rgba(22,199,96,0.18);border-radius:14px;
-          padding:16px 20px;margin-bottom:24px;">
-          <div style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;
-            color:#16C760;margin-bottom:4px;">${posText}</div>
-          <div style="font-size:0.75rem;color:rgba(200,210,255,0.5);letter-spacing:0.08em;text-transform:uppercase;">
-            Your Waitlist Position
-          </div>
-        </div>` : ''}
-
-        <!-- Share -->
-        <p style="font-size:0.78rem;color:rgba(200,210,255,0.4);margin-bottom:12px;letter-spacing:0.06em;text-transform:uppercase;">
-          Share with your campus 👇
-        </p>
-        <div style="display:flex;gap:10px;justify-content:center;margin-bottom:24px;">
-          <a href="${waShare}" target="_blank" rel="noopener" style="
-            display:flex;align-items:center;gap:8px;
-            background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.3);
-            color:#25d366;padding:10px 20px;border-radius:12px;
-            font-family:'Syne',sans-serif;font-size:0.8rem;font-weight:700;
-            text-decoration:none;transition:all 0.25s;
-          " onmouseover="this.style.background='rgba(37,211,102,0.22)'"
-             onmouseout="this.style.background='rgba(37,211,102,0.12)'">
-            💬 Share on WhatsApp
-          </a>
-          <button onclick="copyShareLink(this)" style="
-            display:flex;align-items:center;gap:8px;
-            background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);
-            color:#93c5fd;padding:10px 20px;border-radius:12px;
-            font-family:'Syne',sans-serif;font-size:0.8rem;font-weight:700;
-            cursor:pointer;transition:all 0.25s;
-          " onmouseover="this.style.background='rgba(59,130,246,0.2)'"
-             onmouseout="this.style.background='rgba(59,130,246,0.1)'">
-            🔗 Copy Link
-          </button>
-        </div>
-      `}
-
-      <button onclick="closeModal()" style="
-        width:100%;padding:14px;border:1px solid rgba(255,255,255,0.1);
-        background:rgba(255,255,255,0.04);border-radius:12px;
-        font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:700;
-        color:rgba(200,210,255,0.6);cursor:pointer;
-        transition:all 0.25s;
-      " onmouseover="this.style.background='rgba(255,255,255,0.08)';this.style.color='#f0f4ff';"
-         onmouseout="this.style.background='rgba(255,255,255,0.04)';this.style.color='rgba(200,210,255,0.6)';">
-        Close
-      </button>
-    </div>
-  `;
-
+  const posText=position?`#${position.toLocaleString()}`:null;
+  const shareText=encodeURIComponent(`I just joined the UniVerse ICOS waitlist — Nigeria's first campus OS. Join me!`);
+  const modal=document.createElement('div');
+  modal.id='confirm-modal';
+  modal.style.cssText='position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(5,6,16,0.88);backdrop-filter:blur(12px);padding:20px;animation:fadeIn 0.3s ease;overflow-y:auto;';
+  modal.innerHTML=`<style>@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes slideUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}@keyframes pop{0%{transform:scale(0.5);opacity:0}70%{transform:scale(1.12)}100%{transform:scale(1);opacity:1}}@keyframes cfall{0%{transform:translateY(-10px) rotate(0deg);opacity:1}100%{transform:translateY(130px) rotate(720deg);opacity:0}}.cdot{position:absolute;border-radius:50%;animation:cfall 1.2s ease forwards;}</style>
+  <div id="cc" style="background:linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));border:1px solid rgba(22,199,96,0.25);border-radius:24px;padding:44px 36px;max-width:460px;width:100%;text-align:center;position:relative;overflow:hidden;animation:slideUp 0.4s cubic-bezier(0.23,1,0.32,1) both;">
+    <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(22,199,96,0.6),transparent);"></div>
+    <div id="cconf" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;"></div>
+    <div style="width:80px;height:80px;border-radius:50%;margin:0 auto 20px;background:linear-gradient(135deg,rgba(22,199,96,0.15),rgba(22,199,96,0.08));border:2px solid rgba(22,199,96,0.4);display:flex;align-items:center;justify-content:center;font-size:2.2rem;box-shadow:0 0 40px rgba(22,199,96,0.2);animation:pop 0.5s 0.3s cubic-bezier(0.23,1,0.32,1) both;">${isDuplicate?'👋':'✅'}</div>
+    ${isDuplicate?`<h2 style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;margin-bottom:10px;">You're Already In!</h2><p style="font-size:0.88rem;color:var(--text-muted);line-height:1.7;margin-bottom:28px;">Hey <strong style="color:#f0f4ff;">${name}</strong>! <strong style="color:#16C760;">${email}</strong> is already on the waitlist.<br>We'll notify you when <span style="color:#fff;">Uni</span><span style="color:#16C760;">Verse</span> launches on your campus.</p>`
+    :`<div style="display:inline-block;background:rgba(22,199,96,0.1);border:1px solid rgba(22,199,96,0.25);border-radius:20px;padding:4px 14px;font-size:0.7rem;font-weight:700;letter-spacing:0.12em;color:#16C760;text-transform:uppercase;margin-bottom:14px;">⚡ Confirmed</div>
+    <h2 style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;line-height:1.15;margin-bottom:10px;">You're In the Verse!</h2>
+    <p style="font-size:0.86rem;color:var(--text-muted);line-height:1.75;margin-bottom:20px;">
+      Welcome, <strong style="color:#f0f4ff;">${name}</strong>! 🎉<br>
+      <span style="font-size:0.8rem;">${email}</span><br>
+      <span style="font-size:0.8rem;color:rgba(200,210,255,0.45);">${uni}</span>
+      ${posText?`<br><br>You are <strong style="color:#16C760;font-size:1.05rem;">Founder ${posText}</strong>`:''}
+    </p>
+    ${posText?`<div style="background:linear-gradient(135deg,rgba(22,199,96,0.08),rgba(59,130,246,0.06));border:1px solid rgba(22,199,96,0.18);border-radius:14px;padding:14px 20px;margin-bottom:20px;"><div style="font-family:'Syne',sans-serif;font-size:1.9rem;font-weight:800;color:#16C760;margin-bottom:3px;">${posText}</div><div style="font-size:0.72rem;color:rgba(200,210,255,0.5);letter-spacing:0.08em;text-transform:uppercase;">Your Waitlist Position</div></div>`:''}
+    <p style="font-size:0.75rem;color:rgba(200,210,255,0.4);margin-bottom:10px;letter-spacing:0.06em;text-transform:uppercase;">Share with your campus 👇</p>
+    <div style="display:flex;gap:10px;justify-content:center;margin-bottom:20px;flex-wrap:wrap;">
+      <a href="https://wa.me/?text=${shareText}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.3);color:#25d366;padding:9px 18px;border-radius:11px;font-family:'Syne',sans-serif;font-size:0.78rem;font-weight:700;text-decoration:none;">💬 WhatsApp</a>
+      <button onclick="copyLink(this)" style="display:flex;align-items:center;gap:7px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);color:#93c5fd;padding:9px 18px;border-radius:11px;font-family:'Syne',sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;">🔗 Copy Link</button>
+    </div>`}
+    <button onclick="closeModal()" style="width:100%;padding:13px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);border-radius:12px;font-family:'Syne',sans-serif;font-size:0.86rem;font-weight:700;color:rgba(200,210,255,0.6);cursor:pointer;transition:all 0.25s;" onmouseover="this.style.background='rgba(255,255,255,0.08)';this.style.color='#f0f4ff';" onmouseout="this.style.background='rgba(255,255,255,0.04)';this.style.color='rgba(200,210,255,0.6)';">Close</button>
+  </div>`;
   document.body.appendChild(modal);
-  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
+  if(!isDuplicate){
+    const colors=['#16C760','#3b82f6','#a855f7','#f59e0b','#ec4899','#fff'];
+    const wrap=document.getElementById('cconf');
+    for(let i=0;i<26;i++){const d=document.createElement('div');d.className='cdot';d.style.cssText=`left:${10+Math.random()*80}%;top:${-5+Math.random()*15}%;background:${colors[Math.floor(Math.random()*colors.length)]};width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'3px'};animation-delay:${Math.random()*.5}s;animation-duration:${1+Math.random()*.8}s;`;wrap.appendChild(d);}
+  }
+}
+function closeModal(){const m=document.getElementById('confirm-modal');if(m){m.style.opacity='0';m.style.transition='opacity 0.25s';setTimeout(()=>m.remove(),260);}}
+function copyLink(btn){navigator.clipboard.writeText(window.location.href).then(()=>{btn.textContent='✓ Copied!';btn.style.color='#16C760';setTimeout(()=>{btn.innerHTML='🔗 Copy Link';btn.style.color='';},2000);});}
 
-  // Confetti burst (only for new signups)
-  if (!isDuplicate) {
-    const colors = ['#16C760','#3b82f6','#a855f7','#f59e0b','#ec4899','#ffffff'];
-    const wrap = document.getElementById('confetti-wrap');
-    for (let i = 0; i < 28; i++) {
-      const dot = document.createElement('div');
-      dot.className = 'confetti-dot';
-      dot.style.cssText = `
-        left:${10 + Math.random()*80}%;top:${-5 + Math.random()*20}%;
-        background:${colors[Math.floor(Math.random()*colors.length)]};
-        width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;
-        border-radius:${Math.random()>0.5?'50%':'3px'};
-        animation-delay:${Math.random()*0.5}s;
-        animation-duration:${1+Math.random()*0.8}s;
-      `;
-      wrap.appendChild(dot);
+function updateCounter(total){
+  const el=document.getElementById('counter-num');
+  if(!el)return;
+  if(total&&total>0){
+    /* Show exact real count — e.g. "247 Students" */
+    el.textContent=`Join ${total.toLocaleString()} Students`;
+  }
+  /* If count unavailable, leave existing text unchanged */
+  el.style.transition='color 0.3s'; el.style.color='#16C760';
+  setTimeout(()=>el.style.color='',1500);
+}
+
+/* Load real count on page open so counter is accurate from the start */
+(async function loadInitialCount(){
+  try{
+    const cr=await fetch(
+      `${SUPABASE_URL}/rest/v1/waitlist?select=id`,
+      {headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Prefer':'count=exact','Range':'0-0'}}
+    );
+    if(cr.ok||cr.status===206){
+      const raw=cr.headers.get('Content-Range')||'';
+      const count=parseInt(raw.split('/')[1])||null;
+      if(count&&count>0){
+        liveCount=count;
+        const el=document.getElementById('counter-num');
+        if(el) el.textContent=`Join ${count.toLocaleString()} Students`;
+      }
     }
+  }catch(_){ /* silent — counter stays at default text */ }
+})();
+
+async function handleJoin(){
+  const name=document.getElementById('inp-name').value.trim();
+  const email=document.getElementById('inp-email').value.trim();
+  const uni=document.getElementById('inp-uni').value;
+  const btn=document.getElementById('join-btn-1');
+  const btnText=document.getElementById('join-btn-1-text');
+  clearErrors(['err-name','err-email','err-uni','err-policy']);
+  document.getElementById('success-msg').style.display='none';
+  document.getElementById('error-msg').style.display='none';
+  let valid=true;
+  if(name.length<2){showErr('err-name','inp-name');valid=false;}
+  if(!valEmail(email)){showErr('err-email','inp-email');valid=false;}
+  if(!uni){showErr('err-uni','inp-uni');valid=false;}
+  if(!agreed1){showErr('err-policy');const w=document.getElementById('policy-wrap');w.classList.add('p-error');setTimeout(()=>w.classList.remove('p-error'),500);valid=false;}
+  if(!valid)return;
+  btnText.textContent='⏳ Securing your spot...';btn.style.opacity='0.7';btn.disabled=true;
+  const result=await submitWaitlist({email,name,university:uni});
+  btnText.textContent='⚡ Join the Verse';btn.style.opacity='1';btn.disabled=false;
+  if(result.ok){
+    document.getElementById('inp-name').value='';
+    document.getElementById('inp-email').value='';
+    document.getElementById('inp-uni').value='';
+    agreed1=false;document.getElementById('policy-wrap').classList.remove('agreed');
+    showConfirmModal(name,email,uni,result.position,result.duplicate);
+    if(!result.duplicate)updateCounter(result.totalCount);
   }
 }
 
-function closeModal() {
-  const m = document.getElementById('confirm-modal');
-  if (m) { m.style.opacity='0'; m.style.transition='opacity 0.25s'; setTimeout(()=>m.remove(),260); }
-}
-
-function copyShareLink(btn) {
-  navigator.clipboard.writeText(window.location.href).then(() => {
-    btn.textContent = '✓ Copied!';
-    btn.style.background = 'rgba(22,199,96,0.15)';
-    btn.style.borderColor = 'rgba(22,199,96,0.35)';
-    btn.style.color = '#16C760';
-    setTimeout(() => {
-      btn.innerHTML = '🔗 Copy Link';
-      btn.style.background = ''; btn.style.borderColor = ''; btn.style.color = '';
-    }, 2000);
-  });
-}
-
-function updateCounterDisplay(total) {
-  const counter = document.querySelector('.counter-text strong');
-  if (!counter) return;
-  const display = total ? `${total.toLocaleString()}+ Students` : '500+ Students';
-  counter.textContent = `Join ${display}`;
-  // Pulse animation
-  counter.style.transition = 'color 0.3s';
-  counter.style.color = '#16C760';
-  setTimeout(() => counter.style.color = '', 1500);
-}
-
-function validateEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
-
-async function handleJoin() {
-  const input   = document.getElementById('email-input');
-  const errorEl = document.getElementById('error-msg');
-  const btn     = document.querySelector('#waitlist .cta-btn');
-  const email   = input.value.trim();
-
-  errorEl.style.display = 'none';
-  document.getElementById('success-msg').style.display = 'none';
-
-  if (!validateEmail(email)) { errorEl.style.display = 'block'; input.focus(); return; }
-
-  btn.innerHTML = '<span>⏳ Securing your spot...</span>';
-  btn.style.opacity = '0.7'; btn.disabled = true;
-
-  const result = await submitToWaitlist(email);
-
-  btn.innerHTML = '<span>⚡ Join the Verse</span>';
-  btn.style.opacity = '1'; btn.disabled = false;
-
-  if (result.ok) {
-    input.value = '';
-    showConfirmationModal(email, result.position, result.duplicate);
-    if (!result.duplicate) updateCounterDisplay(result.totalCount);
+async function handleJoin2(){
+  const name=document.getElementById('inp-name-2').value.trim();
+  const email=document.getElementById('inp-email-2').value.trim();
+  const uni=document.getElementById('inp-uni-2').value;
+  const btn=document.getElementById('join-btn-2');
+  const btnText=document.getElementById('join-btn-2-text');
+  clearErrors(['err-name-2','err-email-2','err-policy-2']);
+  document.getElementById('success-msg-2').style.display='none';
+  let valid=true;
+  if(name.length<2){showErr('err-name-2','inp-name-2');valid=false;}
+  if(!valEmail(email)){showErr('err-email-2','inp-email-2');valid=false;}
+  if(!agreed2){showErr('err-policy-2');const w=document.getElementById('policy-wrap-2');w.classList.add('p-error');setTimeout(()=>w.classList.remove('p-error'),500);valid=false;}
+  if(!valid)return;
+  btnText.textContent='⏳ Securing your spot...';btn.style.opacity='0.7';btn.disabled=true;
+  const result=await submitWaitlist({email,name,university:uni||'Not specified'});
+  btnText.textContent='🎓 Secure My Spot';btn.style.opacity='1';btn.disabled=false;
+  if(result.ok){
+    document.getElementById('inp-name-2').value='';
+    document.getElementById('inp-email-2').value='';
+    document.getElementById('inp-uni-2').value='';
+    agreed2=false;document.getElementById('policy-wrap-2').classList.remove('agreed');
+    showConfirmModal(name,email,uni||'Not specified',result.position,result.duplicate);
+    if(!result.duplicate)updateCounter(result.totalCount);
   }
 }
 
-async function handleJoin2() {
-  const input   = document.getElementById('email-input-2');
-  const btn     = document.querySelector('#waitlist2 .cta-btn');
-  const email   = input.value.trim();
-  document.getElementById('success-msg-2').style.display = 'none';
+document.getElementById('inp-email').addEventListener('keydown',e=>{if(e.key==='Enter')handleJoin();});
+document.getElementById('inp-email-2').addEventListener('keydown',e=>{if(e.key==='Enter')handleJoin2();});
+document.querySelectorAll('.pillar-card').forEach((card,i)=>{card.style.transitionDelay=(i*60)+'ms';});
 
-  if (!validateEmail(email)) {
-    input.style.borderColor = 'rgba(244,63,94,0.5)';
-    input.focus();
-    setTimeout(() => input.style.borderColor = '', 2000);
-    return;
+/* ── LAUNCH COUNTDOWN ── */
+(function(){
+  const LAUNCH = new Date('2026-09-01T00:00:00+01:00'); /* WAT = UTC+1 */
+  const pad = n => String(n).padStart(2,'0');
+
+  function tick(){
+    const diff = LAUNCH - Date.now();
+    if(diff <= 0){
+      /* Launched! Swap countdown for a live message */
+      document.querySelector('.countdown-wrap').innerHTML =
+        `<div style="font-size:0.78rem;font-weight:700;color:#16C760;letter-spacing:0.1em;text-transform:uppercase;">
+          🎉 &nbsp; UniVerse ICOS is LIVE! &nbsp; 🎉
+        </div>`;
+      return;
+    }
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000)  / 60000);
+    const secs  = Math.floor((diff % 60000)    / 1000);
+    document.getElementById('cd-days').textContent  = pad(days);
+    document.getElementById('cd-hours').textContent = pad(hours);
+    document.getElementById('cd-mins').textContent  = pad(mins);
+    document.getElementById('cd-secs').textContent  = pad(secs);
   }
-
-  btn.innerHTML = '<span>⏳ Securing your spot...</span>';
-  btn.style.opacity = '0.7'; btn.disabled = true;
-
-  const result = await submitToWaitlist(email);
-
-  btn.innerHTML = '<span>🎓 Secure My Spot</span>';
-  btn.style.opacity = '1'; btn.disabled = false;
-
-  if (result.ok) {
-    input.value = '';
-    showConfirmationModal(email, result.position, result.duplicate);
-    if (!result.duplicate) updateCounterDisplay(result.totalCount);
-  }
-}
-
-document.getElementById('email-input').addEventListener('keydown', e => { if (e.key === 'Enter') handleJoin(); });
-document.getElementById('email-input-2').addEventListener('keydown', e => { if (e.key === 'Enter') handleJoin2(); });
-document.querySelectorAll('.pillar-card').forEach((card, i) => { card.style.transitionDelay = (i * 60) + 'ms'; });
+  tick();
+  setInterval(tick, 1000);
+})();
 </script>
 </body>
 </html>
